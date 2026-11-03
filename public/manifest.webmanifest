@@ -1,0 +1,32 @@
+{
+  "id": "./",
+  "name": "BioEnergia Academy — Campus Amazônia",
+  "short_name": "BioEnergia",
+  "description": "Laboratórios virtuais e estudo offline de energias renováveis no contexto amazônico.",
+  "lang": "pt-BR",
+  "start_url": "./index.html#amazon/biomass",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a1220",
+  "theme_color": "#0a1220",
+  "icons": [
+    {
+      "src": "app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

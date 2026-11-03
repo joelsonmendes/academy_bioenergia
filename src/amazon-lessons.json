@@ -1,0 +1,384 @@
+[
+  {
+    "id": "amazon-isolated-hybrid",
+    "title": {
+      "pt": "Sistemas isolados e soluções híbridas",
+      "en": "Isolated systems and hybrid solutions",
+      "es": "Sistemas aislados y soluciones híbridas"
+    },
+    "summary": {
+      "pt": "Compare formas de atendimento energético de uma comunidade amazônica fictícia, com hipóteses didáticas explícitas.",
+      "en": "Compare energy supply options for a fictional Amazonian community using explicit educational assumptions.",
+      "es": "Compara opciones de suministro energético para una comunidad amazónica ficticia con hipótesis didácticas explícitas."
+    },
+    "objectives": [
+      {
+        "pt": "Distinguir isolamento do SIN, geração híbrida e microgeração conectada à distribuidora.",
+        "en": "Distinguish isolation from Brazil's interconnected grid, hybrid generation and utility-connected microgeneration.",
+        "es": "Distinguir aislamiento del SIN brasileño, generación híbrida y microgeneración conectada a la distribuidora."
+      },
+      {
+        "pt": "Relacionar fontes, armazenamento e prioridades de consumo.",
+        "en": "Relate energy sources, storage and consumption priorities.",
+        "es": "Relacionar fuentes, almacenamiento y prioridades de consumo."
+      }
+    ],
+    "sections": [
+      {
+        "title": {
+          "pt": "Isolado não significa ausência de rede local",
+          "en": "An isolated system can have a local grid",
+          "es": "Un sistema aislado puede tener una red local"
+        },
+        "body": {
+          "pt": "Para a EPE, um sistema isolado não está conectado ao Sistema Interligado Nacional (SIN) em sua configuração normal. Pode existir uma rede local. A ANEEL trata SIGFI e MIGDI como formas de atendimento isolado. Uma bancada autônoma não se enquadra automaticamente na micro/minigeração conectada à distribuidora e no Sistema de Compensação de Energia Elétrica (SCEE). A potência, sozinha, não resolve essa classificação.",
+          "en": "EPE defines an isolated system as one that is not connected to Brazil's National Interconnected System (SIN) in its normal configuration. A local grid may still exist. ANEEL treats SIGFI and MIGDI as isolated supply arrangements. A stand-alone training bench does not automatically qualify as utility-connected micro/minigeneration under the electricity compensation system (SCEE). Power rating alone does not determine this classification.",
+          "es": "Para EPE, un sistema aislado no está conectado al Sistema Interconectado Nacional brasileño (SIN) en su configuración normal. Puede existir una red local. ANEEL trata SIGFI y MIGDI como formas de suministro aislado. Un banco autónomo no se encuadra automáticamente en la micro/minigeneración conectada a la distribuidora y en el sistema de compensación eléctrica (SCEE). La potencia, por sí sola, no determina esa clasificación."
+        }
+      },
+      {
+        "title": {
+          "pt": "Comparar arranjos sem prometer autonomia",
+          "en": "Compare arrangements without promising autonomy",
+          "es": "Comparar configuraciones sin prometer autonomía"
+        },
+        "body": {
+          "pt": "Compare duas hipóteses didáticas: FV com bateria; FV com bateria e grupo gerador genérico de apoio. Neste exercício, híbrido combina geração solar e geração despachável; a bateria armazena energia. Declare perdas, horários e prioridades assumidos. Nenhum resultado comprova disponibilidade contínua, economia ou adequação a uma comunidade real.",
+          "en": "Compare two educational assumptions: PV with a battery; PV with a battery and a generic backup generator. In this exercise, hybrid means combining solar and dispatchable generation; the battery stores energy. State assumed losses, schedules and priorities. No result proves continuous supply, savings or suitability for an actual community.",
+          "es": "Compara dos hipótesis didácticas: FV con batería; FV con batería y un generador genérico de respaldo. En este ejercicio, híbrido combina generación solar y generación gestionable; la batería almacena energía. Declara pérdidas, horarios y prioridades supuestos. Ningún resultado demuestra suministro continuo, ahorro o adecuación a una comunidad real."
+        }
+      }
+    ],
+    "activity": {
+      "pt": "Desenhe os fluxos de energia de dia e à noite para uma escola fictícia. Justifique uma prioridade de consumo e liste três informações de campo ainda necessárias.",
+      "en": "Draw daytime and nighttime energy flows for a fictional school. Justify one consumption priority and list three pieces of field information still needed.",
+      "es": "Dibuja los flujos de energía diurnos y nocturnos de una escuela ficticia. Justifica una prioridad de consumo y enumera tres datos de campo pendientes."
+    },
+    "references": [
+      {
+        "title": "Sistemas Isolados",
+        "by": "EPE • Empresa de Pesquisa Energética",
+        "url": "https://www.epe.gov.br/pt/publicacoes-dados-abertos/publicacoes/sistemas-isolados"
+      },
+      {
+        "title": "Sistemas Isolados e com Fontes Intermitentes",
+        "by": "ANEEL • Agência Nacional de Energia Elétrica",
+        "url": "https://www.gov.br/aneel/pt-br/assuntos/distribuicao/sistemas-isolados-e-com-fontes-intermitentes"
+      },
+      {
+        "title": "Micro e Minigeração Distribuída",
+        "by": "ANEEL • Agência Nacional de Energia Elétrica",
+        "url": "https://www.gov.br/aneel/pt-br/assuntos/geracao-distribuida/"
+      },
+      {
+        "title": "Manual de Engenharia para Sistemas Fotovoltaicos",
+        "by": "CEPEL/CRESESB • João Tavares Pinho e Marco Antonio Galdino (org.)",
+        "url": "https://cresesb.cepel.br/publicacoes/download/Manual_de_Engenharia_FV_2014.pdf",
+        "year": 2014
+      }
+    ]
+  },
+  {
+    "id": "amazon-pv-battery-instrumentation",
+    "title": {
+      "pt": "Bancada FV, baterias e instrumentação",
+      "en": "PV bench, batteries and instrumentation",
+      "es": "Banco FV, baterías e instrumentación"
+    },
+    "summary": {
+      "pt": "Planeje registros de uma bancada virtual em corrente contínua e reconheça os limites da simulação.",
+      "en": "Plan records for a virtual DC training bench and recognize the limits of simulation.",
+      "es": "Planifica registros de un banco virtual de corriente continua y reconoce los límites de la simulación."
+    },
+    "objectives": [
+      {
+        "pt": "Identificar grandeza, unidade, origem e instante de cada registro.",
+        "en": "Identify the quantity, unit, source and timestamp of each record.",
+        "es": "Identificar magnitud, unidad, origen e instante de cada registro."
+      },
+      {
+        "pt": "Interpretar queda de tensão e distinguir modelo virtual de gêmeo digital com telemetria.",
+        "en": "Interpret voltage drop and distinguish a virtual model from a digital twin linked through telemetry.",
+        "es": "Interpretar caída de tensión y distinguir un modelo virtual de un gemelo digital vinculado mediante telemetría."
+      }
+    ],
+    "sections": [
+      {
+        "title": {
+          "pt": "Medir exige contexto",
+          "en": "Measurements need context",
+          "es": "Medir exige contexto"
+        },
+        "body": {
+          "pt": "Na condição inicial da bancada virtual, a bateria nominal é de 48 V CC. Registre tensão (V), corrente (A), irradiância (W/m²), temperatura (°C), instante e origem. No cálculo CC simplificado, P = V × I. Estado de carga (SOC) é uma estimativa do modelo: uma leitura isolada de tensão não determina o SOC. Compare as leituras da fonte aberta, da fonte fornecendo energia e da bateria alimentando a carga.",
+          "en": "The virtual bench starts with a 48 V DC nominal battery. Record voltage (V), current (A), irradiance (W/m²), temperature (°C), time and origin. In the simplified DC calculation, P = V × I. State of charge (SOC) is a model estimate: an isolated voltage reading does not determine SOC. Compare source open-circuit, source delivering energy and battery supplying the load.",
+          "es": "El banco virtual inicia con una batería nominal de 48 V CC. Registra tensión (V), corriente (A), irradiancia (W/m²), temperatura (°C), instante y origen. En el cálculo CC simplificado, P = V × I. El estado de carga (SOC) es una estimación: una lectura aislada de tensión no determina el SOC. Compara fuente abierta, fuente entregando energía y batería alimentando la carga."
+        }
+      },
+      {
+        "title": {
+          "pt": "Modelo virtual e vínculo com o equipamento",
+          "en": "Virtual models and links to equipment",
+          "es": "Modelo virtual y vínculo con el equipo"
+        },
+        "body": {
+          "pt": "Nesta trilha, entradas sintéticas caracterizam um modelo virtual. Para chamar uma representação de gêmeo digital, seria necessário vinculá-la a equipamento real identificado, com telemetria datada, qualidade dos dados e comparação entre previsão e medição. Animação ou série simulada não demonstra esse vínculo. Registre dados ausentes como ausentes, sem transformá-los em medições iguais a zero.",
+          "en": "In this learning track, synthetic inputs characterize a virtual model. Calling a representation a digital twin would require a link to identified real equipment, timestamped telemetry, data quality checks and comparison of predictions with measurements. Animation or simulated series do not establish that link. Record missing data as missing rather than turning them into zero measurements.",
+          "es": "En esta ruta, las entradas sintéticas caracterizan un modelo virtual. Llamar gemelo digital a una representación requeriría vincularla a un equipo real identificado, con telemetría fechada, calidad de datos y comparación entre predicción y medición. Una animación o serie simulada no demuestra ese vínculo. Registra los datos ausentes como ausentes, sin convertirlos en mediciones iguales a cero."
+        }
+      },
+      {
+        "title": {
+          "pt": "Queda de tensão: meta da atividade",
+          "en": "Voltage drop: an exercise target",
+          "es": "Caída de tensión: meta de la actividad"
+        },
+        "body": {
+          "pt": "Com valores fictícios de 48,0 V na origem e 46,8 V na carga, a queda relativa é 100 × (48,0 − 46,8) / 48,0 = 2,5%. A atividade adota meta pedagógica de até 3%; ela não é um limite geral da ABNT NBR 5410. Aplicações reais exigem consulta oficial à edição vigente e licenciada dessa norma e às demais aplicáveis. O exercício não demonstra conformidade.",
+          "en": "With fictional values of 48.0 V at the source and 46.8 V at the load, relative voltage drop is 100 × (48.0 − 46.8) / 48.0 = 2.5%. The exercise adopts an educational target of at most 3%; this is not a general limit from ABNT NBR 5410. Real applications require official consultation of its current licensed edition and other applicable standards. The exercise does not demonstrate compliance.",
+          "es": "Con valores ficticios de 48,0 V en el origen y 46,8 V en la carga, la caída relativa es 100 × (48,0 − 46,8) / 48,0 = 2,5%. La actividad adopta una meta pedagógica de hasta el 3%; no es un límite general de ABNT NBR 5410. Las aplicaciones reales exigen consultar oficialmente su edición vigente y licenciada y las demás normas aplicables. El ejercicio no demuestra conformidad."
+        }
+      }
+    ],
+    "activity": {
+      "pt": "Monte uma tabela com três cenários sintéticos de carga. Calcule potência CC e queda relativa; identifique unidades, origem simulada e um registro ausente. Não execute ligações físicas a partir deste roteiro.",
+      "en": "Make a table with three synthetic load scenarios. Calculate DC power and relative voltage drop; identify units, simulated origin and one missing record. Do not use this outline to wire physical equipment.",
+      "es": "Prepara una tabla con tres escenarios sintéticos de carga. Calcula potencia CC y caída relativa; identifica unidades, origen simulado y un registro ausente. No utilices este guion para realizar conexiones físicas."
+    },
+    "references": [
+      {
+        "title": "Manual de Engenharia para Sistemas Fotovoltaicos",
+        "by": "CEPEL/CRESESB • João Tavares Pinho e Marco Antonio Galdino (org.)",
+        "url": "https://cresesb.cepel.br/publicacoes/download/Manual_de_Engenharia_FV_2014.pdf",
+        "year": 2014
+      }
+    ]
+  },
+  {
+    "id": "amazon-biomass-residues",
+    "title": {
+      "pt": "Biomassa e resíduos: investigar antes de escolher",
+      "en": "Biomass and residues: investigate before choosing",
+      "es": "Biomasa y residuos: investigar antes de elegir"
+    },
+    "summary": {
+      "pt": "Investigue resíduos de cadeias regionais sem presumir oferta, qualidade ou combustível aprovado para uso real.",
+      "en": "Investigate residues from regional production chains without assuming supply, quality or fuel approved for actual use.",
+      "es": "Investiga residuos de cadenas regionales sin presuponer oferta, calidad ni combustible aprobado para uso real."
+    },
+    "objectives": [
+      {
+        "pt": "Separar possibilidade de aproveitamento, disponibilidade local e adequação tecnológica.",
+        "en": "Separate potential uses, local availability and technological suitability.",
+        "es": "Separar posibilidades de aprovechamiento, disponibilidad local y adecuación tecnológica."
+      },
+      {
+        "pt": "Explicar por que umidade, origem e logística precisam ser verificadas.",
+        "en": "Explain why moisture, origin and logistics need verification.",
+        "es": "Explicar por qué deben verificarse humedad, origen y logística."
+      }
+    ],
+    "sections": [
+      {
+        "title": {
+          "pt": "Inventário regional hipotético",
+          "en": "A hypothetical regional inventory",
+          "es": "Inventario regional hipotético"
+        },
+        "body": {
+          "pt": "A Embrapa reúne estudos sobre biomassa e aproveitamento energético de resíduos da agroindústria, inclusive da cadeia do açaí. Use caroços de açaí como candidato de um inventário fictício. A referência não comprova oferta no Acre, abastecimento da escola ou compatibilidade com um gerador. Investigue quantidade sazonal, usos concorrentes, origem legal, transporte e destinação atual antes de propor qualquer rota.",
+          "en": "Embrapa publishes studies on biomass and energy uses of agroindustrial residues, including the açaí production chain. Use açaí seeds as a candidate in a fictional inventory. The reference does not establish supply in Acre, delivery to the school or compatibility with a generator. Investigate seasonal quantities, competing uses, legal origin, transport and current disposal before proposing any route.",
+          "es": "Embrapa reúne estudios sobre biomasa y aprovechamiento energético de residuos agroindustriales, incluida la cadena del açaí. Usa sus semillas como candidato de un inventario ficticio. La referencia no demuestra oferta en Acre, suministro a la escuela ni compatibilidad con un generador. Investiga cantidad estacional, usos alternativos, origen legal, transporte y destino actual antes de proponer una ruta."
+        }
+      },
+      {
+        "title": {
+          "pt": "Umidade e conversão não são detalhes",
+          "en": "Moisture and conversion matter",
+          "es": "La humedad y la conversión importan"
+        },
+        "body": {
+          "pt": "O estudo da Embrapa sobre madeira ajuda a discutir umidade e poder calorífico; seus resultados não devem ser transferidos diretamente para caroços de açaí. Na atividade, compare lotes fictícios com umidades diferentes, declarando a base da medição. Energia térmica do material não equivale à eletricidade entregue: preparação, conversão, perdas, emissões e armazenamento exigem avaliação própria. Não há ensaio real de combustível nesta trilha.",
+          "en": "Embrapa's wood study supports discussion of moisture and heating value; its results must not be transferred directly to açaí seeds. In the exercise, compare fictional batches with different moisture contents and state the measurement basis. Thermal energy in a material is not electricity delivered: preparation, conversion, losses, emissions and storage require separate assessment. This track contains no actual fuel test.",
+          "es": "El estudio de Embrapa sobre madera permite discutir humedad y poder calorífico; sus resultados no deben trasladarse directamente a semillas de açaí. En la actividad, compara lotes ficticios con distinta humedad, declarando la base de medición. La energía térmica del material no equivale a electricidad suministrada: preparación, conversión, pérdidas, emisiones y almacenamiento requieren evaluación propia. Esta ruta no incluye ensayos reales de combustible."
+        }
+      }
+    ],
+    "activity": {
+      "pt": "Elabore uma ficha de investigação com resíduo candidato, origem, sazonalidade, umidade a medir e perguntas à comunidade. Separe hipótese, dado documentado e informação ainda desconhecida; não realize queima experimental.",
+      "en": "Prepare an investigation sheet with a candidate residue, origin, seasonality, moisture to measure and questions for the community. Separate assumptions, documented data and unknowns; do not conduct experimental burning.",
+      "es": "Prepara una ficha con residuo candidato, origen, estacionalidad, humedad por medir y preguntas para la comunidad. Separa hipótesis, datos documentados e información desconocida; no realices quemas experimentales."
+    },
+    "references": [
+      {
+        "title": "Aproveitamento energético dos resíduos da agroindústria",
+        "by": "Embrapa Instrumentação • José Dalton Cruz Pessoa e A. R. dos Reis",
+        "url": "https://www.alice.cnptia.embrapa.br/handle/doc/949536",
+        "year": 2012
+      },
+      {
+        "title": "Biomassa e sua participação na matriz energética brasileira",
+        "by": "Embrapa • Bellote et al.",
+        "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/1090875",
+        "year": 2018
+      },
+      {
+        "title": "Influência da umidade no poder calorífico superior da madeira — Comunicado Técnico 220",
+        "by": "Embrapa Florestas • Lima, Abdala e Wenzel",
+        "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/315901",
+        "year": 2008
+      }
+    ]
+  },
+  {
+    "id": "amazon-operation-humidity",
+    "title": {
+      "pt": "Operação e manutenção em calor e umidade",
+      "en": "Operation and maintenance in heat and humidity",
+      "es": "Operación y mantenimiento con calor y humedad"
+    },
+    "summary": {
+      "pt": "Organize observação, registros e encaminhamento técnico para um cenário amazônico interior fictício.",
+      "en": "Organize observation, records and technical escalation for a fictional inland Amazonian scenario.",
+      "es": "Organiza observación, registros y atención técnica para un escenario ficticio del interior amazónico."
+    },
+    "objectives": [
+      {
+        "pt": "Distinguir umidade amazônica interior de exposição à maresia costeira.",
+        "en": "Distinguish inland Amazonian humidity from coastal salt-spray exposure.",
+        "es": "Distinguir humedad del interior amazónico de exposición al aerosol salino costero."
+      },
+      {
+        "pt": "Planejar registros de conservação conforme ambiente e documentação dos equipamentos.",
+        "en": "Plan condition records based on the environment and equipment documentation.",
+        "es": "Planificar registros de conservación según el ambiente y la documentación de los equipos."
+      }
+    ],
+    "sections": [
+      {
+        "title": {
+          "pt": "Reconhecer exposições diferentes",
+          "en": "Recognize different exposures",
+          "es": "Reconocer exposiciones diferentes"
+        },
+        "body": {
+          "pt": "Calor, umidade, condensação possível, chuva e acesso difícil são condições a investigar no cenário, não medições locais já obtidas. Maresia é exposição salina associada ao ambiente marinho; não deve ser presumida para o interior do Acre. O manual do CEPEL discute calor e alta umidade e orienta considerar ventilação, abrigo e especificações ambientais. Nenhum grau de proteção ou intervalo universal é definido aqui.",
+          "en": "Heat, humidity, possible condensation, rainfall and difficult access are conditions to investigate in the scenario, not local measurements already obtained. Salt spray is saline exposure associated with marine environments; it must not be assumed for inland Acre. CEPEL's manual discusses heat and high humidity and recommends considering ventilation, shelter and environmental specifications. No universal protection rating or interval is defined here.",
+          "es": "Calor, humedad, posible condensación, lluvia y acceso difícil son condiciones por investigar, no mediciones locales ya obtenidas. El aerosol salino es una exposición asociada al ambiente marino; no debe suponerse para el interior de Acre. El manual de CEPEL aborda calor y humedad elevada y recomienda considerar ventilación, resguardo y especificaciones ambientales. Aquí no se define un grado de protección ni un intervalo universal."
+        }
+      },
+      {
+        "title": {
+          "pt": "Registrar e encaminhar",
+          "en": "Record and escalate",
+          "es": "Registrar y comunicar"
+        },
+        "body": {
+          "pt": "Planeje um diário com data, condições ambientais, alarmes, sinais externos de infiltração ou corrosão e responsável pelo encaminhamento. Limpeza, verificação elétrica e intervenção em baterias seguem fabricante, tecnologia e procedimento técnico. Recomendações para baterias chumbo-ácido do manual de 2014 não são instruções para baterias de lítio. A atividade usa casos escritos; não orienta abrir invólucros nem atuar em equipamentos energizados.",
+          "en": "Plan a log with dates, environmental conditions, alarms, external signs of water ingress or corrosion and the person responsible for escalation. Cleaning, electrical checks and battery work follow the manufacturer, technology and technical procedure. Recommendations for lead-acid batteries in the 2014 manual are not instructions for lithium batteries. The exercise uses written cases; it does not instruct learners to open enclosures or work on energized equipment.",
+          "es": "Planifica un diario con fecha, condiciones ambientales, alarmas, señales externas de infiltración o corrosión y responsable de comunicar el problema. Limpieza, verificación eléctrica e intervención en baterías siguen al fabricante, la tecnología y el procedimiento técnico. Las recomendaciones para baterías de plomo-ácido del manual de 2014 no son instrucciones para baterías de litio. La actividad usa casos escritos; no indica abrir envolventes ni intervenir en equipos energizados."
+        }
+      }
+    ],
+    "activity": {
+      "pt": "Analise três relatos fictícios: caixa com marca de água, alarme térmico e falha de sensor. Registre evidências e dúvidas, indique quem deve avaliar cada caso e proponha consulta ao manual específico.",
+      "en": "Analyze three fictional reports: a water mark on an enclosure, a thermal alarm and a sensor failure. Record evidence and uncertainties, identify who should assess each case and propose consulting the specific manual.",
+      "es": "Analiza tres relatos ficticios: envolvente con marca de agua, alarma térmica y fallo de sensor. Registra evidencias y dudas, identifica quién debe evaluar cada caso y propone consultar el manual específico."
+    },
+    "references": [
+      {
+        "title": "Manual de Engenharia para Sistemas Fotovoltaicos",
+        "by": "CEPEL/CRESESB • João Tavares Pinho e Marco Antonio Galdino (org.)",
+        "url": "https://cresesb.cepel.br/publicacoes/download/Manual_de_Engenharia_FV_2014.pdf",
+        "year": 2014
+      }
+    ]
+  },
+  {
+    "id": "amazon-riverside-school-project",
+    "title": {
+      "pt": "Projeto aplicado: escola ribeirinha fictícia",
+      "en": "Applied project: a fictional riverside school",
+      "es": "Proyecto aplicado: escuela ribereña ficticia"
+    },
+    "summary": {
+      "pt": "Integre demanda, recurso solar do Acre e plano de acompanhamento em uma proposta exclusivamente pedagógica.",
+      "en": "Combine demand, Acre's solar resource and a monitoring plan in an exclusively educational proposal.",
+      "es": "Integra demanda, recurso solar de Acre y seguimiento en una propuesta exclusivamente pedagógica."
+    },
+    "objectives": [
+      {
+        "pt": "Construir um inventário de cargas com unidades e hipóteses rastreáveis.",
+        "en": "Build a load inventory with units and traceable assumptions.",
+        "es": "Construir un inventario de cargas con unidades e hipótesis trazables."
+      },
+      {
+        "pt": "Usar referência climatológica regional sem prometer dimensionamento ou autonomia reais.",
+        "en": "Use a regional climatological reference without promising actual sizing or autonomy.",
+        "es": "Utilizar una referencia climatológica regional sin prometer dimensionamiento ni autonomía reales."
+      }
+    ],
+    "sections": [
+      {
+        "title": {
+          "pt": "Inventário inicial do simulador",
+          "en": "Initial simulator inventory",
+          "es": "Inventario inicial del simulador"
+        },
+        "body": {
+          "pt": "No caso Escola ribeirinha, as hipóteses iniciais são: 12 LEDs de 9 W por 12 h (1,296 kWh); 4 ventiladores de 60 W por 9 h (2,160 kWh); 10 notebooks de 45 W por 6 h (2,700 kWh); refrigerador de 120 W com ciclo médio de 35% por 24 h (1,008 kWh); roteador de 12 W por 24 h (0,288 kWh); bomba de 500 W por 1 h (0,500 kWh). Total: 7,952 kWh/dia. Edite os dados no inventário e acompanhe o novo total. São hipóteses de uma escola fictícia com 30 estudantes; potência simultânea, partidas, perdas e armazenamento precisam de análise própria.",
+          "en": "The Riverside school case starts with: 12 × 9 W LEDs for 12 h (1.296 kWh); 4 × 60 W fans for 9 h (2.160 kWh); 10 × 45 W notebooks for 6 h (2.700 kWh); a 120 W refrigerator at 35% mean duty for 24 h (1.008 kWh); a 12 W router for 24 h (0.288 kWh); and a 500 W pump for 1 h (0.500 kWh). Total: 7.952 kWh/day. Edit the inventory and observe its new total. These are assumptions for a fictional school with 30 students; simultaneous power, starts, losses and storage need separate analysis.",
+          "es": "El caso Escuela ribereña inicia con: 12 LED de 9 W por 12 h (1,296 kWh); 4 ventiladores de 60 W por 9 h (2,160 kWh); 10 portátiles de 45 W por 6 h (2,700 kWh); refrigerador de 120 W con ciclo medio del 35% por 24 h (1,008 kWh); router de 12 W por 24 h (0,288 kWh); bomba de 500 W por 1 h (0,500 kWh). Total: 7,952 kWh/día. Edita el inventario y observa el nuevo total. Son hipótesis de una escuela ficticia con 30 alumnos; potencia simultánea, arranques, pérdidas y almacenamiento necesitan análisis propio."
+        }
+      },
+      {
+        "title": {
+          "pt": "Consultar o Acre com contexto",
+          "en": "Consult Acre data in context",
+          "es": "Consultar datos de Acre con contexto"
+        },
+        "body": {
+          "pt": "Na página do Acre do INPE/LABREN, escolha a célula e o tipo de irradiação; registre coordenadas, mês e unidade. O Atlas de 2017 oferece médias climatológicas do total diário, não previsão nem medição no telhado. Não confunda W/m² com Wh/m².dia. Compare meses e sombreamento a levantar; nenhum dado numérico do Atlas foi incorporado às hipóteses desta lição.",
+          "en": "On INPE/LABREN's Acre page, choose the grid cell and irradiation type; record coordinates, month and unit. The 2017 Atlas provides climatological averages of daily totals, not forecasts or rooftop measurements. Do not confuse W/m² with Wh/m².day. Compare months and shading still to be surveyed; no numerical Atlas data have been incorporated into this lesson's assumptions.",
+          "es": "En la página de Acre del INPE/LABREN, elige la celda y el tipo de irradiación; registra coordenadas, mes y unidad. El Atlas de 2017 ofrece promedios climatológicos del total diario, no pronósticos ni mediciones en el tejado. No confundas W/m² con Wh/m².día. Compara meses y sombras por relevar; ningún dato numérico del Atlas se incorporó a las hipótesis de esta lección."
+        }
+      },
+      {
+        "title": {
+          "pt": "Entrega e perguntas para o campo",
+          "en": "Deliverable and field questions",
+          "es": "Entrega y preguntas de campo"
+        },
+        "body": {
+          "pt": "Entregue inventário, diagrama conceitual, prioridades, registros previstos e perguntas sobre cheias, transporte e assistência técnica. Compare um dia sintético favorável e dois dias sintéticos de menor geração; declare todas as perdas assumidas. A proposta é um estudo didático, não projeto executivo, orçamento, promessa de atendimento ou declaração de conformidade normativa.",
+          "en": "Submit an inventory, conceptual diagram, priorities, planned records and questions about flooding, transport and technical support. Compare one favorable synthetic day with two synthetic days of lower generation; declare every assumed loss. The proposal is an educational study, not a construction design, quotation, supply commitment or statement of compliance with standards.",
+          "es": "Entrega inventario, diagrama conceptual, prioridades, registros previstos y preguntas sobre crecidas, transporte y asistencia técnica. Compara un día sintético favorable y dos días sintéticos de menor generación; declara todas las pérdidas supuestas. La propuesta es un estudio didáctico, no un proyecto ejecutivo, presupuesto, compromiso de suministro ni declaración de conformidad normativa."
+        }
+      }
+    ],
+    "activity": {
+      "pt": "Produza uma proposta de uma página, recalcule os 7,952 kWh/dia iniciais e explique como os horários alteram o pico de potência. Compare o SOC inicial e final. Para investigar dias consecutivos, use manualmente o SOC final de um ensaio como SOC inicial do seguinte. Identifique hipóteses, referências externas e dados de campo ainda necessários.",
+      "en": "Produce a one-page proposal, recalculate the initial 7.952 kWh/day and explain how schedules change peak power. Compare initial and final SOC. To investigate consecutive days, manually use one run’s final SOC as the next run’s initial SOC. Identify assumptions, external references and field data still needed.",
+      "es": "Elabora una propuesta de una página, recalcula los 7,952 kWh/día iniciales y explica cómo los horarios modifican el pico de potencia. Compara SOC inicial y final. Para investigar días consecutivos, usa manualmente el SOC final de un ensayo como inicial del siguiente. Identifica hipótesis, referencias externas y datos de campo necesarios."
+    },
+    "references": [
+      {
+        "title": "Dados de irradiação para o Estado do Acre — Atlas Brasileiro de Energia Solar",
+        "by": "INPE • LABREN",
+        "url": "https://labren.ccst.inpe.br/atlas_2017_AC.html",
+        "year": 2017
+      },
+      {
+        "title": "Atlas Brasileiro de Energia Solar — 2ª edição",
+        "by": "INPE • LABREN • Pereira et al.",
+        "url": "https://labren.ccst.inpe.br/atlas_2017.html",
+        "year": 2017
+      },
+      {
+        "title": "Sistemas Isolados",
+        "by": "EPE • Empresa de Pesquisa Energética",
+        "url": "https://www.epe.gov.br/pt/publicacoes-dados-abertos/publicacoes/sistemas-isolados"
+      }
+    ]
+  }
+]

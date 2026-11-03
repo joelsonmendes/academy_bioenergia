@@ -1,0 +1,599 @@
+[
+  {
+    "id": "epe",
+    "by": "EPE • Empresa de Pesquisa Energética",
+    "title": "Fontes de energia — ABCDEnergia",
+    "url": "https://www.epe.gov.br/pt/abcdenergia/fontes-de-energia",
+    "modules": [
+      "biomass",
+      "solar",
+      "wind",
+      "hydro",
+      "tidal"
+    ],
+    "scope": {
+      "pt": "Conceitos de fontes renováveis e rotas de conversão.",
+      "en": "Renewable source concepts and conversion routes.",
+      "es": "Conceptos de fuentes renovables y rutas de conversión."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "embrapa-moisture",
+    "by": "Embrapa Florestas • Lima, Abdala e Wenzel",
+    "title": "Influência da umidade no poder calorífico superior da madeira — Comunicado Técnico 220",
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/315901",
+    "modules": [
+      "biomass"
+    ],
+    "scope": {
+      "pt": "Leitura em português sobre umidade e energia da madeira. Complementa os conceitos de PCS e PCI; não é a origem da equação de PCI do simulador.",
+      "en": "Portuguese reading on wood moisture and energy. Complements HHV and LHV concepts; it is not the source of the simulator’s LHV equation.",
+      "es": "Lectura en portugués sobre humedad y energía de la madera. Complementa los conceptos de PCS y PCI; no es el origen de la ecuación de PCI del simulador."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "technical",
+    "verifiedOn": "2026-11-01",
+    "format": "page",
+    "keywords": "biomassa madeira cavaco umidade PCI PCS poder calorífico calorific moisture wood",
+    "year": 2008,
+    "alternateUrl": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/315901/1/comtec220.pdf"
+  },
+  {
+    "id": "embrapa-biomass",
+    "by": "Embrapa • Bellote et al.",
+    "title": "Biomassa e sua participação na matriz energética brasileira",
+    "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/1090875",
+    "modules": [
+      "biomass"
+    ],
+    "scope": {
+      "pt": "Capítulo técnico sobre recursos de biomassa, resíduos e rotas energéticas. Dados de 2018: para estatísticas atuais, consulte o BEN 2026.",
+      "en": "Technical chapter on biomass resources, residues and energy routes. Data from 2018: use BEN 2026 for current statistics.",
+      "es": "Capítulo técnico sobre recursos de biomasa, residuos y rutas energéticas. Datos de 2018: consulta BEN 2026 para estadísticas actuales."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "technical",
+    "verifiedOn": "2026-11-01",
+    "format": "page",
+    "keywords": "biomassa resíduos bioenergia madeira bagaço culturas energéticas",
+    "year": 2018
+  },
+  {
+    "id": "inpe-solar",
+    "by": "INPE • LABREN • Pereira et al.",
+    "title": "Atlas Brasileiro de Energia Solar — 2ª edição",
+    "url": "https://labren.ccst.inpe.br/atlas_2017.html",
+    "modules": [
+      "solar"
+    ],
+    "scope": {
+      "pt": "Mapas e bases de irradiação do Brasil. Referência climatológica de 2017, com revisão indicada pelo INPE; não fornece previsão meteorológica em tempo real.",
+      "en": "Brazilian irradiation maps and datasets. A 2017 climatological reference with an INPE revision notice; it is not a real-time weather forecast.",
+      "es": "Mapas y bases de irradiación de Brasil. Referencia climatológica de 2017 con revisión indicada por INPE; no ofrece pronóstico meteorológico en tiempo real."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "atlas",
+    "verifiedOn": "2026-11-01",
+    "format": "page",
+    "keywords": "fotovoltaico fotovoltaica solar irradiância irradiação Acre Rio Branco atlas",
+    "year": 2017
+  },
+  {
+    "id": "cepel-wind",
+    "by": "CEPEL • CRESESB • Ricardo Dutra (org.)",
+    "title": "Energia Eólica — Princípios e Tecnologias",
+    "url": "https://cresesb.cepel.br/download/tutorial/tutorial_eolica_2008_e-book.pdf",
+    "modules": [
+      "wind"
+    ],
+    "scope": {
+      "pt": "Fundamentos de potência do vento, coeficiente de potência e aerogeradores (cap. 3 a 5). Referência histórica de 2008; estatísticas e exemplos comerciais são da época.",
+      "en": "Wind power, power coefficient and turbine fundamentals (chapters 3–5). Historical 2008 reference; statistics and commercial examples are from that period.",
+      "es": "Fundamentos de potencia del viento, coeficiente de potencia y aerogeneradores (capítulos 3 a 5). Referencia histórica de 2008; estadísticas y ejemplos comerciales de esa época."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "technical",
+    "verifiedOn": "2026-11-01",
+    "format": "pdf",
+    "keywords": "energia eólica eolico aerogerador vento potência coeficiente Betz turbina",
+    "year": 2008
+  },
+  {
+    "id": "ana-hydro",
+    "by": "ANA • Agência Nacional de Águas e Saneamento Básico",
+    "title": "Hidroeletricidade — usos da água",
+    "url": "https://www.gov.br/ana/pt-br/assuntos/gestao-das-aguas/usos-da-agua/hidroeletricidade",
+    "modules": [
+      "hydro"
+    ],
+    "scope": {
+      "pt": "Contexto brasileiro de geração hidrelétrica, usos da água e operação de reservatórios. Complementa o modelo de potência, sem substituir critérios de projeto ou outorga.",
+      "en": "Brazilian context for hydropower, water uses and reservoir operation. Complements the power model without replacing design or water-use authorization criteria.",
+      "es": "Contexto brasileño de generación hidroeléctrica, usos del agua y operación de embalses. Complementa el modelo de potencia sin sustituir criterios de diseño o autorización de uso del agua."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page",
+    "keywords": "hidráulica hidráulico hidrelétrica hidroeletricidade vazão reservatórios água"
+  },
+  {
+    "id": "epe-ben",
+    "by": "EPE • Empresa de Pesquisa Energética",
+    "title": "Balanço Energético Nacional 2026 — ano-base 2025",
+    "url": "https://www.epe.gov.br/pt/publicacoes-dados-abertos/publicacoes/balanco-energetico-nacional-2026",
+    "modules": [
+      "biomass",
+      "solar",
+      "wind",
+      "hydro"
+    ],
+    "scope": {
+      "pt": "Estatísticas oficiais da matriz energética e elétrica do Brasil. Edição 2026 com dados de 2025; os números dos exercícios continuam sendo hipóteses didáticas.",
+      "en": "Official Brazilian energy and electricity statistics. 2026 edition with 2025 data; exercise values remain educational assumptions.",
+      "es": "Estadísticas oficiales de energía y electricidad de Brasil. Edición 2026 con datos de 2025; los valores de los ejercicios siguen siendo hipótesis didácticas."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "statistics",
+    "verifiedOn": "2026-11-01",
+    "format": "page",
+    "keywords": "BEN matriz energética matriz elétrica Brasil renováveis estatísticas balanço",
+    "year": 2026,
+    "alternateUrl": "https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-975/topico-847/BEN_S%C3%ADntese_2026_PT.pdf"
+  },
+  {
+    "id": "ufma-tidal",
+    "by": "UFMA • Bruno Felipe Gomes de Sá Sousa",
+    "title": "Micro-geração de energia elétrica a partir de correntes de marés para sistemas isolados",
+    "url": "https://tedebc.ufma.br/jspui/handle/tede/2124",
+    "modules": [
+      "tidal"
+    ],
+    "scope": {
+      "pt": "Dissertação de mestrado (2018) sobre correntes de maré, armazenamento e sistemas isolados na Baía de São Marcos, Maranhão. Estudo de caso, não dimensionamento para o Acre.",
+      "en": "2018 master’s dissertation on tidal currents, storage and isolated systems in São Marcos Bay, Maranhão. A case study, not a design for Acre.",
+      "es": "Disertación de maestría de 2018 sobre corrientes de marea, almacenamiento y sistemas aislados en la bahía de São Marcos, Maranhão. Estudio de caso, no diseño para Acre."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "thesis",
+    "verifiedOn": "2026-11-01",
+    "format": "page",
+    "keywords": "marés maremotriz mare hidrocinética corrente turbina sistema isolado UFMA Maranhão",
+    "year": 2018
+  },
+  {
+    "id": "sbai-resource",
+    "by": "SBA • Pesquisadores do Instituto de Energia Elétrica da UFMA",
+    "title": "Avaliação Preliminar de Energia Eólica e de Correntes de Maré na Região da Ilha do Caranguejo — Foz do Rio Mearim",
+    "url": "https://ojs.sba.org.br/index.php/sbai/article/view/4041",
+    "modules": [
+      "wind",
+      "tidal"
+    ],
+    "scope": {
+      "pt": "Artigo dos anais SBAI/SBSE 2023 com medições e análise preliminar do recurso no Maranhão. Resultados locais; não devem ser generalizados para outras regiões.",
+      "en": "SBAI/SBSE 2023 proceedings article with measurements and preliminary resource analysis in Maranhão. Local findings must not be generalized to other regions.",
+      "es": "Artículo de las actas SBAI/SBSE 2023 con mediciones y análisis preliminar del recurso en Maranhão. Los resultados locales no deben generalizarse a otras regiones."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "article",
+    "verifiedOn": "2026-11-01",
+    "format": "page",
+    "keywords": "pesquisa científica artigo Brasil correntes de maré eólica UFMA Ilha Caranguejo Mearim",
+    "year": 2023
+  },
+  {
+    "id": "amazon-epe",
+    "by": "EPE • Empresa de Pesquisa Energética",
+    "title": "Sistemas Isolados",
+    "url": "https://www.epe.gov.br/pt/publicacoes-dados-abertos/publicacoes/sistemas-isolados",
+    "modules": [
+      "solar",
+      "wind",
+      "biomass",
+      "hydro"
+    ],
+    "scope": {
+      "pt": "Conceito e planejamento de sistemas isolados. Não presume que todo o Acre esteja fora do SIN.",
+      "en": "Definition and planning of isolated systems. It does not imply all of Acre is outside the interconnected grid.",
+      "es": "Concepto y planificación de sistemas aislados. No implica que todo Acre esté fuera del sistema interconectado."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "education",
+    "format": "page",
+    "verifiedOn": "2026-11-01",
+    "keywords": "Amazônia Amazônia Acre Rio Branco sistemas isolados microrrede comunidade ribeirinha"
+  },
+  {
+    "id": "amazon-aneel-isolated",
+    "by": "ANEEL • Agência Nacional de Energia Elétrica",
+    "title": "Sistemas Isolados e com Fontes Intermitentes",
+    "url": "https://www.gov.br/aneel/pt-br/assuntos/distribuicao/sistemas-isolados-e-com-fontes-intermitentes",
+    "modules": [
+      "solar",
+      "wind",
+      "biomass",
+      "hydro"
+    ],
+    "scope": {
+      "pt": "Contexto de SIGFI e MIGDI e acompanhamento do atendimento. Consulte a regulamentação vigente para enquadramento real.",
+      "en": "Context for SIGFI and MIGDI and service monitoring. Refer to current regulation for actual classification.",
+      "es": "Contexto de SIGFI y MIGDI y seguimiento del servicio. Consulta regulación vigente para clasificación real."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "education",
+    "format": "page",
+    "verifiedOn": "2026-11-01",
+    "keywords": "Amazônia Amazônia Acre Rio Branco sistemas isolados microrrede comunidade ribeirinha"
+  },
+  {
+    "id": "amazon-aneel-mmgd",
+    "by": "ANEEL • Agência Nacional de Energia Elétrica",
+    "title": "Micro e Minigeração Distribuída",
+    "url": "https://www.gov.br/aneel/pt-br/assuntos/geracao-distribuida/",
+    "modules": [
+      "solar",
+      "wind",
+      "biomass",
+      "hydro"
+    ],
+    "scope": {
+      "pt": "Micro e minigeração conectada à distribuidora e compensação. Esse regime não deve ser presumido para uma bancada autônoma.",
+      "en": "Utility-connected micro/distributed generation and compensation. This regime must not be assumed for an autonomous bench.",
+      "es": "Micro y minigeneración conectada a distribuidora y compensación. No se debe asumir este régimen para un banco autónomo."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "education",
+    "format": "page",
+    "verifiedOn": "2026-11-01",
+    "keywords": "Amazônia Amazônia Acre Rio Branco sistemas isolados microrrede comunidade ribeirinha"
+  },
+  {
+    "id": "amazon-cepel-fv",
+    "by": "CEPEL/CRESESB • João Tavares Pinho e Marco Antonio Galdino (org.)",
+    "title": "Manual de Engenharia para Sistemas Fotovoltaicos",
+    "url": "https://cresesb.cepel.br/publicacoes/download/Manual_de_Engenharia_FV_2014.pdf",
+    "modules": [
+      "solar"
+    ],
+    "scope": {
+      "pt": "Manual técnico de 2014: componentes e configurações isoladas e conectadas. Fundamentação histórica; projetos reais exigem fichas e normas atuais.",
+      "en": "2014 technical manual: components and isolated/grid-connected configurations. Historical foundations; actual projects need current datasheets and standards.",
+      "es": "Manual técnico de 2014: componentes y configuraciones aisladas y conectadas. Base histórica; los proyectos reales necesitan fichas y normas actuales."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "technical",
+    "format": "pdf",
+    "verifiedOn": "2026-11-01",
+    "keywords": "Amazônia Amazônia Acre Rio Branco sistemas isolados microrrede comunidade ribeirinha",
+    "year": 2014
+  },
+  {
+    "id": "amazon-embrapa-residues",
+    "by": "Embrapa Instrumentação • José Dalton Cruz Pessoa e A. R. dos Reis",
+    "title": "Aproveitamento energético dos resíduos da agroindústria",
+    "url": "https://www.alice.cnptia.embrapa.br/handle/doc/949536",
+    "modules": [
+      "biomass"
+    ],
+    "scope": {
+      "pt": "Pesquisa sobre aproveitamento energético de resíduos agroindustriais. Disponibilidade, umidade, caracterização e viabilidade precisam ser investigadas em cada local.",
+      "en": "Research on energy use of agroindustrial residues. Availability, moisture, characterization and feasibility need local investigation.",
+      "es": "Investigación del aprovechamiento energético de residuos agroindustriales. Disponibilidad, humedad, caracterización y viabilidad requieren investigación local."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "technical",
+    "format": "page",
+    "verifiedOn": "2026-11-01",
+    "keywords": "Amazônia Amazônia Acre Rio Branco sistemas isolados microrrede comunidade ribeirinha",
+    "year": 2012
+  },
+  {
+    "id": "amazon-inpe-acre",
+    "by": "INPE • LABREN",
+    "title": "Dados de irradiação para o Estado do Acre — Atlas Brasileiro de Energia Solar",
+    "url": "https://labren.ccst.inpe.br/atlas_2017_AC.html",
+    "modules": [
+      "solar"
+    ],
+    "scope": {
+      "pt": "Dados de irradiação do Acre, edição do Atlas de 2017. Referência climatológica, não previsão de um dia ou dado automático do simulador.",
+      "en": "Acre irradiation data from the 2017 Atlas edition. A climatological reference, not a daily forecast or automatic simulator input.",
+      "es": "Datos de irradiación de Acre, edición del Atlas de 2017. Referencia climatológica, no pronóstico diario ni entrada automática del simulador."
+    },
+    "origin": "BR",
+    "language": "pt",
+    "kind": "atlas",
+    "format": "page",
+    "verifiedOn": "2026-11-01",
+    "keywords": "Amazônia Amazônia Acre Rio Branco sistemas isolados microrrede comunidade ribeirinha",
+    "year": 2017
+  },
+  {
+    "id": "fao",
+    "by": "FAO • United Nations",
+    "title": "Unified Bioenergy Terminology (UBET), seção 5.1",
+    "url": "https://www.fao.org/4/j4504e/j4504e08.htm",
+    "modules": [
+      "biomass"
+    ],
+    "scope": {
+      "pt": "PCI, umidade e propriedades dos biocombustíveis sólidos.",
+      "en": "LHV, moisture and solid biofuel properties.",
+      "es": "PCI, humedad y propiedades de biocombustibles sólidos."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "vtt",
+    "by": "VTT • Research Centre of Finland",
+    "title": "Quality guidelines for wood fuels (2015), §7.3",
+    "url": "https://sarjaweb.vtt.fi/julkaisut/muut/2015/VTT-M-04712-15.pdf",
+    "modules": [
+      "biomass"
+    ],
+    "scope": {
+      "pt": "Equação do PCI recebido: q = qseco(1 − U) − 2,443U; U em fração de massa.",
+      "en": "As-received LHV equation: q = qdry(1 − U) − 2.443U; U as mass fraction.",
+      "es": "Ecuación del PCI recibido: q = qseco(1 − U) − 2,443U; U como fracción de masa."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "technical",
+    "verifiedOn": "2026-11-01",
+    "format": "pdf",
+    "year": 2015
+  },
+  {
+    "id": "nrel",
+    "by": "NREL • Aron P. Dobos",
+    "title": "PVWatts Version 5 Manual (2014), NREL/TP-6A20-62641",
+    "url": "https://docs.nlr.gov/docs/fy14osti/62641.pdf",
+    "modules": [
+      "solar"
+    ],
+    "scope": {
+      "pt": "Referência histórica de modelagem de potência fotovoltaica. A versão didática não executa o PVWatts.",
+      "en": "Historical reference for PV power modeling. The educational version does not run PVWatts.",
+      "es": "Referencia histórica de modelado de potencia FV. La versión didáctica no ejecuta PVWatts."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "technical",
+    "verifiedOn": "2026-11-01",
+    "format": "pdf",
+    "year": 2014
+  },
+  {
+    "id": "sandia",
+    "by": "Sandia National Laboratories • PVPMC",
+    "title": "PVWatts — PV Performance Modeling Collaborative",
+    "url": "https://pvpmc.sandia.gov/modeling-guide/2-dc-module-iv/point-value-models/pvwatts/",
+    "modules": [
+      "solar"
+    ],
+    "scope": {
+      "pt": "Relação entre irradiância, temperatura da célula e potência CC.",
+      "en": "Relationship between irradiance, cell temperature and DC power.",
+      "es": "Relación entre irradiancia, temperatura de célula y potencia CC."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "pvdoe",
+    "by": "U.S. Department of Energy",
+    "title": "Solar Photovoltaic System Design Basics",
+    "url": "https://www.energy.gov/cmei/systems/solar-photovoltaic-system-design-basics",
+    "modules": [
+      "solar"
+    ],
+    "scope": {
+      "pt": "Componentes fotovoltaicos e papel dos inversores.",
+      "en": "PV components and inverter functions.",
+      "es": "Componentes FV y función de los inversores."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "winddoe",
+    "by": "U.S. Department of Energy • WINDExchange",
+    "title": "Small Wind Guidebook",
+    "url": "https://www.energy.gov/cmei/systems/windexchange/small-wind-guidebook",
+    "modules": [
+      "wind"
+    ],
+    "scope": {
+      "pt": "P = ½ρAv³Cp, área varrida e interpretação do recurso eólico.",
+      "en": "P = ½ρAv³Cp, swept area and wind resource interpretation.",
+      "es": "P = ½ρAv³Cp, área barrida e interpretación del recurso eólico."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "windparts",
+    "by": "U.S. Department of Energy",
+    "title": "Explore a Wind Turbine — Text Version",
+    "url": "https://www.energy.gov/cmei/systems/explore-wind-turbine-text-version",
+    "modules": [
+      "wind"
+    ],
+    "scope": {
+      "pt": "Componentes internos e controles do aerogerador.",
+      "en": "Internal turbine components and controls.",
+      "es": "Componentes internos y controles del aerogenerador."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "hydrodoe",
+    "by": "U.S. Department of Energy",
+    "title": "How Hydropower Works",
+    "url": "https://www.energy.gov/cmei/water/how-hydropower-works",
+    "modules": [
+      "hydro"
+    ],
+    "scope": {
+      "pt": "Relação entre queda, vazão e geração hidrelétrica.",
+      "en": "Relationship between head, flow and hydropower generation.",
+      "es": "Relación entre altura, caudal y generación hidroeléctrica."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "hydroturb",
+    "by": "U.S. Department of Energy",
+    "title": "Types of Hydropower Turbines",
+    "url": "https://www.energy.gov/cmei/water/types-hydropower-turbines",
+    "modules": [
+      "hydro"
+    ],
+    "scope": {
+      "pt": "Turbinas de reação e impulso; seleção por queda e vazão.",
+      "en": "Reaction and impulse turbines; head and flow selection criteria.",
+      "es": "Turbinas de reacción e impulso; selección por altura y caudal."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "hydroeq",
+    "by": "EMSD • Government of Hong Kong",
+    "title": "RE NET — Hydroelectric: Resource Potential",
+    "url": "https://re.emsd.gov.hk/english/other/hydroelectric/hyd_res.html",
+    "modules": [
+      "hydro"
+    ],
+    "scope": {
+      "pt": "Balanço de potência hidráulica: densidade × gravidade × vazão × queda.",
+      "en": "Hydraulic power balance: density × gravity × flow × head.",
+      "es": "Balance de potencia hidráulica: densidad × gravedad × caudal × altura."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "marine",
+    "by": "U.S. Department of Energy",
+    "title": "Marine Energy Basics",
+    "url": "https://www.energy.gov/cmei/water/marine-energy-basics",
+    "modules": [
+      "tidal"
+    ],
+    "scope": {
+      "pt": "Energia marinha, correntes, ondas e tecnologias de conversão.",
+      "en": "Marine energy, currents, waves and conversion technologies.",
+      "es": "Energía marina, corrientes, olas y tecnologías de conversión."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "eia",
+    "by": "U.S. Energy Information Administration",
+    "title": "Hydropower explained — Tidal power",
+    "url": "https://www.eia.gov/energyexplained/hydropower/tidal-power.php",
+    "modules": [
+      "tidal"
+    ],
+    "scope": {
+      "pt": "Diferença entre aproveitamento da amplitude de maré e das correntes.",
+      "en": "Distinction between tidal range and tidal current systems.",
+      "es": "Diferencia entre aprovechamiento de amplitud y corrientes de marea."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "noaa",
+    "by": "NOAA • National Ocean Service",
+    "title": "What’s the difference between a tide and a current?",
+    "url": "https://oceanservice.noaa.gov/facts/tidescurrents.html",
+    "modules": [
+      "tidal"
+    ],
+    "scope": {
+      "pt": "Diferença física entre mudança de nível e movimento da água.",
+      "en": "Physical distinction between water-level change and water motion.",
+      "es": "Diferencia física entre cambio de nivel y movimiento del agua."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "education",
+    "verifiedOn": "2026-11-01",
+    "format": "page"
+  },
+  {
+    "id": "tidalstudy",
+    "by": "Bangor University • Lewis et al.",
+    "title": "A standardised tidal-stream power curve, optimised for the global resource",
+    "url": "https://research.bangor.ac.uk/en/publications/a-standardised-tidal-stream-power-curve-optimised-for-the-global-/",
+    "modules": [
+      "tidal"
+    ],
+    "scope": {
+      "pt": "Registro do artigo científico com resumo e acesso ao manuscrito. Estuda curvas de potência de turbinas de corrente de maré; o simulador usa uma adaptação simplificada.",
+      "en": "Scientific article record with abstract and access to the manuscript. It studies tidal-stream turbine power curves; the simulator uses a simplified adaptation.",
+      "es": "Registro del artículo científico con resumen y acceso al manuscrito. Estudia curvas de potencia de turbinas de corrientes de marea; el simulador usa una adaptación simplificada."
+    },
+    "origin": "INT",
+    "language": "en",
+    "kind": "article",
+    "verifiedOn": "2026-11-01",
+    "format": "page",
+    "year": 2021
+  }
+]

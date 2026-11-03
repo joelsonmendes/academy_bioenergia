@@ -1,0 +1,32 @@
+{
+  "verified_on": "2026-11-01",
+  "release": "2.1.0",
+  "results": [
+    {
+      "platform": "win-x64",
+      "manifest": "passed",
+      "files": 32,
+      "runtime": "v24.22.2",
+      "runtime_executed": false
+    },
+    {
+      "platform": "linux-x64",
+      "manifest": "passed",
+      "files": 32,
+      "runtime": "v24.22.2",
+      "runtime_executed": true,
+      "installed_from_bundled_runtime": "passed",
+      "local_server_start": "passed",
+      "modular_assets": "passed",
+      "disk_save": "passed",
+      "reinstall_preserves_notebook": "passed",
+      "network_downloads_during_install": 0,
+      "desktop_shortcut_tested": false
+    }
+  ],
+  "limitations": [
+    "Windows executable provenance and package integrity verified; no Windows system available for execution or shortcut verification.",
+    "Linux tested on this x64 host; other distributions and institutional device policies require local validation.",
+    "No external network download is performed by installer or local server. Physical airplane-mode browser/PWA installation was not exercised."
+  ]
+}

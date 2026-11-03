@@ -1,0 +1,40 @@
+services:
+  app:
+    build: .
+    ports: ["127.0.0.1:8080:8080"]
+    restart: unless-stopped
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    environment:
+      LEARNING_CLASS_CODE: ${LEARNING_CLASS_CODE:-}
+      LEARNING_TEACHER_KEY: ${LEARNING_TEACHER_KEY:-}
+      BIOENERGIA_DATA_DIR: /app/data
+    volumes:
+      - learning-data:/app/data
+  prometheus:
+    image: prom/prometheus:latest
+    profiles: ["monitoring"]
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.retention.time=7d"]
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    ports: ["127.0.0.1:9090:9090"]
+    depends_on: [app]
+  grafana:
+    image: grafana/grafana:latest
+    profiles: ["monitoring"]
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?Defina GRAFANA_ADMIN_PASSWORD no arquivo .env}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./infra/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./infra/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+    ports: ["127.0.0.1:3001:3000"]
+    depends_on: [prometheus]
+volumes:
+  learning-data:
+  prometheus-data:
+  grafana-data:

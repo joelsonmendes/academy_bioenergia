@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bioenergia
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bioenergia
+  namespace: bioenergia
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: bioenergia}
+  template:
+    metadata:
+      labels: {app: bioenergia}
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+        - name: app
+          image: bioenergia-academy:2.1.0
+          imagePullPolicy: IfNotPresent
+          ports: [{containerPort: 8080, name: http}]
+          env:
+            - {name: HOST, value: "0.0.0.0"}
+            - {name: PORT, value: "8080"}
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: 500m, memory: 256Mi}
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            initialDelaySeconds: 3
+          livenessProbe:
+            httpGet: {path: /healthz, port: http}
+            initialDelaySeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bioenergia
+  namespace: bioenergia
+spec:
+  selector: {app: bioenergia}
+  ports: [{name: http, port: 80, targetPort: http}]
+  type: ClusterIP

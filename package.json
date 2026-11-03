@@ -1,0 +1,27 @@
+{
+  "name": "bioenergia-academy-pro",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc --noEmit",
+    "start": "node --env-file-if-exists=.env server/server.mjs",
+    "test": "node --test server/*.test.mjs",
+    "check:links": "python3 scripts/check-reference-links.py",
+    "dev": "node --env-file-if-exists=.env server/server.mjs",
+    "package:offline": "node scripts/package-community.mjs"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.0.0",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/cli": "^4.0.0"
+  }
+}

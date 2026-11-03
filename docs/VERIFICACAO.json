@@ -1,0 +1,154 @@
+{
+  "release": "2.1.0",
+  "verified_on": "2026-11-01",
+  "typescript": "passed",
+  "production_build": "passed",
+  "api_and_model_tests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "browser_checks": [
+    "desktop navigation",
+    "equipment details and enlargement",
+    "biomass moisture response",
+    "input validation",
+    "solar inverter clipping",
+    "scenario save",
+    "CSV download",
+    "Portuguese, English and Spanish",
+    "guide feedback",
+    "mission feedback",
+    "reference search",
+    "mobile layout at 375 CSS px",
+    "mobile image panning",
+    "light and dark themes"
+  ],
+  "docker_executed": false,
+  "kubernetes_applied": false,
+  "offline_html_bytes": 3476702,
+  "html_sha256": "3868e912da71c6d024b4ffd6037bab7076e96445eebde975673f3490fdc3b2ff",
+  "branding_revision": {
+    "verified_on": "2026-11-01",
+    "scope": "Original SENAI Hub logo and student-project footer",
+    "logo_source": "User-provided original WebP, unchanged bytes",
+    "checks": [
+      "original aspect ratio preserved",
+      "desktop dark theme",
+      "desktop light theme",
+      "mobile layout at 375 CSS px without horizontal overflow",
+      "Portuguese, English and Spanish footers"
+    ],
+    "footer_pt": "Projeto inovador da turma do Curso Técnico em Sistemas de Energias Renováveis."
+  },
+  "reference_search_tests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "total_automated_tests": {
+    "passed": 40,
+    "failed": 0
+  },
+  "reference_revision": {
+    "verified_on": "2026-11-01",
+    "references": 29,
+    "brazilian_references": 15,
+    "links_tested": 31,
+    "links_passed": 31,
+    "links_failed": 0,
+    "original_links_replaced": 2,
+    "method": "HTTPS GET with redirects and content checks; independent review of official source content",
+    "browser_checks": [
+      "29 reference cards and 31 outbound links rendered",
+      "multiple search words and accent normalization",
+      "origin and technology filters combined",
+      "empty results and clear filters",
+      "Portuguese, English and Spanish controls",
+      "light and dark reference-library layout",
+      "375 CSS px mobile layout without page overflow",
+      "mobile Embrapa moisture search returns the relevant publication",
+      "original source link opens Embrapa record in new tab"
+    ],
+    "note": "Link checks are point-in-time observations. External pages require internet and may change."
+  },
+  "amazon_campus": {
+    "verified_on": "2026-11-01",
+    "scope": "Campus Amazônia extension preserving the approved Pro 2.0 interface, SENAI Hub original logo and student-project footer",
+    "modules": 5,
+    "languages": [
+      "pt",
+      "en",
+      "es"
+    ],
+    "test_breakdown": {
+      "original_api_and_model": 7,
+      "reference_search": 4,
+      "virtual_bench_and_microgrid": 10,
+      "learning_service": 5,
+      "offline_cache_and_background_sync": 5,
+      "study_guide_export": 2,
+      "community_profiles_disk_and_installation": 7
+    },
+    "typescript": "passed",
+    "production_build": "passed",
+    "browser_checks": [
+      "desktop Campus navigation and original SENAI Hub logo",
+      "reference bench: 1.64 kW source, 1.20 kW load, 2.13 percent voltage drop and 49.2 V battery",
+      "remove and reconnect source conductor; eight reference connections restored",
+      "short circuit blocks load; solar-open fault preserves battery supplied AC load",
+      "220 V AC RMS measurement, virtual current clamp, I-V curve and ideal oscilloscope",
+      "24 m cable triggers exercise voltage-drop feedback",
+      "school microgrid: 7.952 kWh demand, no unserved energy or diesel use, 75.5 percent final SOC",
+      "low solar and zero fuel: 1.40 kWh unserved energy and 20 percent final SOC",
+      "project rationale, formative criteria and conceptual single-line and PE/BEP diagrams",
+      "study completion and notebook persist after reload",
+      "question preserved locally with no active classroom session",
+      "full Portuguese lightweight guide opens over HTTP with five chapters, references, logo and footer",
+      "375 CSS px: bench, microgrid, projects, grounding diagram and offline study without body overflow",
+      "Portuguese, English and Spanish Campus controls",
+      "light and dark themes",
+      "HTTP preview correctly explains the HTTPS or localhost requirement for PWA offline preparation"
+    ],
+    "guide_bytes": 34586,
+    "guide_sha256": "72028db2baf336063044d31212d22468644f3fd903d9f85355fd49379093b523",
+    "reference_link_report": "LINKS_VERIFICADOS.json",
+    "verified_limits": [
+      "Models use synthetic didactic parameters and have no connection to real plant telemetry.",
+      "PWA cache and background queue were verified in worker tests. Physical-device installation was not verified; the HTTP preview is not a secure context.",
+      "Classroom authentication, roles, persistence, replies and sync were verified by integration tests. Browser sign-in was not performed.",
+      "The browser download observer did not confirm a native Blob download receipt. The guide generator and escaping tests passed; direct HTTP guide reading was verified.",
+      "Docker and Kubernetes configurations were prepared but not executed or applied.",
+      "External reference availability is a point-in-time observation.",
+      "No deployment, institutional SSO, real equipment tests or normative compliance certification is included."
+    ]
+  },
+  "community_offline": {
+    "verified_on": "2026-11-01",
+    "release": "2.1.0",
+    "modular_web_files_cached": 16,
+    "local_profiles_limit": 50,
+    "network_binding": "127.0.0.1:47329",
+    "bundled_runtime": "Node.js v24.22.2 official Windows x64 and Linux x64 distributions",
+    "runtime_provenance": "SHA-256 matched official HTTPS SHASUMS256.txt; GPG signature not separately verified",
+    "automated_checks": "40 passed; TypeScript and production build passed",
+    "package_report": "PACOTES_VERIFICADOS.json",
+    "browser_checks": [
+      "profile creation and switching",
+      "600 W/m² bench and project rationale restore to the original profile",
+      "another profile starts at 800 W/m² with an empty project rationale",
+      "desktop disk-copy status confirmed",
+      "mobile dialog at 375 CSS px without body overflow",
+      "Portuguese, English and Spanish notebook controls",
+      "dark and light themes",
+      "native dialog centered with focus management"
+    ],
+    "limitations": [
+      "Windows package integrity and provenance verified; execution and shortcuts not tested on Windows.",
+      "Linux packaged runtime installation, launch, local assets, disk save and reinstall preservation tested on this host; physical-device compatibility not guaranteed.",
+      "No physical browser network-disconnection or PWA installation test; offline cache verified with simulated-network worker tests.",
+      "Local profiles do not implement authentication or encryption and are accessible within the same OS account.",
+      "Source and distribution packages contain no learner data or classroom credentials.",
+      "External publications still require connectivity; only author-created study content is bundled."
+    ],
+    "disk_copy_import": "Portable export and validated on-disk envelope formats accepted by the notebook importer"
+  }
+}

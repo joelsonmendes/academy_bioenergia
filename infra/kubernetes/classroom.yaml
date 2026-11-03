@@ -1,0 +1,60 @@
+# Optional classroom instance. Requires an existing private Secret named
+# bioenergia-classroom with LEARNING_CLASS_CODE and LEARNING_TEACHER_KEY keys.
+# Use one process/replica with this file-based store. Not an HA database.
+apiVersion: v1
+kind: Namespace
+metadata: {name: bioenergia}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: {name: bioenergia-classroom-data, namespace: bioenergia}
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests: {storage: 512Mi}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: bioenergia-classroom, namespace: bioenergia}
+spec:
+  replicas: 1
+  strategy: {type: Recreate}
+  selector:
+    matchLabels: {app: bioenergia-classroom}
+  template:
+    metadata:
+      labels: {app: bioenergia-classroom}
+    spec:
+      securityContext: {runAsNonRoot: true, runAsUser: 1000, fsGroup: 1000}
+      containers:
+        - name: classroom
+          image: bioenergia-academy:2.1.0
+          ports: [{containerPort: 8080, name: http}]
+          env:
+            - {name: HOST, value: "0.0.0.0"}
+            - {name: PORT, value: "8080"}
+            - {name: BIOENERGIA_DATA_DIR, value: /app/data}
+          envFrom:
+            - secretRef: {name: bioenergia-classroom}
+          volumeMounts:
+            - {name: learning-data, mountPath: /app/data}
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: 500m, memory: 256Mi}
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+      volumes:
+        - name: learning-data
+          persistentVolumeClaim: {claimName: bioenergia-classroom-data}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: bioenergia-classroom, namespace: bioenergia}
+spec:
+  selector: {app: bioenergia-classroom}
+  ports: [{name: http, port: 80, targetPort: http}]
+  type: ClusterIP
