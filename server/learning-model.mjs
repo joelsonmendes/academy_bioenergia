@@ -21,6 +21,7 @@ var casePresets = { school: { input: { ...hybridDefaults }, loads: schoolLoads }
 // src/content.js
 var T = (pt, en, es) => ({ pt, en, es });
 var UI = {
+  lab3d: T("Laborat\xF3rio 3D", "3D Lab", "Laboratorio 3D"),
   amazon: T("Campus Amaz\xF4nia", "Amazon Campus", "Campus Amazon\xEDa"),
   home: T("Vis\xE3o geral", "Overview", "Vista general"),
   plants: T("Usinas por dentro", "Inside the plants", "Centrales por dentro"),

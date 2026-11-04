@@ -1,0 +1,356 @@
+.lab3d-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(270px, 32%);
+  gap: 16px;
+  align-items: start;
+}
+
+.lab3d-workbench, .lab3d-side {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.lab3d-viewer {
+  border: 1px solid #284058;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #0d1929;
+  color: #e8f1fa;
+}
+
+.lab3d-toolbar {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #284058;
+}
+
+.lab3d-modes, .lab3d-tools {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.lab3d-toolbar button, .lab3d-spin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 36px;
+  min-height: 38px;
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: 1px solid #324c65;
+  background: #122238;
+  color: #d7e5f2;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.lab3d-modes button {
+  border-color: #458e46;
+}
+
+.lab3d-tools button {
+  font-size: 16px;
+}
+
+.lab3d-toolbar button .icon, .lab3d-card a .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.lab3d-toolbar button:hover, .lab3d-spin:hover {
+  border-color: #a2eaa7;
+}
+
+.lab3d-toolbar button[aria-pressed="true"], .lab3d-spin[aria-pressed="true"] {
+  border-color: #61ce5e;
+  background: #153727;
+  color: #c1ffc5;
+}
+
+.lab3d-stage {
+  position: relative;
+  height: clamp(310px, 34vw, 405px);
+  min-height: 0;
+  overflow: hidden;
+  background: #081421;
+}
+
+.lab3d-stage:focus-visible {
+  outline: 2px solid #79ed80;
+  outline-offset: -3px;
+}
+
+.lab3d-surface {
+  position: absolute;
+  inset: 0;
+}
+
+.lab3d-surface > *, .lab3d-diagram {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.lab3d-surface > * {
+  cursor: grab;
+  touch-action: none;
+}
+
+.lab3d-surface > *:active { cursor: grabbing; }
+
+.lab3d-diagram {
+  background-image: linear-gradient(#173047 1px, transparent 1px), linear-gradient(90deg, #173047 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.lab3d-stage-label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border: 1px solid #34506a;
+  border-radius: 5px;
+  background: #0b1929;
+  color: #b6cde2;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: .12em;
+  pointer-events: none;
+}
+
+.lab3d-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #74ed77;
+  box-shadow: 0 0 8px #59e15d80;
+}
+
+.lab3d-spin {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+}
+
+.lab3d-spin span {
+  color: #90f69a;
+}
+
+.lab3d-help {
+  margin: 0;
+  padding: 10px 13px;
+  border-top: 1px solid #284058;
+  color: #b7cbe0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.lab3d-viewer:fullscreen {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  border-radius: 0;
+}
+
+.lab3d-viewer:fullscreen .lab3d-stage {
+  flex: 1;
+  height: auto;
+}
+
+.lab3d-card {
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--paper);
+}
+
+.lab3d-card h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 720;
+  line-height: 1.3;
+}
+
+.lab3d-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.lab3d-parts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.lab3d-parts button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: var(--paper2);
+  color: var(--ink);
+  font-size: 11px;
+  text-align: left;
+  line-height: 1.35;
+}
+
+.lab3d-parts button span {
+  flex: 0 0 auto;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: #102238;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.lab3d-parts button:hover, .lab3d-parts button[aria-pressed="true"] {
+  border-color: var(--tab-neon-active, var(--accent));
+}
+
+.lab3d-parts button[aria-pressed="true"] {
+  background: var(--accent-bg);
+  font-weight: 700;
+}
+
+.lab3d-part-detail {
+  margin-top: 11px;
+  padding: 9px 11px;
+  border-left: 2px solid var(--accent);
+  background: var(--paper2);
+}
+
+.lab3d-part-detail strong { font-size: 12px; }
+.lab3d-part-detail p { margin-top: 3px; }
+
+.lab3d-kicker {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: .12em;
+}
+
+.lab3d-inputs {
+  display: grid;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.lab3d-inputs label {
+  display: grid;
+  gap: 5px;
+  font-size: 11px;
+}
+
+.lab3d-inputs label > span, .lab3d-card .lab3d-pci {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.lab3d-inputs output, .lab3d-pci strong {
+  color: var(--ink);
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.lab3d-inputs input {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.lab3d-metrics {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+}
+
+.lab3d-metrics > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 5px 9px;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper2);
+}
+
+.lab3d-metrics dt {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.lab3d-metrics dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 750;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab3d-metrics dd small { font-size: 10px; }
+
+.lab3d-meter {
+  grid-column: 1 / -1;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.lab3d-meter span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.lab3d-card .lab3d-pci { margin-bottom: 11px; }
+
+.lab3d-card a {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 5px;
+  margin-top: 11px;
+  color: var(--accent);
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 1060px) {
+  .lab3d-layout { grid-template-columns: minmax(0, 1fr); }
+  .lab3d-side { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 600px) {
+  .lab3d-stage { height: 260px; }
+  .lab3d-side { grid-template-columns: minmax(0, 1fr); }
+  .lab3d-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media print {
+  .lab3d-toolbar, .lab3d-spin, .lab3d-inputs { display: none; }
+  .lab3d-card { break-inside: avoid; }
+}
