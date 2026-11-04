@@ -64,3 +64,45 @@
  .reference-actions .icon{display:none}
  .reference-summary,.reference-meta,.reference-link-meta{font-size:8px}
 }
+
+@media screen {
+  :root {
+    --brand-neon: #53ff39;
+    --tab-neon-border: #458e46;
+    --tab-neon-active: var(--brand-neon);
+  }
+
+  :root[data-theme="light"] {
+    --tab-neon-border: #2c863c;
+    --tab-neon-active: #237435;
+  }
+
+  .sidebar-nav {
+    --tab-neon-border: #458e46;
+    --tab-neon-active: var(--brand-neon);
+  }
+
+  .brand-symbol .icon {
+    color: var(--brand-neon);
+    filter: drop-shadow(0 0 5px rgb(83 255 57 / .55));
+  }
+
+  :is(.sidebar-nav, .am-tabs, .am-small-tabs) > button,
+  .source-tab {
+    border-color: var(--tab-neon-border);
+    box-shadow: inset 0 0 6px rgb(83 255 57 / .09);
+  }
+
+  :is(.sidebar-nav, .am-tabs, .am-small-tabs) > button:is(:hover, :focus-visible),
+  .source-tab:is(:hover, :focus-visible) {
+    border-color: var(--tab-neon-active);
+  }
+
+  .sidebar-nav > button.active,
+  .source-tab.selected,
+  .am-tabs > button[aria-selected="true"],
+  .am-small-tabs > button.selected {
+    border-color: var(--tab-neon-active);
+    box-shadow: inset 0 0 8px rgb(83 255 57 / .2), 0 0 9px rgb(83 255 57 / .22);
+  }
+}
