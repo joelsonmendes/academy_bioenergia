@@ -1,11 +1,9 @@
 import {
-  BoxGeometry, Color, CylinderGeometry, DirectionalLight, DoubleSide, GridHelper,
-  Group, HemisphereLight, Mesh, MeshPhongMaterial, OrthographicCamera, Raycaster,
-  RingGeometry, Scene, TorusGeometry, Vector2, Vector3, WebGLRenderer
+  BoxGeometry, CylinderGeometry, DoubleSide, Group, Mesh, MeshPhongMaterial,
+  RingGeometry, TorusGeometry
 } from 'three';
-import type {BufferGeometry, Object3D} from 'three';
-import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-import {SVGRenderer} from 'three/addons/renderers/SVGRenderer.js';
+import type {BufferGeometry, Object3D, Scene} from 'three';
+import {createLabViewer} from './lab-viewer';
 
 export const partIds = ['casing', 'turbine', 'coupling', 'rotor', 'stator', 'terminals'] as const;
 export type PartId = typeof partIds[number];
@@ -140,184 +138,38 @@ function buildAssembly(scene: Scene, lightweight: boolean) {
   return {parts, positions, pickable};
 }
 
-function createRenderer() {
-  const canvas = document.createElement('canvas');
-  try {
-    const context = canvas.getContext('webgl2', {antialias: true, powerPreference: 'low-power'});
-    if (context) {
-      const renderer = new WebGLRenderer({canvas, context});
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-      return renderer;
-    }
-  } catch {
-    // Use the same 3D scene on devices without hardware acceleration.
-  }
-
-  const renderer = new SVGRenderer();
-  renderer.setPrecision(1);
-  renderer.overdraw = .25;
-  return renderer;
-}
-
 export function createTurbineViewer(host: HTMLDivElement, onPart: (id: PartId) => void, onLost: () => void) {
-  const renderer = createRenderer();
-  const lightweight = renderer instanceof SVGRenderer;
-  const surface = renderer.domElement;
-  host.append(surface);
-  const scene = new Scene();
-  scene.background = new Color(0x081421);
-  scene.add(new HemisphereLight(0xe1f3ff, 0x516988, 2));
-  const key = new DirectionalLight(0xd7efff, 2.3);
-  key.position.set(2, 6, 5);
-  scene.add(key);
-  const fill = new DirectionalLight(0x7fc9ff, 1.35);
-  fill.position.set(-2, 1, -4);
-  scene.add(fill);
+  let exploded = false;
+  let spinning = false;
+  const viewer = createLabViewer(host, buildAssembly, () => ({
+    position: [3.5, 3.5, 10], target: [exploded ? .18 : 0, .1, 0],
+    halfHeight: 2.1, halfWidth: exploded ? 6.7 : 3.75
+  }), -1.17, onPart, onLost);
+  const {parts, positions} = viewer.model;
 
-  const grid = new GridHelper(28, lightweight ? 28 : 56, 0x346079, 0x183047);
-  if (lightweight) {
-    grid.material.vertexColors = false;
-    grid.material.color.setHex(0x274056);
-  }
-  grid.position.y = -1.17;
-  scene.add(grid);
-
-  const assembly = buildAssembly(scene, lightweight);
-  const camera = new OrthographicCamera(-5, 5, 3, -3, .1, 80);
-  const controls = new OrbitControls(camera, surface);
-  controls.enablePan = false;
-  controls.minZoom = .85;
-  controls.maxZoom = 3;
-  controls.maxPolarAngle = Math.PI * .57;
-
-  let state: ViewState = {selected: 'turbine', exploded: false, spinning: false};
-  let frame = 0;
-  let previousTime = 0;
-  let disposed = false;
-
-  function draw(time: number) {
-    frame = 0;
-    if (!lightweight && renderer.getContext().isContextLost()) return;
-    if (state.spinning) {
-      requestDraw();
-      if (lightweight && previousTime && time - previousTime < 42) return;
-      const advance = previousTime ? Math.min(.05, (time - previousTime) / 1000) * 1.45 : 0;
-      for (const id of ['turbine', 'coupling', 'rotor'] as const) {
-        assembly.parts.get(id)!.group.rotation.x += advance;
-      }
-      previousTime = time;
+  function rotateShaft(advance: number) {
+    for (const id of ['turbine', 'coupling', 'rotor'] as const) {
+      parts.get(id)!.group.rotation.x += advance * 1.45;
     }
-    renderer.render(scene, camera);
   }
-
-  function requestDraw() {
-    if (!frame && !disposed) frame = requestAnimationFrame(draw);
-  }
-
-  function resize() {
-    const {clientWidth: width, clientHeight: height} = host;
-    if (!width || !height) return;
-    const aspect = width / height;
-    const halfHeight = Math.max(2.1, (state.exploded ? 6.7 : 3.75) / aspect);
-    camera.left = -halfHeight * aspect;
-    camera.right = halfHeight * aspect;
-    camera.top = halfHeight;
-    camera.bottom = -halfHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height, false);
-    requestDraw();
-  }
-
-  function reset() {
-    camera.position.set(3.5, 3.5, 10);
-    camera.zoom = 1;
-    controls.target.set(state.exploded ? .18 : 0, .1, 0);
-    controls.update();
-    resize();
-  }
-
-  const raycaster = new Raycaster();
-  let pointer: {id: number; x: number; y: number} | null = null;
-  function pointerDown(event: PointerEvent) {
-    pointer = event.isPrimary && event.button === 0
-      ? {id: event.pointerId, x: event.clientX, y: event.clientY}
-      : null;
-  }
-  function pointerUp(event: PointerEvent) {
-    const start = pointer;
-    pointer = null;
-    if (!start || start.id !== event.pointerId || Math.hypot(start.x - event.clientX, start.y - event.clientY) > 6) return;
-    const rect = host.getBoundingClientRect();
-    raycaster.setFromCamera(new Vector2(
-      (event.clientX - rect.left) / rect.width * 2 - 1,
-      1 - (event.clientY - rect.top) / rect.height * 2
-    ), camera);
-    const hit = raycaster.intersectObjects(assembly.pickable, false)[0];
-    if (hit) onPart(hit.object.userData.part as PartId);
-  }
-  function pointerCancel() {
-    pointer = null;
-  }
-  function contextLost(event: Event) {
-    event.preventDefault();
-    onLost();
-  }
-
-  const observer = new ResizeObserver(resize);
-  observer.observe(host);
-  controls.addEventListener('change', requestDraw);
-  // The host receives pointer events from both the canvas and the SVG.
-  host.addEventListener('pointerdown', pointerDown);
-  host.addEventListener('pointerup', pointerUp);
-  host.addEventListener('pointercancel', pointerCancel);
-  surface.addEventListener('webglcontextlost', contextLost);
-  reset();
 
   return {
-    lightweight,
+    ...viewer,
     setState(next: ViewState) {
-      const reframe = next.exploded !== state.exploded;
-      if (next.spinning !== state.spinning) previousTime = 0;
-      state = next;
-      for (const [id, {group, materials}] of assembly.parts) {
-        const [x, y] = assembly.positions[id];
+      const reframe = next.exploded !== exploded;
+      exploded = next.exploded;
+      if (next.spinning !== spinning) {
+        spinning = next.spinning;
+        viewer.animate(spinning ? rotateShaft : null);
+      }
+      for (const [id, {group, materials}] of parts) {
+        const [x, y] = positions[id];
         const [dx, dy] = offsets[id];
-        group.position.set(x + (next.exploded ? dx : 0), y + (next.exploded ? dy : 0), 0);
+        group.position.set(x + (exploded ? dx : 0), y + (exploded ? dy : 0), 0);
         for (const material of materials) material.emissive.setHex(id === next.selected ? 0x1c4f28 : 0x000000);
       }
-      if (reframe) reset();
-      requestDraw();
-    },
-    zoom(factor: number) {
-      camera.zoom = Math.min(controls.maxZoom, Math.max(controls.minZoom, camera.zoom * factor));
-      camera.updateProjectionMatrix();
-      requestDraw();
-    },
-    rotate(horizontal: number, vertical: number) {
-      const offset = camera.position.clone().sub(controls.target);
-      const radius = offset.length();
-      const azimuth = Math.atan2(offset.x, offset.z) + horizontal;
-      const polar = Math.min(controls.maxPolarAngle, Math.max(.08, Math.acos(offset.y / radius) + vertical));
-      camera.position.copy(controls.target).add(new Vector3().setFromSphericalCoords(radius, polar, azimuth));
-      controls.update();
-    },
-    reset,
-    dispose() {
-      disposed = true;
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      controls.dispose();
-      host.removeEventListener('pointerdown', pointerDown);
-      host.removeEventListener('pointerup', pointerUp);
-      host.removeEventListener('pointercancel', pointerCancel);
-      surface.removeEventListener('webglcontextlost', contextLost);
-      for (const object of assembly.pickable as Mesh<BufferGeometry, MeshPhongMaterial>[]) {
-        object.geometry.dispose();
-        object.material.dispose();
-      }
-      grid.dispose();
-      if (!lightweight) renderer.dispose();
-      surface.remove();
+      if (reframe) viewer.reset();
+      viewer.requestDraw();
     }
   };
 }

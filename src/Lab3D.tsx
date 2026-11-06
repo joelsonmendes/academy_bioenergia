@@ -3,6 +3,7 @@ import type {KeyboardEvent} from 'react';
 import {Button, Heading, Icon} from './components';
 import {calculate} from './energy';
 import {fields, format, T} from './model';
+import RenewableBench3D from './RenewableBench3D';
 import {useApp} from './store';
 import {createTurbineViewer, partIds} from './turbine-viewer';
 import type {PartId} from './turbine-viewer';
@@ -78,6 +79,24 @@ function Diagram({selected, exploded}: {selected: PartId; exploded: boolean}) {
 }
 
 export default function Lab3D() {
+  const {source, navigate, t} = useApp();
+  const bench = source === 'solar' || source === 'wind';
+  return (
+    <>
+      <nav className="lab3d-stations lab3d-modes" aria-label={t(T('Estações do Laboratório 3D', '3D lab stations', 'Estaciones del laboratorio 3D'))}>
+        <button type="button" aria-pressed={!bench} onClick={() => navigate('lab3d', 'biomass')}>
+          <Icon name="bolt"/>{t(T('Turbina e gerador', 'Turbine and generator', 'Turbina y generador'))}
+        </button>
+        <button type="button" aria-pressed={bench} onClick={() => navigate('lab3d', 'solar')}>
+          <Icon name="layers"/>{t(T('Bancada renovável', 'Renewable bench', 'Banco renovable'))}
+        </button>
+      </nav>
+      {bench ? <RenewableBench3D/> : <TurbineLab/>}
+    </>
+  );
+}
+
+function TurbineLab() {
   const {t, lang, navigate, values, updateValues, notify} = useApp();
   const surface = useRef<HTMLDivElement>(null);
   const panel = useRef<HTMLDivElement>(null);
