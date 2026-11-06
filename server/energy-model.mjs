@@ -305,6 +305,7 @@ var MODULES = {
 // src/energy.ts
 var modules = MODULES;
 var inputs = INPUTS;
+var windSpeedLimits = { cutIn: 3, cutOut: 25 };
 function calculate(key, v) {
   let power = 0, resource = 0, gross = 0, details = {}, limited = false, stopped = false;
   const h = v.hours;
@@ -328,7 +329,7 @@ function calculate(key, v) {
     resource = 0.5 * rho * area * speed ** 3 / 1e3;
     const shaft = resource * cp;
     gross = shaft * eta;
-    stopped = isWind && (speed < 3 || speed >= 25);
+    stopped = isWind && (speed < windSpeedLimits.cutIn || speed >= windSpeedLimits.cutOut);
     power = stopped ? 0 : Math.min(gross, rated);
     limited = !stopped && gross > rated;
     details = { area, speed, rho, cp, eta, rated, shaft, uncapped: gross };
@@ -359,5 +360,6 @@ export {
   calculate,
   defaultsFor,
   sourceKeys,
-  validValues
+  validValues,
+  windSpeedLimits
 };

@@ -1,10 +1,11 @@
 import {
   AmbientLight, BoxGeometry, BufferGeometry, CatmullRomCurve3, ConeGeometry, CylinderGeometry, DoubleSide,
-  Float32BufferAttribute, Group, Line, LineBasicMaterial, Mesh, MeshBasicMaterial,
+  Group, Line, LineBasicMaterial, Mesh, MeshBasicMaterial,
   MeshPhongMaterial, RingGeometry, SphereGeometry, TorusGeometry, Vector3
 } from 'three';
 import type {Object3D, Scene} from 'three';
 import {createLabViewer} from './lab-viewer';
+import {surface} from './lab-mesh';
 
 export const hydroParts = ['penstock', 'spiral', 'gates', 'runner', 'shaft', 'rotor', 'stator', 'draft', 'powerhouse'] as const;
 export type HydroPart = typeof hydroParts[number];
@@ -49,26 +50,6 @@ const water = path([
   [.13, -.83, .52], [0, outletY, 0], [0, -1.70, 0],
   [.60, -2.25, .04], [1.76, -2.37, .18], [3.30, -2.33, .30], [4.21, -2.28, .34]
 ]);
-
-function surface(rows: number, columns: number, vertex: (u: number, v: number) => Point) {
-  const positions: number[] = [];
-  const faces: number[] = [];
-  for (let i = 0; i <= rows; i++) {
-    for (let j = 0; j <= columns; j++) {
-      positions.push(...vertex(i / rows, j / columns));
-      if (i < rows && j < columns) {
-        const a = i * (columns + 1) + j;
-        const b = a + columns + 1;
-        faces.push(a, b, a + 1, b, b + 1, a + 1);
-      }
-    }
-  }
-  const geometry = new BufferGeometry();
-  geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
-  geometry.setIndex(faces);
-  geometry.computeVertexNormals();
-  return geometry;
-}
 
 function buildHydro(scene: Scene, lightweight: boolean) {
   const detail = lightweight ? 24 : 48;

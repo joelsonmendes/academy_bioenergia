@@ -5,6 +5,7 @@ import {calculate} from './energy';
 import {fields, format, T} from './model';
 import RenewableBench3D from './RenewableBench3D';
 import HydroLab3D from './HydroLab3D';
+import WindLab3D from './WindLab3D';
 import {useApp} from './store';
 import {createTurbineViewer, partIds} from './turbine-viewer';
 import type {PartId} from './turbine-viewer';
@@ -81,12 +82,13 @@ function Diagram({selected, exploded}: {selected: PartId; exploded: boolean}) {
 
 export default function Lab3D() {
   const {source, navigate, t} = useApp();
-  const bench = source === 'solar' || source === 'wind';
+  const bench = source === 'solar';
+  const wind = source === 'wind';
   const hydro = source === 'hydro';
   return (
     <>
       <nav className="lab3d-stations lab3d-modes" aria-label={t(T('Estações do Laboratório 3D', '3D lab stations', 'Estaciones del laboratorio 3D'))}>
-        <button type="button" aria-pressed={!bench && !hydro} onClick={() => navigate('lab3d', 'biomass')}>
+        <button type="button" aria-pressed={!bench && !hydro && !wind} onClick={() => navigate('lab3d', 'biomass')}>
           <Icon name="bolt"/>{t(T('Turbina e gerador', 'Turbine and generator', 'Turbina y generador'))}
         </button>
         <button type="button" aria-pressed={bench} onClick={() => navigate('lab3d', 'solar')}>
@@ -95,8 +97,11 @@ export default function Lab3D() {
         <button type="button" aria-pressed={hydro} onClick={() => navigate('lab3d', 'hydro')}>
           <Icon name="drop"/>{t(T('Hidrelétrica', 'Hydropower', 'Hidroeléctrica'))}
         </button>
+        <button type="button" aria-pressed={wind} onClick={() => navigate('lab3d', 'wind')}>
+          <Icon name="wind"/>{t(T('Aerogerador 3D', 'Wind turbine 3D', 'Aerogenerador 3D'))}
+        </button>
       </nav>
-      {hydro ? <HydroLab3D/> : bench ? <RenewableBench3D/> : <TurbineLab/>}
+      {wind ? <WindLab3D/> : hydro ? <HydroLab3D/> : bench ? <RenewableBench3D/> : <TurbineLab/>}
     </>
   );
 }

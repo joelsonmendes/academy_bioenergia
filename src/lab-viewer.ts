@@ -1,3 +1,4 @@
+import type {KeyboardEvent} from 'react';
 import {
   Color, DirectionalLight, GridHelper, HemisphereLight, Line, Mesh,
   OrthographicCamera, Raycaster, Scene, Vector2, Vector3, WebGLRenderer
@@ -195,4 +196,20 @@ export function createLabViewer<Part extends string, Model extends {pickable: Ob
       surface.remove();
     }
   };
+}
+
+export function handleLabCameraKey(event: KeyboardEvent, camera: Pick<ReturnType<typeof createLabViewer>, 'rotate' | 'zoom' | 'reset'> | null) {
+  if (!camera || event.altKey || event.ctrlKey || event.metaKey) return;
+  switch (event.key) {
+    case 'ArrowLeft': camera.rotate(-.18, 0); break;
+    case 'ArrowRight': camera.rotate(.18, 0); break;
+    case 'ArrowUp': camera.rotate(0, -.14); break;
+    case 'ArrowDown': camera.rotate(0, .14); break;
+    case '+':
+    case '=': camera.zoom(1.2); break;
+    case '-': camera.zoom(1 / 1.2); break;
+    case 'Home': camera.reset(); break;
+    default: return;
+  }
+  event.preventDefault();
 }

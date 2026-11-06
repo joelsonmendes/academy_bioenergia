@@ -586,11 +586,11 @@
   color: var(--ink);
 }
 
-.hydro3d-stage {
+:is(.hydro3d-stage, .wind3d-stage) {
   height: clamp(350px, 38vw, 462px);
 }
 
-.hydro3d-stage-part {
+:is(.hydro3d-stage-part, .wind3d-stage-part) {
   position: absolute;
   right: 13px;
   bottom: 13px;
@@ -603,7 +603,7 @@
   pointer-events: none;
 }
 
-.hydro3d-view-actions {
+:is(.hydro3d-view-actions, .wind3d-view-actions) {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -611,7 +611,7 @@
   border-top: 1px solid #284058;
 }
 
-.hydro3d-view-actions button {
+:is(.hydro3d-view-actions, .wind3d-view-actions) button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -625,19 +625,19 @@
   font-weight: 650;
 }
 
-.hydro3d-view-actions .icon, .hydro3d-reset .icon {
+:is(.hydro3d-view-actions, .wind3d-view-actions) .icon, :is(.hydro3d-reset, .wind3d-reset) .icon {
   width: 14px;
   height: 14px;
   flex: 0 0 auto;
 }
 
-.hydro3d-view-actions button[aria-pressed="true"] {
+:is(.hydro3d-view-actions, .wind3d-view-actions) button[aria-pressed="true"] {
   border-color: #55b2cc;
   background: #123344;
   color: #b0eaff;
 }
 
-.hydro3d-view-actions button:disabled {
+:is(.hydro3d-view-actions, .wind3d-view-actions) button:disabled {
   opacity: .5;
 }
 
@@ -651,16 +651,16 @@
 .hydro3d-parts .lab3d-parts button span { color: #abcfec; }
 .hydro3d-parts .hydro3d-route button span { color: #77e4ed; }
 
-.hydro3d-inputs { margin: 11px 0; gap: 9px; }
+:is(.hydro3d-inputs, .wind3d-inputs) { margin: 11px 0; gap: 9px; }
 
-.hydro3d-field {
+.lab3d-field {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 5px 7px;
 }
 
-.hydro3d-number {
+.lab3d-number {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -669,7 +669,7 @@
   white-space: nowrap;
 }
 
-.hydro3d-number input {
+.lab3d-number input {
   width: 63px;
   min-height: 30px;
   padding: 3px 4px 3px 7px;
@@ -682,10 +682,10 @@
   font-variant-numeric: tabular-nums;
 }
 
-.hydro3d-number input[aria-invalid="true"] { border-color: #dc7469; }
-.hydro3d-field input[type="range"] { grid-column: 1 / -1; }
+.lab3d-number input[aria-invalid="true"] { border-color: #dc7469; }
+.lab3d-field input[type="range"] { grid-column: 1 / -1; }
 
-.hydro3d-net {
+:is(.hydro3d-net, .wind3d-net) {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -697,10 +697,10 @@
   font-size: 12px;
 }
 
-.hydro3d-net strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-.hydro3d-energy { margin-top: 8px; }
+:is(.hydro3d-net, .wind3d-net) strong { color: var(--accent); font-variant-numeric: tabular-nums; }
+:is(.hydro3d-energy, .wind3d-energy) { margin-top: 8px; }
 
-.hydro3d-details {
+:is(.hydro3d-details, .wind3d-details) {
   margin-top: 9px;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -709,9 +709,9 @@
   font-size: 11px;
 }
 
-.hydro3d-details summary { cursor: pointer; }
+:is(.hydro3d-details, .wind3d-details) summary { cursor: pointer; }
 
-.hydro3d-reset {
+:is(.hydro3d-reset, .wind3d-reset) {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -719,7 +719,7 @@
   color: var(--accent);
   font-size: 11px;
 }
-.hydro3d-reset:hover { text-decoration: underline; }
+:is(.hydro3d-reset, .wind3d-reset):hover { text-decoration: underline; }
 
 .hydro3d-powers { margin-top: 11px; }
 .hydro3d-powers [data-power="water"] .lab3d-meter span { background: #52bed7; }
@@ -733,7 +733,7 @@
   padding: 7px 8px;
 }
 
-.hydro3d-lower {
+:is(.hydro3d-lower, .wind3d-lower) {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
@@ -759,7 +759,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-.hydro3d-lesson ol {
+:is(.hydro3d-lesson, .wind3d-lesson) ol {
   margin: 10px 0 0;
   padding-left: 20px;
   list-style: decimal;
@@ -767,16 +767,75 @@
   font-size: 12px;
 }
 
-.hydro3d-lesson li + li { margin-top: 6px; }
+:is(.hydro3d-lesson, .wind3d-lesson) li + li { margin-top: 6px; }
 
 @media (max-width: 750px) {
-  .hydro3d-lower { grid-template-columns: minmax(0, 1fr); }
+  :is(.hydro3d-lower, .wind3d-lower) { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 600px) {
-  .hydro3d-stage { height: 315px; }
+  :is(.hydro3d-stage, .wind3d-stage) { height: 315px; }
 }
 
 @media print {
-  .hydro3d-view-actions, .hydro3d-reset { display: none; }
+  :is(.hydro3d-view-actions, .wind3d-view-actions), :is(.hydro3d-reset, .wind3d-reset) { display: none; }
 }
+
+.wind3d-parts .lab3d-parts button span { color: #abcfec; }
+
+.wind3d-presets {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+  margin: 0 0 9px;
+}
+
+.wind3d-presets button {
+  min-height: 33px;
+  padding: 4px 2px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper2);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.wind3d-presets button:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  border-color: var(--tab-neon-active, var(--accent));
+}
+
+.wind3d-presets button[aria-pressed="true"] {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.wind3d .wind3d-status {
+  border-left: 2px solid var(--accent);
+  background: var(--accent-bg);
+  color: var(--ink);
+  padding: 7px 8px;
+  font-weight: 600;
+}
+
+.wind3d .wind3d-status[data-stopped="true"] {
+  border-color: #d29a56;
+  background: color-mix(in srgb, var(--paper2), #e9a55e 13%);
+}
+
+.wind3d-powers { margin-top: 10px; }
+.wind3d-powers [data-power="wind"] .lab3d-meter span { background: #59bdd6; }
+.wind3d-powers [data-power="rotor"] .lab3d-meter span { background: #e5af61; }
+.wind3d-simulator { margin-top: 9px; }
+
+.wind3d-curve {
+  display: block;
+  width: 100%;
+  margin-top: 11px;
+  color: var(--muted);
+}
+
+.wind3d-curve text { fill: currentColor; font-size: 11px; }
+.wind3d-grid { stroke: var(--line); }
+.wind3d-off-region { fill: color-mix(in srgb, var(--paper2), #de9854 10%); }
+.wind3d-threshold { stroke: #c89156; stroke-width: 1; stroke-dasharray: 4 4; }

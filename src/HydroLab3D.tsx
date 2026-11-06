@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import type {KeyboardEvent} from 'react';
 import {Button, Heading, Icon} from './components';
 import {calculate, defaultsFor} from './energy';
-import {fields, format, T} from './model';
+import {format, T} from './model';
+import {LabParameterField} from './LabParameterField';
+import {handleLabCameraKey} from './lab-viewer';
 import {useApp} from './store';
 import {createHydroViewer} from './hydro-viewer';
 import type {HydroPart, HydroView} from './hydro-viewer';
@@ -72,41 +73,6 @@ const parts = {
       'La estructura alberga la unidad y da acceso a los equipos. El puente grúa mueve componentes durante el montaje y el mantenimiento.')
   }
 };
-
-function HydroField({id, value, onValue, slider = true}: {
-  id: string; value: number; onValue: (value: number) => void; slider?: boolean;
-}) {
-  const {t} = useApp();
-  const field = fields[id];
-  const label = t(field.label);
-  const [draft, setDraft] = useState<string | null>(null);
-  const candidate = draft === null ? value : Number(draft);
-  const invalid = draft === '' || !Number.isFinite(candidate) || candidate < field.min || candidate > field.max;
-  const inputId = 'hydro3d-' + id;
-
-  return (
-    <div className="hydro3d-field">
-      <label htmlFor={inputId}>{label}</label>
-      <div className="hydro3d-number">
-        <input id={inputId} type="number" inputMode="decimal" min={field.min} max={field.max} step={field.step}
-          value={draft ?? String(value)} aria-invalid={invalid || undefined}
-          onChange={event => {
-            const raw = event.target.value;
-            const next = event.target.valueAsNumber;
-            setDraft(raw);
-            if (Number.isFinite(next) && next >= field.min && next <= field.max) onValue(next);
-          }}
-          onBlur={() => setDraft(null)}/>
-        <span>{field.unit}</span>
-      </div>
-      {slider && <input type="range" min={field.min} max={field.max} step={field.step}
-        value={value} aria-label={label} onChange={event => {
-          setDraft(null);
-          onValue(Number(event.target.value));
-        }}/>}
-    </div>
-  );
-}
 
 function HydroSchematic({selected, showFlow}: {selected: HydroPart; showFlow: boolean}) {
   const color = (id: HydroPart) => id === selected ? '#80ee97' : '#6699ba';
@@ -190,23 +156,6 @@ export default function HydroLab3D() {
     }
   }
 
-  function cameraKey(event: KeyboardEvent<HTMLDivElement>) {
-    if (!canOrbit || event.altKey || event.ctrlKey || event.metaKey) return;
-    const camera = viewer.current;
-    switch (event.key) {
-      case 'ArrowLeft': camera?.rotate(-.18, 0); break;
-      case 'ArrowRight': camera?.rotate(.18, 0); break;
-      case 'ArrowUp': camera?.rotate(0, -.14); break;
-      case 'ArrowDown': camera?.rotate(0, .14); break;
-      case '+':
-      case '=': camera?.zoom(1.2); break;
-      case '-': camera?.zoom(1 / 1.2); break;
-      case 'Home': camera?.reset(); break;
-      default: return;
-    }
-    event.preventDefault();
-  }
-
   const numbers = (n: number, digits = 2) => format(n, lang, digits);
   const powers = [
     {label: q('Hidráulica disponível', 'Available hydraulic', 'Hidráulica disponible'), value: result.resource, type: 'water'},
@@ -254,7 +203,7 @@ export default function HydroLab3D() {
             </div>
             <div className="lab3d-stage hydro3d-stage" role="group"
               aria-label={q('Modelo da unidade geradora Francis', 'Francis generating unit model', 'Modelo de la unidad generadora Francis')}
-              aria-describedby="hydro3d-help" tabIndex={canOrbit ? 0 : undefined} onKeyDown={cameraKey}>
+              aria-describedby="hydro3d-help" tabIndex={canOrbit ? 0 : undefined} onKeyDown={event => handleLabCameraKey(event, canOrbit ? viewer.current : null)}>
               <div ref={surface} className="lab3d-surface" aria-hidden="true" hidden={renderMode === 'diagram'}/>
               {renderMode === 'diagram' && <HydroSchematic selected={part} showFlow={showFlow}/>}
               <span className="lab3d-stage-label"><span className="lab3d-indicator"/>{renderLabel[renderMode]}</span>
@@ -296,7 +245,7 @@ export default function HydroLab3D() {
             <span className="lab3d-kicker">{q('CONDIÇÕES HIDRÁULICAS', 'HYDRAULIC CONDITIONS', 'CONDICIONES HIDRÁULICAS')}</span>
             <h2 id="hydro3d-controls">{q('Ajustar operação', 'Set operating conditions', 'Ajustar operación')}</h2>
             <div className="lab3d-inputs hydro3d-inputs">
-              {['flow', 'head', 'lossHead'].map(id => <HydroField key={id} id={id} value={input[id]} onValue={value => setParameter(id, value)}/>)}
+              {['flow', 'head', 'lossHead'].map(id => <LabParameterField key={id} id={id} value={input[id]} onValue={value => setParameter(id, value)}/>)}
             </div>
             <div className="hydro3d-net">
               <span>{q('Queda líquida', 'Net head', 'Altura neta')}</span>
@@ -305,7 +254,7 @@ export default function HydroLab3D() {
             <details className="hydro3d-details">
               <summary>{q('Rendimentos e limite da unidade', 'Unit efficiencies and limit', 'Rendimientos y límite de la unidad')}</summary>
               <div className="lab3d-inputs hydro3d-inputs">
-                {adjustable.map(id => <HydroField key={id} id={id} value={input[id]} onValue={value => setParameter(id, value)} slider={false}/>)}
+                {adjustable.map(id => <LabParameterField key={id} id={id} value={input[id]} onValue={value => setParameter(id, value)} slider={false}/>)}
               </div>
             </details>
             <button type="button" className="hydro3d-reset" onClick={() => {

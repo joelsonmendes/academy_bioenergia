@@ -2,6 +2,7 @@ import {MODULES,INPUTS} from './content.js';
 import type {SourceKey,Parameters,Result,InputDefinition,Lesson} from './types';
 const modules=MODULES as unknown as Record<SourceKey,Lesson>;
 const inputs=INPUTS as Record<string,InputDefinition>;
+export const windSpeedLimits = {cutIn: 3, cutOut: 25} as const;
 export function calculate(key:SourceKey,v:Parameters):Result{
  let power=0,resource=0,gross=0,details:Record<string,number|null>={},limited=false,stopped=false;
  const h=v.hours;
@@ -15,7 +16,7 @@ export function calculate(key:SourceKey,v:Parameters):Result{
   const dc=resource*temperature*(1-v.lossesPV/100);gross=dc*v.etaInv/100;power=Math.min(v.ratedPV,gross);limited=gross>v.ratedPV;details={temperature,dc,uncapped:gross};
  }else if(key==='wind'||key==='tidal'){
   const isWind=key==='wind',d=isWind?v.diameter:v.tidalDiameter,speed=isWind?v.speed:v.tidalSpeed,rho=isWind?v.rhoAir:v.rhoSea,cp=isWind?v.cp:v.cpTidal,eta=(isWind?v.etaDrive:v.etaMarine)/100,rated=isWind?v.ratedWind:v.ratedTidal;
-  const area=Math.PI*d*d/4;resource=.5*rho*area*speed**3/1000;const shaft=resource*cp;gross=shaft*eta;stopped=isWind&&(speed<3||speed>=25);power=stopped?0:Math.min(gross,rated);limited=!stopped&&gross>rated;details={area,speed,rho,cp,eta,rated,shaft,uncapped:gross};
+  const area=Math.PI*d*d/4;resource=.5*rho*area*speed**3/1000;const shaft=resource*cp;gross=shaft*eta;stopped=isWind&&(speed<windSpeedLimits.cutIn||speed>=windSpeedLimits.cutOut);power=stopped?0:Math.min(gross,rated);limited=!stopped&&gross>rated;details={area,speed,rho,cp,eta,rated,shaft,uncapped:gross};
  }else{
   const netHead=Math.max(0,v.head-v.lossHead);resource=1000*9.81*v.flow*netHead/1000;gross=resource*v.etaTurb/100*v.etaGen/100;power=Math.min(gross,v.ratedHydro);limited=gross>v.ratedHydro;details={netHead,shaft:resource*v.etaTurb/100,uncapped:gross,grossPotential:1000*9.81*v.flow*v.head/1000};
  }
