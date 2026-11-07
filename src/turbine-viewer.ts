@@ -22,7 +22,7 @@ const offsets = {
   rotor: [.5, 0], stator: [3.18, 0], terminals: [3.18, .55]
 } as const;
 
-function buildAssembly(scene: Scene, lightweight: boolean) {
+export function buildTurbineAssembly(scene: Scene | Group, lightweight: boolean) {
   const segments = lightweight ? 16 : 32;
   const blades = lightweight ? 12 : 18;
   const positions = {
@@ -141,7 +141,7 @@ function buildAssembly(scene: Scene, lightweight: boolean) {
 export function createTurbineViewer(host: HTMLDivElement, onPart: (id: PartId) => void, onLost: () => void) {
   let exploded = false;
   let spinning = false;
-  const viewer = createLabViewer(host, buildAssembly, () => ({
+  const viewer = createLabViewer(host, buildTurbineAssembly, () => ({
     position: [3.5, 3.5, 10], target: [exploded ? .18 : 0, .1, 0],
     halfHeight: 2.1, halfWidth: exploded ? 6.7 : 3.75
   }), -1.17, onPart, onLost);

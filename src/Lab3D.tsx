@@ -6,6 +6,7 @@ import {fields, format, T} from './model';
 import RenewableBench3D from './RenewableBench3D';
 import HydroLab3D from './HydroLab3D';
 import WindLab3D from './WindLab3D';
+import BiomassPlant3D from './BiomassPlant3D';
 import {useApp} from './store';
 import {createTurbineViewer, partIds} from './turbine-viewer';
 import type {PartId} from './turbine-viewer';
@@ -89,7 +90,7 @@ export default function Lab3D() {
     <>
       <nav className="lab3d-stations lab3d-modes" aria-label={t(T('Estações do Laboratório 3D', '3D lab stations', 'Estaciones del laboratorio 3D'))}>
         <button type="button" aria-pressed={!bench && !hydro && !wind} onClick={() => navigate('lab3d', 'biomass')}>
-          <Icon name="bolt"/>{t(T('Turbina e gerador', 'Turbine and generator', 'Turbina y generador'))}
+          <Icon name="bolt"/>{t(T('Usina de biomassa', 'Biomass power plant', 'Central de biomasa'))}
         </button>
         <button type="button" aria-pressed={bench} onClick={() => navigate('lab3d', 'solar')}>
           <Icon name="layers"/>{t(T('Bancada renovável', 'Renewable bench', 'Banco renovable'))}
@@ -101,7 +102,34 @@ export default function Lab3D() {
           <Icon name="wind"/>{t(T('Aerogerador 3D', 'Wind turbine 3D', 'Aerogenerador 3D'))}
         </button>
       </nav>
-      {wind ? <WindLab3D/> : hydro ? <HydroLab3D/> : bench ? <RenewableBench3D/> : <TurbineLab/>}
+      {wind ? <WindLab3D/> : hydro ? <HydroLab3D/> : bench ? <RenewableBench3D/> : <BiomassStation/>}
+    </>
+  );
+}
+
+function BiomassStation() {
+  const {t} = useApp();
+  const [detail, setDetail] = useState(false);
+  const title = useRef<HTMLDivElement>(null);
+
+  function openDetail(show: boolean) {
+    setDetail(show);
+    window.scrollTo({top: 0, behavior: 'instant'});
+  }
+
+  useEffect(() => {
+    if (detail) title.current?.focus({preventScroll: true});
+  }, [detail]);
+
+  if (!detail) return <BiomassPlant3D onTurbineDetail={() => openDetail(true)}/>;
+  return (
+    <>
+      <div className="bioplant-back" ref={title} tabIndex={-1}>
+        <Button onClick={() => openDetail(false)}>
+          {t(T('Voltar à usina 3D', 'Back to 3D plant', 'Volver a la planta 3D'))}
+        </Button>
+      </div>
+      <TurbineLab/>
     </>
   );
 }
