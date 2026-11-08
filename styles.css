@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./amazon.css";
 @import "./lab3d.css";
+@import "./pv-report.css";
 @source "./src";
 :root{color-scheme:dark;--bg:#0a1220;--paper:#111d2e;--paper2:#17253a;--paper3:#1c2d44;--ink:#edf3fb;--muted:#a5b5ca;--subtle:#7c91ad;--line:#26354c;--accent:#41d6b3;--accent-dark:#0b3c34;--accent-bg:#13382f;--blue:#49b5df;--sidebar:#0b1424;--sidebar-ink:#a8bad0;--shadow:0 14px 45px #0000001a;--warning:#f6c47c;--warning-bg:#392c1a;--error:#ffaca7;--radius:15px;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}
 :root[data-theme=light]{color-scheme:light;--bg:#f2f5fa;--paper:#fff;--paper2:#f4f7fb;--paper3:#e9eff6;--ink:#162c45;--muted:#5e728b;--subtle:#72859d;--line:#dfe7f0;--accent:#087e6e;--accent-dark:#055e51;--accent-bg:#e6f5ef;--blue:#147fa8;--sidebar:#101f34;--sidebar-ink:#afbed0;--shadow:0 14px 45px #1a365d08;--warning:#875213;--warning-bg:#fff1d9;--error:#bf3f39}

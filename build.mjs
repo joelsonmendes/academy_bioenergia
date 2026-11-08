@@ -10,7 +10,8 @@ await mkdir(join(root,'dist'),{recursive:true});
 const cli=JSON.parse(await readFile(join(root,'node_modules/@tailwindcss/cli/package.json'),'utf8'));
 execFileSync(process.execPath,[join(root,'node_modules/@tailwindcss/cli',cli.bin.tailwindcss),'-i',join(root,'styles.css'),'-o',join(root,'dist/styles.css'),'--minify'],{cwd:root,stdio:'inherit'});
 await Promise.all([
- build({absWorkingDir:root,entryPoints:['src/App.tsx'],outfile:'dist/app.js',bundle:true,minify:true,format:'iife',target:['es2022'],define:{'process.env.NODE_ENV':'"production"'},legalComments:'eof'}),
+ build({absWorkingDir:root,entryPoints:['src/App.tsx'],loader:{'.ttf':'base64'},outfile:'dist/app.js',bundle:true,minify:true,format:'iife',target:['es2022'],define:{'process.env.NODE_ENV':'"production"'},legalComments:'eof'}),
+ build({absWorkingDir:root,entryPoints:['src/pv-report-engine.ts'],outfile:'server/pv-report-model.mjs',bundle:true,platform:'node',format:'esm',target:['node22'],minify:false}),
  build({absWorkingDir:root,entryPoints:['src/energy.ts'],outfile:'server/energy-model.mjs',bundle:true,platform:'node',format:'esm',target:['node22'],minify:false}),
  build({absWorkingDir:root,entryPoints:['src/amazon-engine.ts'],outfile:'server/amazon-model.mjs',bundle:true,platform:'node',format:'esm',target:['node22'],minify:false}),
  build({absWorkingDir:root,entryPoints:['src/profiles.ts'],outfile:'server/profile-model.mjs',bundle:true,platform:'node',format:'esm',target:['node22'],minify:false}),

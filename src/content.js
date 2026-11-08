@@ -1,6 +1,7 @@
 import SOURCES from './references.json' with {type:'json'};
 const T = (pt,en,es)=>({pt,en,es});
 const UI={
+ pvreport:T('Relatório técnico','Technical report','Informe técnico'),
  lab3d:T('Laboratório 3D','3D Lab','Laboratorio 3D'),
  amazon:T('Campus Amazônia','Amazon Campus','Campus Amazonía'),
  home:T('Visão geral','Overview','Vista general'),plants:T('Usinas por dentro','Inside the plants','Centrales por dentro'),sim:T('Laboratório virtual','Virtual laboratory','Laboratorio virtual'),mentor:T('Orientador inteligente','Smart guide','Orientador inteligente'),activities:T('Missões de aprendizagem','Learning missions','Misiones de aprendizaje'),sources:T('Biblioteca de fontes','Source library','Biblioteca de fuentes'),academy:T('APRENDER • EXPLORAR • TRANSFORMAR','LEARN • EXPLORE • TRANSFORM','APRENDER • EXPLORAR • TRANSFORMAR'),demo:T('VERSÃO DE TESTE • OFFLINE','TEST VERSION • OFFLINE','VERSIÓN DE PRUEBA • SIN CONEXIÓN'),menu:T('Abrir menu','Open menu','Abrir menú'),close:T('Fechar','Close','Cerrar'),theme:T('Alternar tema claro/escuro','Toggle light/dark theme','Alternar tema claro/oscuro'),language:T('Idioma','Language','Idioma'),skip:T('Ir para o conteúdo','Skip to content','Ir al contenido'),
