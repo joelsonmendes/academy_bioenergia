@@ -4,6 +4,7 @@ import {Button, Heading, Icon} from './components';
 import {calculate} from './energy';
 import {fields, format, T} from './model';
 import RenewableBench3D from './RenewableBench3D';
+import SolarShadingLab from './SolarShadingLab';
 import HydroLab3D from './HydroLab3D';
 import WindLab3D from './WindLab3D';
 import BiomassPlant3D from './BiomassPlant3D';
@@ -82,8 +83,9 @@ function Diagram({selected, exploded}: {selected: PartId; exploded: boolean}) {
 }
 
 export default function Lab3D() {
-  const {source, navigate, t} = useApp();
+  const {source, labView, navigate, t} = useApp();
   const bench = source === 'solar';
+  const shading = bench && labView === 'shading';
   const wind = source === 'wind';
   const hydro = source === 'hydro';
   return (
@@ -92,8 +94,11 @@ export default function Lab3D() {
         <button type="button" aria-pressed={!bench && !hydro && !wind} onClick={() => navigate('lab3d', 'biomass')}>
           <Icon name="bolt"/>{t(T('Usina de biomassa', 'Biomass power plant', 'Central de biomasa'))}
         </button>
-        <button type="button" aria-pressed={bench} onClick={() => navigate('lab3d', 'solar')}>
+        <button type="button" aria-pressed={bench && !shading} onClick={() => navigate('lab3d', 'solar')}>
           <Icon name="layers"/>{t(T('Bancada renovável', 'Renewable bench', 'Banco renovable'))}
+        </button>
+        <button type="button" aria-pressed={shading} onClick={() => navigate('lab3d', 'solar', 'shading')}>
+          <Icon name="sun"/>{t(T('Sombreamento FV', 'PV shading', 'Sombreado FV'))}
         </button>
         <button type="button" aria-pressed={hydro} onClick={() => navigate('lab3d', 'hydro')}>
           <Icon name="drop"/>{t(T('Hidrelétrica', 'Hydropower', 'Hidroeléctrica'))}
@@ -102,7 +107,7 @@ export default function Lab3D() {
           <Icon name="wind"/>{t(T('Aerogerador 3D', 'Wind turbine 3D', 'Aerogenerador 3D'))}
         </button>
       </nav>
-      {wind ? <WindLab3D/> : hydro ? <HydroLab3D/> : bench ? <RenewableBench3D/> : <BiomassStation/>}
+      {shading ? <SolarShadingLab/> : wind ? <WindLab3D/> : hydro ? <HydroLab3D/> : bench ? <RenewableBench3D/> : <BiomassStation/>}
     </>
   );
 }

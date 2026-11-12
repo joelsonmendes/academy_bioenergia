@@ -1,0 +1,193 @@
+.shade-lab {
+  --shade-clear: #67d4c5;
+  --shade-trace: #ffc16d;
+  --shade-warning: #ffc16d;
+}
+
+:root[data-theme="light"] .shade-lab {
+  --shade-clear: #087f73;
+  --shade-trace: #b36717;
+  --shade-warning: #915312;
+}
+
+.shade-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 17px;
+}
+
+.shade-metrics > div {
+  min-width: 0;
+  padding: 14px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+}
+
+.shade-metrics > div:first-child {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+}
+
+.shade-metrics dt, .shade-metric-note {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.shade-metrics dd { margin: 0; }
+.shade-metrics dd:not(.shade-metric-note) {
+  margin: 4px 0 2px;
+  color: var(--ink);
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 750;
+  line-height: 1.18;
+  font-variant-numeric: tabular-nums;
+}
+.shade-metrics > div:nth-child(3) dd:not(.shade-metric-note) { color: var(--shade-warning); }
+.shade-metrics dd small { font-size: .48em; font-weight: 650; }
+
+.shade-workspace, .shade-results {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(258px, 29%);
+  gap: 16px;
+  align-items: start;
+}
+
+.shade-viewer, .shade-controls, .shade-chart, .shade-inspection { min-width: 0; }
+.shade-stage { height: clamp(340px, 31vw, 460px); background: #081724; }
+.shade-fallback { width: 100%; height: 100%; display: block; }
+
+.shade-scene-status, .shade-scene-name {
+  position: absolute;
+  top: 12px;
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  border: 1px solid #365468;
+  border-radius: 7px;
+  padding: 5px 9px;
+  background: #0b1b2ce8;
+  color: #e3eff8;
+  font-size: 11px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+.shade-scene-status { left: 12px; }
+.shade-scene-name { right: 12px; }
+.shade-scene-status .icon { width: 15px; height: 15px; color: #ffcf80; }
+
+.shade-time {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 13px 14px 9px;
+  border-bottom: 1px solid #29465e;
+}
+.shade-time > .button { justify-content: center; min-height: 43px; font-size: 12px; }
+.shade-viewer .lab3d-help { padding-top: 8px; }
+
+.shade-range > div { display: flex; align-items: baseline; justify-content: space-between; gap: 7px; }
+.shade-range label, .shade-field, .shade-checkbox { font-size: 12px; font-weight: 620; }
+.shade-range output { flex-shrink: 0; color: var(--accent); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.shade-time .shade-range output { color: #90edce; font-size: 13px; }
+.shade-range input[type="range"] { display: block; width: 100%; height: 26px; margin: 0; accent-color: var(--accent); }
+.shade-time input[type="range"] { accent-color: #77dfb3; }
+.shade-field { display: grid; gap: 5px; margin: 11px 0; }
+.shade-field :is(input, select) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 41px;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--paper2);
+  color: var(--ink);
+  font-size: 13px;
+}
+.shade-sliders { display: grid; gap: 5px; }
+.shade-sliders + .shade-sliders { border-top: 1px solid var(--line); padding-top: 9px; margin-top: 6px; }
+.shade-controls .shade-direction { margin: 3px 0 10px; font-size: 10px; }
+.shade-checkbox { display: flex; align-items: center; gap: 7px; padding: 7px 0; }
+.shade-checkbox input { width: 16px; height: 16px; flex: none; accent-color: var(--accent); }
+.shade-advanced { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 9px; }
+.shade-advanced summary, .shade-method summary { color: var(--ink); font-weight: 700; cursor: pointer; }
+.shade-advanced summary { font-size: 12px; }
+.shade-advanced .shade-range { margin-top: 9px; }
+
+.shade-results { margin: 16px 0; }
+.shade-chart-head, .shade-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.shade-chart-head { justify-content: space-between; }
+.shade-chart-head .button { min-height: 36px; padding: 7px 10px; font-size: 11px; }
+.shade-chart-head .icon { width: 14px; height: 14px; }
+.shade-legend { color: var(--muted); font-size: 11px; margin: 12px 0 4px; }
+.shade-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.shade-legend i { display: inline-block; width: 18px; border-top: 2px solid var(--shade-trace); }
+.shade-legend .shade-clear-key { border-top: 2px dashed var(--shade-clear); }
+.shade-chart svg { display: block; width: 100%; }
+.shade-chart svg text, .shade-inspection svg text { fill: var(--muted); font-family: inherit; font-size: 12px; }
+.shade-chart-grid { stroke: var(--line); }
+.shade-chart-cursor { stroke: var(--subtle); stroke-dasharray: 3 4; }
+.shade-curve-clear, .shade-curve-power { fill: none; stroke-width: 2.4px; stroke-linejoin: round; }
+.shade-curve-clear { stroke: var(--shade-clear); stroke-dasharray: 6 4; }
+.shade-curve-power { stroke: var(--shade-trace); }
+.shade-dot-clear { fill: var(--shade-clear); }
+.shade-dot-power { fill: var(--shade-trace); }
+.shade-chart > p { margin: 4px 0 0; }
+
+.shade-module-picker { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 11px 0 8px; }
+.shade-module-picker button {
+  min-height: 36px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--paper2);
+  font-size: 11px;
+  font-weight: 700;
+}
+.shade-module-picker button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
+.shade-inspection-body { display: grid; grid-template-columns: minmax(92px, 1fr) minmax(92px, 1fr); align-items: center; gap: 8px; }
+.shade-inspection svg { width: 100%; max-height: 184px; }
+.shade-inspection svg .shade-block-hit { fill: var(--shade-warning); font-weight: 700; }
+.shade-inspection dl { display: grid; gap: 9px; margin: 0; }
+.shade-inspection dt { color: var(--muted); font-size: 10px; line-height: 1.4; }
+.shade-inspection dd { margin: 2px 0 0; color: var(--ink); font-size: 16px; font-weight: 720; }
+.shade-inspection > p { margin: 5px 0 0; }
+
+.shade-method summary { font-size: 14px; }
+.shade-method-body { border-top: 1px solid var(--line); margin-top: 11px; padding-top: 10px; }
+.shade-method-body h3 { font-size: 14px; margin: 9px 0 3px; }
+.shade-method-body p { margin: 5px 0 12px; }
+.shade-equations { display: grid; gap: 1px; margin: 14px 0; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--line); }
+.shade-equations div { padding: 9px 12px; background: var(--paper2); }
+.shade-equations dt { font-size: 11px; color: var(--muted); }
+.shade-equations dd { margin: 0; font-size: 13px; color: var(--ink); }
+.shade-viewer:fullscreen .shade-stage { flex: 1 1 auto; }
+
+@media (max-width: 1150px) {
+  .shade-workspace, .shade-results { grid-template-columns: minmax(0, 1fr) minmax(240px, 34%); }
+}
+
+@media (max-width: 920px) {
+  .shade-workspace, .shade-results { grid-template-columns: 1fr; }
+  .shade-stage { height: clamp(320px, 48vw, 445px); }
+  .shade-inspection-body { grid-template-columns: minmax(100px, 150px) minmax(100px, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .shade-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .shade-metrics > div { padding: 11px 10px; }
+  .shade-metrics dt, .shade-metric-note { font-size: 10px; }
+  .shade-stage { height: 315px; }
+  .shade-time { gap: 10px; padding: 10px 9px 6px; }
+  .shade-time > .button { padding: 6px 8px; font-size: 10px; gap: 4px; }
+  .shade-time > .button .icon { width: 15px; height: 15px; }
+  .shade-scene-status, .shade-scene-name { top: 8px; font-size: 9px; padding: 4px 6px; }
+  .shade-scene-status { left: 8px; }
+  .shade-scene-name { right: 8px; }
+  .shade-legend { font-size: 10px; }
+  .shade-chart svg text { font-size: 17px; }
+}
