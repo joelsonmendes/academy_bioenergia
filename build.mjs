@@ -17,7 +17,7 @@ await Promise.all([
  build({absWorkingDir:root,entryPoints:['src/profiles.ts'],outfile:'server/profile-model.mjs',bundle:true,platform:'node',format:'esm',target:['node22'],minify:false}),
  build({absWorkingDir:root,entryPoints:['src/learning-schema.ts'],outfile:'server/learning-model.mjs',bundle:true,platform:'node',format:'esm',target:['node22'],minify:false})
 ]);
-const keys=['biomass','solar','wind','hydro','tidal'];const images={};for(const k of keys)images[k]='data:image/webp;base64,'+(await readFile(join(root,'assets',k+'.webp'))).toString('base64');
+const imageKeys=['biomass','solar','wind','hydro','tidal','carbon-cover','carbon-microgrid','carbon-industry'];const images={};for(const k of imageKeys)images[k]='data:image/webp;base64,'+(await readFile(join(root,'assets',k+'.webp'))).toString('base64');
 const hotspots=JSON.parse(await readFile(join(root,'assets/hotspots.json'),'utf8'));
 const institutionalLogo='data:image/webp;base64,'+(await readFile(join(root,'assets/logo-senai-hub.webp'))).toString('base64');
 const css=await readFile(join(root,'dist/styles.css'),'utf8'),js=(await readFile(join(root,'dist/app.js'),'utf8')).replace(/<\/script/gi,'<\\/script');
@@ -32,18 +32,18 @@ const sw=(await readFile(join(root,'public/sw.template.js'),'utf8')).replace('__
 await writeFile(join(root,'dist/sw.js'),sw);
 const dest=join(root,'dist/index.html');
 await writeFile(join(root,'dist/qa-mobile.html'),'<!doctype html><html><meta name="viewport" content="width=device-width"><title>Verificação móvel</title><style>body{margin:0;display:flex;justify-content:center;background:#273344}iframe{width:390px;height:844px;border:0}</style><iframe src="index.html" title="Plataforma no celular"></iframe></html>');
-console.log(JSON.stringify({html:dest,bytes:Buffer.byteLength(html),technology:'React + TypeScript + Tailwind CSS',images:keys.length,offline:true}));
+console.log(JSON.stringify({html:dest,bytes:Buffer.byteLength(html),technology:'React + TypeScript + Tailwind CSS',images:imageKeys.length,offline:true}));
 
 // Modular distribution for PWA and community installations. The standalone HTML stays available.
 const web=join(root,'dist/web');await mkdir(join(web,'assets'),{recursive:true});
-const modularAssets=Object.fromEntries(keys.map(key=>[key,'./assets/'+key+'.webp']));
+const modularAssets=Object.fromEntries(imageKeys.map(key=>[key,'./assets/'+key+'.webp']));
 const config=`const SENAI_HUB_LOGO=${JSON.stringify(institutionalLogo)};const BIO_ASSETS=${JSON.stringify(modularAssets)};const BIO_HOTSPOTS=${JSON.stringify(hotspots)};`;
 const modular=html.replace('<html lang=', '<html data-distribution="modular" lang=').replace('<style>'+css+'</style>','<link rel="stylesheet" href="./styles.css">').replace(/<script>[\s\S]*?<\/script>/,'<script src="./config.js"></script><script src="./app.js" defer></script>').replace('</head>',manifestLink+'</head>');
 await writeFile(join(web,'index.html'),modular);
 await writeFile(join(web,'config.js'),config);
 await copyFile(join(root,'dist/app.js'),join(web,'app.js'));await copyFile(join(root,'dist/styles.css'),join(web,'styles.css'));
-const shell=['index.html','app.js','styles.css','config.js','manifest.webmanifest','app-icon.svg','app-icon-192.png','app-icon-512.png','logo-senai-hub.webp','apostila-amazonia.html','plataforma-portatil.html',...keys.map(key=>'assets/'+key+'.webp')];
-for(const key of keys)await copyFile(join(root,'assets',key+'.webp'),join(web,'assets',key+'.webp'));
+const shell=['index.html','app.js','styles.css','config.js','manifest.webmanifest','app-icon.svg','app-icon-192.png','app-icon-512.png','logo-senai-hub.webp','apostila-amazonia.html','plataforma-portatil.html',...imageKeys.map(key=>'assets/'+key+'.webp')];
+for(const key of imageKeys)await copyFile(join(root,'assets',key+'.webp'),join(web,'assets',key+'.webp'));
 for(const name of ['manifest.webmanifest','app-icon.svg','app-icon-192.png','app-icon-512.png','logo-senai-hub.webp','apostila-amazonia.html'])await copyFile(join(root,'dist',name),join(web,name));
 await copyFile(join(root,'dist/index.html'),join(web,'plataforma-portatil.html'));
 const digest=createHash('sha256');for(const file of shell)digest.update(await readFile(join(web,file)));

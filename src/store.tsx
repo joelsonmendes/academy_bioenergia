@@ -3,7 +3,7 @@ import {lessons,tr,ui} from './model';
 import {defaultsFor,sourceKeys,validValues} from './energy';
 import type {Language,SourceKey,Page,Parameters,Scenario,Localized,Lab3DView} from './types';
 import {scopedKey,PROFILE_ID,MAIN_PROFILE} from './profiles';
-const pages:Page[]=['home','plants','sim','pvreport','lab3d','amazon','activities','mentor','sources'];
+const pages:Page[]=['home','plants','sim','pvreport','lab3d','amazon','carbon','activities','mentor','sources'];
 let persistence=true;
 function read<T>(key:string,fallback:T):T{try{const s=localStorage.getItem(scopedKey('bioenergia.pro.v2.'+key))??(PROFILE_ID===MAIN_PROFILE&&key!=='theme'?localStorage.getItem('bioenergy.v1.'+key):null);return s?JSON.parse(s):fallback;}catch{return fallback;}}
 function write(key:string,value:unknown){try{localStorage.setItem(scopedKey('bioenergia.pro.v2.'+key),JSON.stringify(value));}catch{persistence=false;}}

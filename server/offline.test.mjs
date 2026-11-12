@@ -32,9 +32,9 @@ test('background sync retains work while offline, then sends one authenticated s
 });
 
 test('modular PWA caches scripts, CSS and all WebPs and preserves the study guide route offline',async()=>{
- const w=await worker('web/');await w.lifecycle('install');assert.equal(w.calls.length,16);w.setOffline(true);
- for(const path of ['index.html','app.js','styles.css','config.js','assets/biomass.webp','assets/tidal.webp','apostila-amazonia.html','plataforma-portatil.html']){let response;w.handlers.fetch({request:{url:'https://example.test/campus/'+path+'?caderno=student-0123456789',mode:path.endsWith('.html')?'navigate':'cors',method:'GET'},respondWith:p=>response=p});assert.ok((await(await response).arrayBuffer()).byteLength>0);}
- let guide;w.handlers.fetch({request:{url:'https://example.test/campus/apostila-amazonia.html',mode:'navigate',method:'GET'},respondWith:p=>guide=p});assert.match(await(await guide).text(),/Apostila de estudos/);assert.equal(w.calls.length,16);
+ const w=await worker('web/');await w.lifecycle('install');assert.equal(w.calls.length,19);w.setOffline(true);
+ for(const path of ['index.html','app.js','styles.css','config.js','assets/biomass.webp','assets/tidal.webp','assets/carbon-cover.webp','assets/carbon-microgrid.webp','assets/carbon-industry.webp','apostila-amazonia.html','plataforma-portatil.html']){let response;w.handlers.fetch({request:{url:'https://example.test/campus/'+path+'?caderno=student-0123456789',mode:path.endsWith('.html')?'navigate':'cors',method:'GET'},respondWith:p=>response=p});assert.ok((await(await response).arrayBuffer()).byteLength>0);}
+ let guide;w.handlers.fetch({request:{url:'https://example.test/campus/apostila-amazonia.html',mode:'navigate',method:'GET'},respondWith:p=>guide=p});assert.match(await(await guide).text(),/Apostila de estudos/);assert.equal(w.calls.length,19);
 });
 test('background queue uses a separate credential and acknowledgment for each notebook',async()=>{
  const w=await worker(),a=newLearningRecord(),b=newLearningRecord();a.sequence=3;b.sequence=8;w.records.set('profile-index',[{id:'principal'},{id:'student-0123456789'}]);

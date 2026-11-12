@@ -4,6 +4,7 @@ var UI = {
   pvreport: T("Relat\xF3rio t\xE9cnico", "Technical report", "Informe t\xE9cnico"),
   lab3d: T("Laborat\xF3rio 3D", "3D Lab", "Laboratorio 3D"),
   amazon: T("Campus Amaz\xF4nia", "Amazon Campus", "Campus Amazon\xEDa"),
+  carbon: T("Descarboniza\xE7\xE3o", "Decarbonization", "Descarbonizaci\xF3n"),
   home: T("Vis\xE3o geral", "Overview", "Vista general"),
   plants: T("Usinas por dentro", "Inside the plants", "Centrales por dentro"),
   sim: T("Laborat\xF3rio virtual", "Virtual laboratory", "Laboratorio virtual"),
