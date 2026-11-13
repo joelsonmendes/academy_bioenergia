@@ -1,7 +1,8 @@
 import {benchDefaults,referenceWires,hybridDefaults,schoolLoads,validBenchInput,validHybridInput,validLoad,terminalIds,type BenchInput,type Wire,type BenchFault,type HybridInput,type LoadRow} from './amazon-engine';
 import {sourceKeys,defaultsFor,validValues} from './energy';
+import {validIntegratorRecord,type IntegratorRecord} from './integrator-schema';
 export interface TutorQuestion {id:string;subject:string;body:string;module:string;createdAt:string}
-export interface LearningRecord {schema:1;sequence:number;updatedAt:string;bench:BenchInput;wires:Wire[];fault:BenchFault;hybrid:HybridInput;loads:LoadRow[];caseId:'school'|'community'|'rain';completed:string[];projectNote:string;maintenance:string[];questions:TutorQuestion[];legacy:{notes:string;visited:string[];correct:string[];scenarios:unknown[];values:Record<string,Record<string,number>>}}
+export interface LearningRecord {schema:1;sequence:number;updatedAt:string;bench:BenchInput;wires:Wire[];fault:BenchFault;hybrid:HybridInput;loads:LoadRow[];caseId:'school'|'community'|'rain';completed:string[];projectNote:string;maintenance:string[];integrator?:IntegratorRecord;questions:TutorQuestion[];legacy:{notes:string;visited:string[];correct:string[];scenarios:unknown[];values:Record<string,Record<string,number>>}}
 export const lessonIds=['amazon-isolated-hybrid','amazon-pv-battery-instrumentation','amazon-biomass-residues','amazon-operation-humidity','amazon-riverside-school-project'];
 export function newLearningRecord():LearningRecord{return{schema:1,sequence:0,updatedAt:new Date().toISOString(),bench:{...benchDefaults},wires:referenceWires.map(w=>[...w]),fault:'none',hybrid:{...hybridDefaults},loads:schoolLoads.map(row=>({...row})),caseId:'school',completed:[],projectNote:'',maintenance:[],questions:[],legacy:{notes:'',visited:[],correct:[],scenarios:[],values:Object.fromEntries(sourceKeys.map(key=>[key,defaultsFor(key)]))}};}
 const text=(v:unknown,max:number)=>typeof v==='string'&&v.length<=max;
@@ -13,6 +14,7 @@ export function validLearningRecord(value:unknown):value is LearningRecord{
  if(!Array.isArray(s.wires)||s.wires.length>24||s.wires.some(w=>!Array.isArray(w)||w.length!==2||w[0]===w[1]||w.some(t=>!terminalIds.includes(t))))return false;
  if(!['none','open','reverse','short','fuse','overload'].includes(s.fault)||!['school','community','rain'].includes(s.caseId))return false;
  if(!textArray(s.completed)||!s.completed.every(id=>lessonIds.includes(id))||!textArray(s.maintenance)||!text(s.projectNote,15000))return false;
+ if(s.integrator!==undefined&&!validIntegratorRecord(s.integrator))return false;
  if(!Array.isArray(s.questions)||s.questions.length>50||!s.questions.every(validQuestion)||new Set(s.questions.map(q=>q.id)).size!==s.questions.length)return false;
  return!!s.legacy&&text(s.legacy.notes,15000)&&textArray(s.legacy.visited,5)&&s.legacy.visited.every(key=>sourceKeys.includes(key as any))&&textArray(s.legacy.correct,5)&&s.legacy.correct.every(key=>sourceKeys.includes(key as any))&&Array.isArray(s.legacy.scenarios)&&s.legacy.scenarios.length<=20&&!!s.legacy.values&&sourceKeys.every(key=>validValues(key,s.legacy.values[key]))&&s.legacy.scenarios.every(item=>{const x=item as {id:string;module:any;values:any;date:string};return!!x&&typeof x.id==='string'&&sourceKeys.includes(x.module)&&validValues(x.module,x.values)&&typeof x.date==='string'&&Number.isFinite(Date.parse(x.date));})&&JSON.stringify(s).length<512000;
 }

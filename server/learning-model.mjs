@@ -344,6 +344,35 @@ function validValues(key, value) {
 }
 var sourceKeys = Object.keys(modules);
 
+// src/integrator-schema.ts
+var integratorSteps = ["loads", "sizing", "compare", "delivery"];
+var designLimits = {
+  hsp: [0.5, 8],
+  moduleW: [10, 1e3],
+  pr: [45, 100],
+  autonomyDays: [0.1, 5],
+  dod: [50, 90]
+};
+var simulationLimits = {
+  hsp: [0, 8],
+  modules: [0, 1e3],
+  batteryKWh: [1, 200],
+  inverterKW: [0.5, 50],
+  socStart: [10, 100],
+  generatorKW: [0.2, 50],
+  fuelLiters: [0, 500]
+};
+function inRanges(values, limits) {
+  return !!values && Object.keys(limits).every((key) => {
+    const [min, max] = limits[key];
+    return Number.isFinite(values[key]) && values[key] >= min && values[key] <= max;
+  });
+}
+function validIntegratorRecord(value) {
+  const v = value;
+  return !!v && integratorSteps.includes(v.step) && Array.isArray(v.loads) && v.loads.length > 0 && v.loads.length <= 30 && v.loads.every((row) => validLoad(row) && typeof row.essential === "boolean") && new Set(v.loads.map((row) => row.id)).size === v.loads.length && inRanges(v.design, designLimits) && inRanges(v.simulation, simulationLimits) && Number.isInteger(v.simulation.modules) && v.simulation.socStart >= 100 - v.design.dod && typeof v.compared === "boolean" && typeof v.reviewed === "boolean" && ["", "solar", "diesel", "revise"].includes(v.choice) && typeof v.author === "string" && v.author.length <= 80 && [v.rationale, v.maintenance, v.fieldData].every((note) => typeof note === "string" && note.length <= 2400);
+}
+
 // src/learning-schema.ts
 var lessonIds = ["amazon-isolated-hybrid", "amazon-pv-battery-instrumentation", "amazon-biomass-residues", "amazon-operation-humidity", "amazon-riverside-school-project"];
 function newLearningRecord() {
@@ -362,6 +391,7 @@ function validLearningRecord(value) {
   if (!Array.isArray(s.wires) || s.wires.length > 24 || s.wires.some((w) => !Array.isArray(w) || w.length !== 2 || w[0] === w[1] || w.some((t) => !terminalIds.includes(t)))) return false;
   if (!["none", "open", "reverse", "short", "fuse", "overload"].includes(s.fault) || !["school", "community", "rain"].includes(s.caseId)) return false;
   if (!textArray(s.completed) || !s.completed.every((id) => lessonIds.includes(id)) || !textArray(s.maintenance) || !text(s.projectNote, 15e3)) return false;
+  if (s.integrator !== void 0 && !validIntegratorRecord(s.integrator)) return false;
   if (!Array.isArray(s.questions) || s.questions.length > 50 || !s.questions.every(validQuestion) || new Set(s.questions.map((q) => q.id)).size !== s.questions.length) return false;
   return !!s.legacy && text(s.legacy.notes, 15e3) && textArray(s.legacy.visited, 5) && s.legacy.visited.every((key) => sourceKeys.includes(key)) && textArray(s.legacy.correct, 5) && s.legacy.correct.every((key) => sourceKeys.includes(key)) && Array.isArray(s.legacy.scenarios) && s.legacy.scenarios.length <= 20 && !!s.legacy.values && sourceKeys.every((key) => validValues(key, s.legacy.values[key])) && s.legacy.scenarios.every((item) => {
     const x = item;
