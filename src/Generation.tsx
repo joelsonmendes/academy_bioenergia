@@ -430,6 +430,7 @@ const gridStages = [
 
 function UtilityGeneration() {
   const {t, q, n} = useGenerationText();
+  const {navigate} = useApp();
   const [installed, setInstalled] = useState<number | null>(20);
   const [factor, setFactor] = useState(22);
   const [gridStage, setGridStage] = useState(0);
@@ -464,6 +465,9 @@ function UtilityGeneration() {
       </div>
       <p className="generation-path-detail" aria-live="polite">{t(gridStages[gridStage].detail)}</p>
       <SourceLinks ids={['grid']}/>
+      <Button kind="quiet" icon="network" onClick={() => navigate('sin')}>
+        {q('Abrir mapa interativo do SIN', 'Open the interactive SIN map', 'Abrir el mapa interactivo del SIN')}
+      </Button>
     </Panel>
     <Panel>
       <h2>{q('Simule a produção anual de uma usina', 'Simulate annual plant output', 'Simula la producción anual de una central')}</h2>

@@ -5,6 +5,7 @@ var UI = {
   lab3d: T("Laborat\xF3rio 3D", "3D Lab", "Laboratorio 3D"),
   amazon: T("Campus Amaz\xF4nia", "Amazon Campus", "Campus Amazon\xEDa"),
   generation: T("Gera\xE7\xE3o de energia", "Power generation", "Generaci\xF3n el\xE9ctrica"),
+  sin: T("Sistema Interligado (SIN)", "Interconnected system (SIN)", "Sistema Interconectado (SIN)"),
   carbon: T("Descarboniza\xE7\xE3o", "Decarbonization", "Descarbonizaci\xF3n"),
   home: T("Vis\xE3o geral", "Overview", "Vista general"),
   plants: T("Usinas por dentro", "Inside the plants", "Centrales por dentro"),
