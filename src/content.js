@@ -1,6 +1,7 @@
 import SOURCES from './references.json' with {type:'json'};
 const T = (pt,en,es)=>({pt,en,es});
 const UI={
+ pvcalc:T('Calculadora FV','PV calculator','Calculadora FV'),
  pvreport:T('Relatório técnico','Technical report','Informe técnico'),
  lab3d:T('Laboratório 3D','3D Lab','Laboratorio 3D'),
  amazon:T('Campus Amazônia','Amazon Campus','Campus Amazonía'),

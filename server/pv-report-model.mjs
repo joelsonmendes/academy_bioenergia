@@ -264,9 +264,12 @@ function validPVInputs(input) {
   return Object.keys(pvLimits).every((key) => Number.isFinite(v[key]) && v[key] >= pvLimits[key][0] && v[key] <= pvLimits[key][1]) && integerKeys.every((key) => Number.isInteger(v[key])) && [1, 3].includes(v.phases);
 }
 var shortText = (v, max = 200) => typeof v === "string" && v.length <= max;
+function validPVLoads(value) {
+  return Array.isArray(value) && value.length >= 1 && value.length <= 30 && value.every((load) => !!load && shortText(load.id, 80) && shortText(load.name, 120) && Number.isInteger(load.quantity) && load.quantity >= 0 && load.quantity <= 1e3 && Number.isFinite(load.watts) && load.watts >= 0 && load.watts <= 1e6 && Number.isFinite(load.hours) && load.hours >= 0 && load.hours <= 24 && Number.isFinite(load.startFactor) && load.startFactor >= 1 && load.startFactor <= 10 && typeof load.critical === "boolean") && new Set(value.map((load) => load.id)).size === value.length;
+}
 function validPVProject(value) {
   const p = value;
-  return !!p && p.version === 1 && typeof p.id === "string" && /^[a-zA-Z0-9-]{8,80}$/.test(p.id) && ["ongrid", "offgrid", "hybrid"].includes(p.system) && validPVInputs(p.inputs) && [p.title, p.designer, p.registration, p.moduleName, p.inverterName, p.batteryName].every((v) => shortText(v)) && !!p.client && Object.values(p.client).length === 3 && Object.values(p.client).every((v) => shortText(v)) && !!p.site && ["region", "uf", "city", "cep", "address", "locationNote"].every((key) => shortText(p.site[key], 400)) && Array.isArray(p.loads) && p.loads.length >= 1 && p.loads.length <= 30 && p.loads.every((load) => !!load && shortText(load.id, 80) && shortText(load.name, 120) && Number.isInteger(load.quantity) && load.quantity >= 0 && load.quantity <= 1e3 && Number.isFinite(load.watts) && load.watts >= 0 && load.watts <= 1e6 && Number.isFinite(load.hours) && load.hours >= 0 && load.hours <= 24 && Number.isFinite(load.startFactor) && load.startFactor >= 1 && load.startFactor <= 10 && typeof load.critical === "boolean") && new Set(p.loads.map((load) => load.id)).size === p.loads.length && (p.solar === null || validSolarClimate(p.solar)) && ["manual", "annual", "worst"].includes(p.solarMode) && ["auto", "manual"].includes(p.stringMode) && ["manual", "prysun40"].includes(p.cableMethod) && ["hasBatteryPort", "hasEPS", "locationConfirmed", "moduleConfirmed", "inverterConfirmed", "batteryConfirmed"].every((key) => typeof p[key] === "boolean") && !!p.attachments && Object.entries(p.attachments).every(([key, a]) => ["module", "inverter"].includes(key) && !!a && shortText(a.id, 80) && /^[a-zA-Z0-9-]{8,80}$/.test(a.id) && shortText(a.name, 200) && Number.isFinite(a.size) && a.size > 0 && a.size <= 1e7 && Number.isFinite(Date.parse(a.addedAt))) && shortText(p.notes, 6e3);
+  return !!p && p.version === 1 && typeof p.id === "string" && /^[a-zA-Z0-9-]{8,80}$/.test(p.id) && ["ongrid", "offgrid", "hybrid"].includes(p.system) && validPVInputs(p.inputs) && [p.title, p.designer, p.registration, p.moduleName, p.inverterName, p.batteryName].every((v) => shortText(v)) && !!p.client && Object.values(p.client).length === 3 && Object.values(p.client).every((v) => shortText(v)) && !!p.site && ["region", "uf", "city", "cep", "address", "locationNote"].every((key) => shortText(p.site[key], 400)) && validPVLoads(p.loads) && (p.solar === null || validSolarClimate(p.solar)) && ["manual", "annual", "worst"].includes(p.solarMode) && ["auto", "manual"].includes(p.stringMode) && ["manual", "prysun40"].includes(p.cableMethod) && ["hasBatteryPort", "hasEPS", "locationConfirmed", "moduleConfirmed", "inverterConfirmed", "batteryConfirmed"].every((key) => typeof p[key] === "boolean") && !!p.attachments && Object.entries(p.attachments).every(([key, a]) => ["module", "inverter"].includes(key) && !!a && shortText(a.id, 80) && /^[a-zA-Z0-9-]{8,80}$/.test(a.id) && shortText(a.name, 200) && Number.isFinite(a.size) && a.size > 0 && a.size <= 1e7 && Number.isFinite(Date.parse(a.addedAt))) && shortText(p.notes, 6e3);
 }
 var cableSections = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240];
 var prysunR20 = [13.7, 8.21, 5.09, 3.39, 1.95, 1.24, 0.795, 0.565, 0.393, 0.277, 0.21, 0.164, 0.132, 0.108, 0.082];
@@ -274,6 +277,21 @@ var prysun40 = [20, 26, 35, 44, 61, 79, 104, 128, 159, 196, 233, 271, 308, 347, 
 var fuseRatings = [2, 4, 6, 8, 10, 12, 15, 16, 20, 25, 30, 32, 35, 40, 50, 63, 80, 100];
 var breakerRatings = [6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1e3, 1250, 1600, 2e3, 2500];
 var say = (pt, en, es) => ({ pt, en, es });
+function sizePVEnergy(system, v, loads, hsp = v.hsp) {
+  const energy = (rows) => rows.reduce((sum, row) => sum + row.quantity * row.watts * row.hours / 1e3, 0);
+  const servedLoads = system === "hybrid" ? loads.filter((load) => load.critical) : loads;
+  const dailyLoad = energy(loads);
+  const criticalDaily = energy(servedLoads);
+  const peakKW = servedLoads.reduce((sum, row) => sum + row.quantity * row.watts / 1e3, 0);
+  const surgeKW = peakKW + Math.max(0, ...servedLoads.map((row) => row.watts * (row.startFactor - 1) / 1e3 * Math.min(1, row.quantity)));
+  const targetDaily = system === "offgrid" ? dailyLoad : v.monthlyKwh / v.days * v.coverage / 100;
+  const generationEfficiency = system === "offgrid" ? v.inverterEff / 100 * v.batteryRoundEff / 100 : 1;
+  const dailyYield = hsp * v.pr / 100 * generationEfficiency;
+  const requiredKWp = targetDaily / dailyYield;
+  const neededModules = Math.ceil(requiredKWp * 1e3 / v.moduleW);
+  const batteryNeededKwh = system === "ongrid" ? 0 : criticalDaily * v.autonomyDays / (v.dod / 100 * v.batteryDisEff / 100 * v.inverterEff / 100);
+  return { dailyLoad, criticalDaily, peakKW, surgeKW, targetDaily, dailyYield, requiredKWp, neededModules, batteryNeededKwh };
+}
 function calculatePV(p) {
   if (!validPVProject(p)) return null;
   const v = p.inputs;
@@ -285,16 +303,7 @@ function calculatePV(p) {
   const climateMatches = p.solar && Math.abs(p.solar.latitude - v.latitude) < 1e-5 && Math.abs(p.solar.longitude - v.longitude) < 1e-5;
   const monthlyPOA = climateMatches && p.solar ? tiltedIrradiation(p.solar, v.tilt, v.azimuth) : null;
   const hsp = p.solarMode === "manual" || !monthlyPOA ? v.hsp : p.solarMode === "worst" ? Math.min(...monthlyPOA) : annualMean(monthlyPOA);
-  const energy = (loads) => loads.reduce((sum, row) => sum + row.quantity * row.watts * row.hours / 1e3, 0);
-  const servedLoads = storage && p.system === "hybrid" ? p.loads.filter((load) => load.critical) : p.loads;
-  const dailyLoad = energy(p.loads);
-  const criticalDaily = energy(servedLoads);
-  const peakKW = servedLoads.reduce((sum, row) => sum + row.quantity * row.watts / 1e3, 0);
-  const surgeKW = peakKW + Math.max(0, ...servedLoads.map((row) => row.watts * (row.startFactor - 1) / 1e3 * Math.min(1, row.quantity)));
-  const targetDaily = p.system === "offgrid" ? dailyLoad : v.monthlyKwh / v.days * v.coverage / 100;
-  const generationEfficiency = p.system === "offgrid" ? v.inverterEff / 100 * v.batteryRoundEff / 100 : 1;
-  const requiredKWp = targetDaily / (hsp * v.pr / 100 * generationEfficiency);
-  const neededModules = Math.ceil(requiredKWp * 1e3 / v.moduleW);
+  const { dailyLoad, criticalDaily, peakKW, surgeKW, targetDaily, dailyYield, requiredKWp, neededModules, batteryNeededKwh } = sizePVEnergy(p.system, v, p.loads, hsp);
   const vocCold = v.voc * (1 + v.betaVoc / 100 * (v.minTemp - 25));
   const vocHot = v.voc * (1 + v.betaVoc / 100 * (v.maxCellTemp - 25));
   const vmpHot = v.vmp * (1 + v.betaVmp / 100 * (v.maxCellTemp - 25));
@@ -318,7 +327,7 @@ function calculatePV(p) {
   const parallel = Math.max(...distribution);
   const modules = ns * strings;
   const installedKWp = modules * v.moduleW / 1e3;
-  const dailyGeneration = installedKWp * hsp * v.pr / 100 * generationEfficiency;
+  const dailyGeneration = installedKWp * dailyYield;
   const stringVoc = ns * vocCold;
   const stringVmpHot = ns * vmpHot;
   const dcCurrent = correctedIsc;
@@ -342,7 +351,6 @@ function calculatePV(p) {
   const acIz = v.acIz * v.acCorrection;
   const acDropV = (v.phases === 3 ? Math.sqrt(3) : 2) * rho * v.acLength * acCurrent / v.acSection;
   const acDropPercent = acDropV / v.acV * 100;
-  const batteryNeededKwh = storage ? criticalDaily * v.autonomyDays / (v.dod / 100 * v.batteryDisEff / 100 * v.inverterEff / 100) : 0;
   const batterySeries = storage ? Math.max(1, Math.round(v.batteryV / v.unitV)) : 0;
   const batteryCurrent = storage ? v.inverterKW * 1e3 / (v.batteryMinV * v.inverterEff / 100) : 0;
   const batteryFuseA = storage ? breakerRatings.find((a) => a >= batteryCurrent * 1.25) ?? null : null;
@@ -534,7 +542,9 @@ export {
   pvDefaults,
   pvId,
   pvLimits,
+  sizePVEnergy,
   tiltedIrradiation,
   validPVInputs,
+  validPVLoads,
   validPVProject
 };

@@ -6,6 +6,7 @@ import {calculatePV, pvId, cableSections, pvLimits, validPVProject, type PVProje
 import {pvFieldLabels, pvSystems, brazilStates, pvReferences, installationGuidance} from './pv-report-content';
 import {annualMean, bestAnnualTilt, fetchSolarClimate, lookupCEP, lookupCity, type GeoPlace} from './pv-solar';
 import {readPVProject, savePVProject, parsePVBackup, storeDatasheet, getDatasheet, removeDatasheet} from './pv-report-storage';
+import type {PVReportDraft} from './pv-report-storage';
 import {PVUnifilar} from './PVUnifilar';
 import {exportPVReport} from './pv-report-pdf';
 
@@ -36,10 +37,10 @@ function NumberField({id, value, onValue}: {id: PVInputKey;value: number;onValue
   );
 }
 
-export default function TechnicalReport() {
-  const {lang, t, notify} = useApp();
+export default function TechnicalReport({draft = 'main'}: {draft?: PVReportDraft}) {
+  const {lang, t, notify, navigate} = useApp();
   const q = (pt: string, en: string, es: string) => t(T(pt, en, es));
-  const [project, setProject] = useState<PVProject>(readPVProject);
+  const [project, setProject] = useState<PVProject>(() => readPVProject(draft));
   const current = useRef(project);
   current.current = project;
   const [step, setStep] = useState(0);
@@ -60,16 +61,16 @@ export default function TechnicalReport() {
   const errors = result?.checks.filter(check => check.kind === 'error').length ?? 0;
   const n = (value: number | null, digits = 2) => format(value, lang, digits);
 
-  useEffect(() => {setSaved(savePVProject(project));}, [project]);
+  useEffect(() => {setSaved(savePVProject(project, draft));}, [project, draft]);
   useEffect(() => () => request.current?.abort(), []);
   useEffect(() => () => {if (pdfDownload) URL.revokeObjectURL(pdfDownload.url);}, [pdfDownload]);
   useEffect(() => {
     let active = true;
-    Promise.all(Object.values(project.attachments).map(async file => [file.id, !!(await getDatasheet(file.id))] as const))
+    Promise.all(Object.values(project.attachments).map(async file => [file.id, !!(await getDatasheet(file.id, draft))] as const))
       .then(items => {if (active) setFileCheck(Object.fromEntries(items));})
       .catch(() => {if (active) setFileCheck({});});
     return () => {active = false;};
-  }, [project.attachments]);
+  }, [project.attachments, draft]);
 
   function setValue(id: PVInputKey, value: number) {
     if (id === 'latitude' || id === 'longitude') request.current?.abort();
@@ -148,16 +149,16 @@ export default function TechnicalReport() {
     if (!file || busy) return;
     setBusy('file');
     try {
-      const ref = await storeDatasheet(file);
+      const ref = await storeDatasheet(file, draft);
       const previous = current.current;
       const next = {...previous, attachments: {...previous.attachments, [kind]: ref}};
-      if (!savePVProject(next)) {
-        await removeDatasheet(ref.id);
+      if (!savePVProject(next, draft, {keepInSession: false})) {
+        await removeDatasheet(ref.id, draft);
         throw new Error('DRAFT_STORAGE');
       }
       setProject(next);
       const old = previous.attachments[kind];
-      if (old) await removeDatasheet(old.id).catch(() => undefined);
+      if (old) await removeDatasheet(old.id, draft).catch(() => undefined);
       notify(q('Datasheet PDF salvo neste dispositivo.', 'Datasheet PDF saved on this device.', 'Ficha PDF guardada en este dispositivo.'));
     } catch {
       notify(q('Use um PDF válido de até 10 MB. Confira o armazenamento e os campos do rascunho.', 'Use a valid PDF up to 10 MB. Check storage and draft fields.', 'Usa un PDF válido de hasta 10 MB. Verifica almacenamiento y datos del borrador.'));
@@ -165,7 +166,7 @@ export default function TechnicalReport() {
   }
   async function downloadFile(file: DatasheetRef) {
     try {
-      const blob = await getDatasheet(file.id);
+      const blob = await getDatasheet(file.id, draft);
       if (!blob) throw new Error('MISSING');
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -179,9 +180,9 @@ export default function TechnicalReport() {
     const attachments = {...previous.attachments};
     delete attachments[kind];
     const next = {...previous, attachments};
-    if (!savePVProject(next)) {setSaved(false);return;}
+    if (!savePVProject(next, draft, {keepInSession: false})) {setSaved(false);return;}
     setProject(next);
-    if (old) await removeDatasheet(old.id).catch(() => undefined);
+    if (old) await removeDatasheet(old.id, draft).catch(() => undefined);
   }
   function fields(ids: PVInputKey[]) {
     return <div className="pv-fields">{ids.map(id => <NumberField key={id} id={id} value={v[id]} onValue={value => setValue(id, value)}/>)}</div>;
@@ -244,6 +245,9 @@ export default function TechnicalReport() {
           'Size the system, check equipment limits and document every design assumption.',
           'Dimensiona, verifica los límites de equipos y documenta cada supuesto del proyecto.')}>
         <div className="pv-heading-actions">
+          {draft === 'main' && <Button icon="sun" onClick={() => navigate('pvcalc', 'solar')}>
+            {q('Calculadora FV', 'PV Calculator', 'Calculadora FV')}
+          </Button>}
           <Button icon="save" disabled={!result || busy !== null} onClick={() => Download('BioEnergia_Projeto_FV.json', JSON.stringify(project, null, 2), 'application/json')}>
             {q('Salvar projeto JSON', 'Save project JSON', 'Guardar proyecto JSON')}
           </Button>
@@ -262,6 +266,14 @@ export default function TechnicalReport() {
           }}/>
         </div>
       </Heading>
+      {draft === 'calculator' && <div className="pv-notice pv-calculator-handoff">
+        <span>{q('Estudo da Calculadora FV. Confira o local, os datasheets e a configuração elétrica antes de emitir o relatório.',
+          'PV Calculator study. Verify the site, datasheets and electrical configuration before issuing the report.',
+          'Estudio de la Calculadora FV. Verifica el lugar, las fichas técnicas y la configuración eléctrica antes de emitir el informe.')}</span>
+        <Button icon="back" onClick={() => navigate('pvcalc', 'solar')}>
+          {q('Voltar à Calculadora FV', 'Back to PV Calculator', 'Volver a la Calculadora FV')}
+        </Button>
+      </div>}
       <div className="pv-project-bar">
         <label className="pv-field"><span>{q('Tipo de projeto', 'Project type', 'Tipo de proyecto')}</span>
           <select value={project.system} onChange={event => setProject(previous => ({

@@ -89,6 +89,16 @@ export function validPVInputs(input: unknown): input is PVInputs {
     integerKeys.every(key => Number.isInteger(v[key])) && [1, 3].includes(v.phases);
 }
 const shortText = (v: unknown, max = 200) => typeof v === 'string' && v.length <= max;
+export function validPVLoads(value: unknown): value is PVLoad[] {
+  return Array.isArray(value) && value.length >= 1 && value.length <= 30 && value.every(load =>
+    !!load && shortText(load.id, 80) && shortText(load.name, 120) &&
+    Number.isInteger(load.quantity) && load.quantity >= 0 && load.quantity <= 1000 &&
+    Number.isFinite(load.watts) && load.watts >= 0 && load.watts <= 1000000 &&
+    Number.isFinite(load.hours) && load.hours >= 0 && load.hours <= 24 &&
+    Number.isFinite(load.startFactor) && load.startFactor >= 1 && load.startFactor <= 10 && typeof load.critical === 'boolean') &&
+    new Set(value.map(load => load.id)).size === value.length;
+}
+
 export function validPVProject(value: unknown): value is PVProject {
   const p = value as PVProject;
   return !!p && p.version === 1 && typeof p.id === 'string' && /^[a-zA-Z0-9-]{8,80}$/.test(p.id) &&
@@ -96,13 +106,7 @@ export function validPVProject(value: unknown): value is PVProject {
     [p.title, p.designer, p.registration, p.moduleName, p.inverterName, p.batteryName].every(v => shortText(v)) &&
     !!p.client && Object.values(p.client).length === 3 && Object.values(p.client).every(v => shortText(v)) &&
     !!p.site && ['region', 'uf', 'city', 'cep', 'address', 'locationNote'].every(key => shortText(p.site[key as keyof typeof p.site], 400)) &&
-    Array.isArray(p.loads) && p.loads.length >= 1 && p.loads.length <= 30 && p.loads.every(load =>
-      !!load && shortText(load.id, 80) && shortText(load.name, 120) &&
-      Number.isInteger(load.quantity) && load.quantity >= 0 && load.quantity <= 1000 &&
-      Number.isFinite(load.watts) && load.watts >= 0 && load.watts <= 1000000 &&
-      Number.isFinite(load.hours) && load.hours >= 0 && load.hours <= 24 &&
-      Number.isFinite(load.startFactor) && load.startFactor >= 1 && load.startFactor <= 10 && typeof load.critical === 'boolean') &&
-    new Set(p.loads.map(load => load.id)).size === p.loads.length &&
+    validPVLoads(p.loads) &&
     (p.solar === null || validSolarClimate(p.solar)) && ['manual', 'annual', 'worst'].includes(p.solarMode) &&
     ['auto', 'manual'].includes(p.stringMode) && ['manual', 'prysun40'].includes(p.cableMethod) &&
     ['hasBatteryPort', 'hasEPS', 'locationConfirmed', 'moduleConfirmed', 'inverterConfirmed', 'batteryConfirmed'].every(key => typeof p[key as keyof PVProject] === 'boolean') &&
@@ -132,6 +136,24 @@ export interface PVCalculation {
   roofArea: number;
 }
 
+// Energy balance shared by the preliminary estimate and the electrical project.
+export function sizePVEnergy(system: PVSystem, v: PVInputs, loads: readonly PVLoad[], hsp = v.hsp) {
+  const energy = (rows: readonly PVLoad[]) => rows.reduce((sum, row) => sum + row.quantity * row.watts * row.hours / 1000, 0);
+  const servedLoads = system === 'hybrid' ? loads.filter(load => load.critical) : loads;
+  const dailyLoad = energy(loads);
+  const criticalDaily = energy(servedLoads);
+  const peakKW = servedLoads.reduce((sum, row) => sum + row.quantity * row.watts / 1000, 0);
+  // Worst individual motor start with all other declared loads running.
+  const surgeKW = peakKW + Math.max(0, ...servedLoads.map(row => row.watts * (row.startFactor - 1) / 1000 * Math.min(1, row.quantity)));
+  const targetDaily = system === 'offgrid' ? dailyLoad : v.monthlyKwh / v.days * v.coverage / 100;
+  const generationEfficiency = system === 'offgrid' ? v.inverterEff / 100 * v.batteryRoundEff / 100 : 1;
+  const dailyYield = hsp * v.pr / 100 * generationEfficiency;
+  const requiredKWp = targetDaily / dailyYield;
+  const neededModules = Math.ceil(requiredKWp * 1000 / v.moduleW);
+  const batteryNeededKwh = system === 'ongrid' ? 0 : criticalDaily * v.autonomyDays / (v.dod / 100 * v.batteryDisEff / 100 * v.inverterEff / 100);
+  return {dailyLoad, criticalDaily, peakKW, surgeKW, targetDaily, dailyYield, requiredKWp, neededModules, batteryNeededKwh};
+}
+
 export function calculatePV(p: PVProject): PVCalculation | null {
   if (!validPVProject(p)) return null;
   const v = p.inputs;
@@ -147,17 +169,8 @@ export function calculatePV(p: PVProject): PVCalculation | null {
   const monthlyPOA = climateMatches && p.solar ? tiltedIrradiation(p.solar, v.tilt, v.azimuth) : null;
   const hsp = p.solarMode === 'manual' || !monthlyPOA ? v.hsp
     : p.solarMode === 'worst' ? Math.min(...monthlyPOA) : annualMean(monthlyPOA);
-  const energy = (loads: PVLoad[]) => loads.reduce((sum, row) => sum + row.quantity * row.watts * row.hours / 1000, 0);
-  const servedLoads = storage && p.system === 'hybrid' ? p.loads.filter(load => load.critical) : p.loads;
-  const dailyLoad = energy(p.loads);
-  const criticalDaily = energy(servedLoads);
-  const peakKW = servedLoads.reduce((sum, row) => sum + row.quantity * row.watts / 1000, 0);
-  // Worst individual motor start with all other declared loads running.
-  const surgeKW = peakKW + Math.max(0, ...servedLoads.map(row => row.watts * (row.startFactor - 1) / 1000 * Math.min(1, row.quantity)));
-  const targetDaily = p.system === 'offgrid' ? dailyLoad : v.monthlyKwh / v.days * v.coverage / 100;
-  const generationEfficiency = p.system === 'offgrid' ? v.inverterEff / 100 * v.batteryRoundEff / 100 : 1;
-  const requiredKWp = targetDaily / (hsp * v.pr / 100 * generationEfficiency);
-  const neededModules = Math.ceil(requiredKWp * 1000 / v.moduleW);
+  const {dailyLoad, criticalDaily, peakKW, surgeKW, targetDaily, dailyYield, requiredKWp, neededModules, batteryNeededKwh} =
+    sizePVEnergy(p.system, v, p.loads, hsp);
   const vocCold = v.voc * (1 + v.betaVoc / 100 * (v.minTemp - 25));
   const vocHot = v.voc * (1 + v.betaVoc / 100 * (v.maxCellTemp - 25));
   const vmpHot = v.vmp * (1 + v.betaVmp / 100 * (v.maxCellTemp - 25));
@@ -182,7 +195,7 @@ export function calculatePV(p: PVProject): PVCalculation | null {
   const parallel = Math.max(...distribution);
   const modules = ns * strings;
   const installedKWp = modules * v.moduleW / 1000;
-  const dailyGeneration = installedKWp * hsp * v.pr / 100 * generationEfficiency;
+  const dailyGeneration = installedKWp * dailyYield;
   const stringVoc = ns * vocCold;
   const stringVmpHot = ns * vmpHot;
   const dcCurrent = correctedIsc;
@@ -209,7 +222,6 @@ export function calculatePV(p: PVProject): PVCalculation | null {
   const acIz = v.acIz * v.acCorrection;
   const acDropV = (v.phases === 3 ? Math.sqrt(3) : 2) * rho * v.acLength * acCurrent / v.acSection;
   const acDropPercent = acDropV / v.acV * 100;
-  const batteryNeededKwh = storage ? criticalDaily * v.autonomyDays / (v.dod / 100 * v.batteryDisEff / 100 * v.inverterEff / 100) : 0;
   const batterySeries = storage ? Math.max(1, Math.round(v.batteryV / v.unitV)) : 0;
   const batteryCurrent = storage ? v.inverterKW * 1000 / (v.batteryMinV * v.inverterEff / 100) : 0;
   const batteryFuseA = storage ? breakerRatings.find(a => a >= batteryCurrent * 1.25) ?? null : null;
