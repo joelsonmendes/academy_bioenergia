@@ -1,6 +1,6 @@
 export type Language='pt'|'en'|'es';
 export type SourceKey='biomass'|'solar'|'wind'|'hydro'|'tidal';
-export type Page='home'|'plants'|'sim'|'pvcalc'|'pvreport'|'lab3d'|'amazon'|'generation'|'sin'|'carbon'|'activities'|'mentor'|'sources';
+export type Page='home'|'plants'|'sim'|'pvcalc'|'pvreport'|'pvbench'|'lab3d'|'amazon'|'generation'|'sin'|'carbon'|'activities'|'mentor'|'sources';
 export type PageView=Lab3DView|'calculator';
 export type Lab3DView='bench'|'shading';
 export type Localized=string|{pt:string;en:string;es:string};

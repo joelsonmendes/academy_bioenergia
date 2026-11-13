@@ -22,3 +22,15 @@ test('API rejects invalid and unknown parameters',async()=>{for(const data of[{s
 test('wrong method, media type and malformed JSON are rejected',async()=>{assert.equal((await fetch(base+'/api/simulate')).status,405);assert.equal((await fetch(base+'/api/simulate',{method:'POST',body:'a'})).status,415);assert.equal((await fetch(base+'/api/simulate',{method:'POST',headers:{'content-type':'application/json'},body:'{broken'})).status,400);});
 test('Prometheus endpoint exposes real request and scenario metrics',async()=>{const r=await fetch(base+'/metrics'),body=await r.text();assert.equal(r.status,200);assert.ok(r.headers.get('content-type').includes('version=0.0.4'));assert.match(body,/bioenergia_simulations_total\{source="biomass"\} 1/);assert.match(body,/bioenergia_api_duration_seconds_bucket\{le="\+Inf"\} \d+/);assert.match(body,/bioenergia_process_resident_memory_bytes \d+/);assert.ok(body.endsWith('\n'));});
 test('static HTML is self contained and paths cannot escape to source files',async()=>{const r=await fetch(base+'/');assert.equal(r.status,200);const html=await r.text();assert.equal((html.match(/data:image\/webp;base64,/g)||[]).length,9);assert.match(html,/"carbon-cover":"data:image\/webp;base64,/);assert.ok(!/<script[^>]+src=|<link[^>]+rel="stylesheet"/.test(html));assert.equal((await fetch(base+'/server/server.mjs')).status,404);});
+test('serves the PV bench and includes the same bench in the portable build',async()=>{
+ const r=await fetch(base+'/bancada-fotovoltaica.html?caderno=student-0123456789');
+ assert.equal(r.status,200);
+ assert.match(r.headers.get('content-type'),/text\/html/);
+ const bench=await r.text();
+ assert.match(bench,/data-mode="hybrid"/);
+ assert.match(bench,/id="module-add"/);
+ const html=await(await fetch(base+'/')).text();
+ const encoded=html.match(/const BIO_PV_BENCH="([A-Za-z0-9+/=]+)"/)?.[1];
+ assert.ok(encoded);
+ assert.equal(Buffer.from(encoded,'base64').toString('utf8'),bench);
+});

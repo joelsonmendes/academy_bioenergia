@@ -204,6 +204,7 @@ function BenchScene({input, wires, result, selected, onTerminal, onFallback}: Wi
 
 export default function CampusBenchWiring({result}: {result: BenchResult}) {
   const {q, t} = useBenchText();
+  const {navigate, L} = useApp();
   const {record, patch} = useLearning();
   const {bench, wires} = record;
   const [view, setView] = useState<'3d' | 'diagram'>('3d');
@@ -240,6 +241,7 @@ export default function CampusBenchWiring({result}: {result: BenchResult}) {
         <p role="status">{instruction}</p>
       </div>
       <div className="campus-bench-header-actions">
+        <Button icon="sun" onClick={() => navigate('pvbench', 'solar')}>{L('pvbench')}</Button>
         <Button icon="layers" onClick={() => {
           patch({wires: referenceWires.map(([a, b]) => [a, b]), fault: 'none'});
           setSelected(null);

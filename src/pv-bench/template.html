@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Bancada Fotovoltaica Interativa · BioEnergia Academy</title>
+  <style>/* APP_STYLE */</style>
+</head>
+<body>
+  <a class="skip" href="#laboratorio">Ir para a bancada</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-bolt" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 13h7l-1 9 10-12h-7l1-8Z"/></svg></span>
+        <span><strong>BIO<span>ENERGIA</span></strong><small>ACADEMY</small></span>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-button" id="theme" type="button" aria-label="Alternar tema" aria-pressed="false"><span id="theme-icon" aria-hidden="true"></span><span id="theme-text">Tema escuro</span></button>
+        <img id="senai-logo" width="126" height="36" alt="SENAI Hub">
+      </div>
+    </div>
+  </header>
+  <main class="workspace" id="laboratorio">
+    <header class="heading">
+      <div class="heading-copy">
+        <p class="eyebrow">LABORATÓRIO FOTOVOLTAICO</p>
+        <h1>Bancada de conexões</h1>
+        <p>Monte a string e siga o circuito dos módulos até a carga. Cada cabo altera o resultado do ensaio.</p>
+      </div>
+      <div class="mode-switch" role="group" aria-label="Tipo de sistema">
+        <button type="button" data-mode="grid" aria-pressed="true"><strong>On-grid</strong><small>Conectado à rede</small></button>
+        <button type="button" data-mode="island" aria-pressed="false"><strong>Off-grid</strong><small>Com baterias</small></button>
+        <button type="button" data-mode="hybrid" aria-pressed="false"><strong>Híbrido</strong><small>Rede e backup</small></button>
+      </div>
+    </header>
+
+    <dl class="metrics" id="metrics" aria-label="Leituras simuladas">
+      <div><dt>Potência FV disponível</dt><dd id="metric-pv">—</dd><small id="metric-pv-note"></small></div>
+      <div><dt id="metric-ca-title">Geração CA</dt><dd id="metric-ca">—</dd><small id="metric-ca-note"></small></div>
+      <div><dt id="metric-balance-title">Troca com a rede</dt><dd id="metric-balance">—</dd><small id="metric-balance-note"></small></div>
+      <div><dt id="metric-load-title">Potência entregue à carga</dt><dd id="metric-load">—</dd><small id="metric-load-note"></small></div>
+      <div id="hybrid-exchange" hidden><dt>Troca com a rede</dt><dd id="metric-exchange">—</dd><small id="metric-exchange-note"></small></div>
+      <div id="hybrid-normal" hidden><dt>Carga comum</dt><dd id="metric-normal">—</dd><small id="metric-normal-note"></small></div>
+    </dl>
+
+    <div class="lab">
+      <section class="surface" aria-labelledby="board-title">
+        <div class="surface-header">
+          <div>
+            <h2 id="board-title">Montagem fotográfica</h2>
+            <p id="instruction" role="status" aria-live="polite"></p>
+          </div>
+          <div class="board-actions">
+            <button type="button" id="reference" class="primary"><span data-icon="layers"></span>Montagem de referência</button>
+            <button type="button" id="clear"><span data-icon="reset"></span>Limpar cabos</button>
+          </div>
+        </div>
+        <div class="array-tools">
+          <div class="array-controls" role="group" aria-label="Módulos da string">
+            <div>
+              <strong id="array-count">6 módulos em série</strong>
+              <span id="array-power"></span>
+            </div>
+            <div class="array-stepper">
+              <button type="button" id="module-remove" aria-label="Remover último módulo solar" title="Remover último módulo solar">−</button>
+              <button type="button" id="module-add" aria-label="Adicionar módulo solar" title="Adicionar módulo solar"><span aria-hidden="true">+</span> Módulo</button>
+            </div>
+          </div>
+          <div id="array-voltage" class="array-voltage" role="group" aria-label="Tensões e limites da entrada FV">
+            <span id="array-reading"></span>
+            <small id="array-limit"></small>
+            <small id="array-warning" hidden></small>
+          </div>
+        </div>
+        <div class="board-tools">
+          <div class="connector-legend" aria-label="Legenda didática dos condutores" id="legend"></div>
+          <a class="mobile-ports" href="#component-picker">Bornes por lista</a>
+          <div class="zoom" role="group" aria-label="Zoom da bancada">
+            <button type="button" id="zoom-out" aria-label="Reduzir zoom">−</button>
+            <button type="button" id="zoom-fit" aria-label="Ajustar à tela">Ajustar</button>
+            <button type="button" id="zoom-in" aria-label="Aumentar zoom">+</button>
+          </div>
+        </div>
+        <div class="board-scroll" id="board-scroll" tabindex="0" aria-label="Prancheta de conexões. Use as barras para deslocar a vista.">
+          <div class="board-sizer" id="board-sizer">
+            <div class="board" id="board">
+              <div class="area-label modules-label" id="board-caption"></div>
+              <div id="branch-labels" aria-hidden="true"></div>
+              <svg class="wires" viewBox="0 0 1120 618" aria-label="Cabos virtuais" id="wires"></svg>
+              <div class="components" id="components"></div>
+              <div class="ports" id="ports" role="group" aria-label="Bornes dos componentes"></div>
+            </div>
+          </div>
+        </div>
+        <div class="surface-footer">
+          <span id="count" aria-live="polite"></span>
+          <span id="scale-info"></span>
+          <button class="text-button" type="button" id="cancel" hidden>Cancelar seleção</button>
+          <button class="text-button" type="button" id="next-hint"><span data-icon="route"></span>Ver próxima ligação</button>
+        </div>
+        <details id="wire-details" class="wire-details">
+          <summary>Cabos conectados <span id="wire-badge"></span></summary>
+          <div id="wire-list" class="wire-list"></div>
+        </details>
+      </section>
+
+      <aside class="inspector" aria-label="Painel do ensaio">
+        <section class="panel diagnosis" aria-labelledby="diagnosis-title">
+          <div class="panel-title"><span class="panel-icon" data-icon="check"></span><h2 id="diagnosis-title">Diagnóstico</h2></div>
+          <div id="diagnosis" class="diagnosis-main" role="status" aria-live="polite"></div>
+          <ol class="checklist" id="checklist"></ol>
+        </section>
+
+        <section class="panel parameters" aria-labelledby="parameters-title">
+          <div class="panel-title"><span class="panel-icon" data-icon="sliders"></span><h2 id="parameters-title">Condições do ensaio</h2></div>
+          <label class="range"><span>Irradiância <output id="irr-value" for="irr">800 W/m²</output></span><input type="range" id="irr" min="0" max="1200" step="10" value="800"></label>
+          <label class="range"><span>Temperatura das células <output id="temp-value" for="temp">35 °C</output></span><input type="range" id="temp" min="0" max="80" step="1" value="35"></label>
+          <label class="range"><span><span id="demand-label">Demanda da carga</span><output id="demand-value" for="demand">700 W</output></span><input type="range" id="demand" min="0" max="2500" step="10" value="700"></label>
+          <label class="range" id="normal-demand-control" hidden><span>Demanda comum <output id="normal-demand-value" for="normal-demand">500 W</output></span><input type="range" id="normal-demand" min="0" max="2500" step="10" value="500"></label>
+          <div class="switches">
+            <button class="toggle" type="button" id="dc" role="switch" aria-checked="true"><span>Seccionamento CC</span><span class="switch-state"></span></button>
+            <button class="toggle" type="button" id="ac" role="switch" aria-checked="true"><span id="ac-label">Disjuntor CA</span><span class="switch-state"></span></button>
+            <button class="toggle" type="button" id="eps" role="switch" aria-checked="true" hidden><span>Disjuntor de backup (EPS)</span><span class="switch-state"></span></button>
+            <button class="toggle" type="button" id="grid" role="switch" aria-checked="true"><span>Rede simulada</span><span class="switch-state"></span></button>
+          </div>
+          <div id="battery-controls" class="battery-controls" hidden>
+            <label class="range"><span>Estado de carga (SOC) <output id="soc-value" for="soc">65 %</output></span><input type="range" id="soc" min="20" max="95" step="0.1" value="65"></label>
+            <button type="button" id="advance" class="full"><span data-icon="clock"></span>Avançar 10 min</button>
+          </div>
+        </section>
+
+        <section class="panel component-panel" aria-labelledby="component-title">
+          <div class="panel-title"><span class="panel-icon" data-icon="inspect"></span><h2 id="component-title">Componente</h2></div>
+          <div class="component-info" id="component-info"></div>
+          <label class="component-select"><span>Inspecionar componente</span><select id="component-picker"></select></label>
+          <div id="component-ports" class="component-ports"></div>
+          <p class="component-instruction" id="component-instruction" hidden></p>
+        </section>
+      </aside>
+    </div>
+
+    <section class="notes" aria-label="Material de apoio">
+      <details>
+        <summary>Premissas do modelo e referências</summary>
+        <p>Este é um simulador didático. As fotos identificam as categorias de equipamento. Os bornes, as potências e as proteções são genéricos. Para uma instalação, consulte os manuais, as normas aplicáveis e a distribuidora.</p>
+        <p>A string admite de 1 a 12 módulos em série para ensaiar também combinações que ultrapassam os limites do conversor. Cada módulo virtual tem 450 Wp, Vmp de 41 V e Voc de 49,5 V a 1.000 W/m² e 25 °C. Vmp é a tensão no ponto de máxima potência. Voc é a tensão de circuito aberto. O ensaio supõe módulos iguais com a mesma irradiância e usa a mesma correção térmica simplificada para P, Vmp e Voc.</p>
+        <p>O modelo usa CA 220 V entre L1 e L2 com carga resistiva. Para fins da prática, a plataforma bloqueia o ensaio quando falta continuidade do PE ou há ligações fora da topologia. O PE não conduz corrente de operação no modelo. Os dispositivos das fotos não são especificações de projeto.</p>
+        <div class="formula">P<sub>FV</sub> = N × 450 × G/1.000 × [1 − 0,0035 × (T − 25)]</div>
+        <p>O on-grid tem eficiência de 96% e limite CA de 3 kW. No off-grid, o controlador tem eficiência de 96% e o inversor isolado tem eficiência de 92% e limite CA de 1,5 kW. A faixa MPPT e o limite de Voc aparecem ao lado da tensão estimada.</p>
+        <p>No híbrido, o modelo usa primeiro a energia FV para atender as cargas, depois para carregar a bateria e, se houver sobra e rede, para exportar. Se faltar geração FV, o banco ajuda a atender a demanda. Com rede, ela cobre o déficit restante. Na falta da rede, a porta de rede é isolada e apenas o circuito de backup (EPS) pode receber energia. O backup depende de um banco conectado e de energia suficiente. O modelo usa conversão CA a 95%, limite CA de 3 kW em operação conectada e 1,5 kW na saída EPS. A transferência é instantânea no ensaio e o banco recebe carga apenas do FV.</p>
+        <p>Nos modos com armazenamento, o banco virtual tem 48 V, 4,8 kWh e limite de carga e descarga de 1,92 kW no barramento. A eficiência é de 95% em cada sentido, com SOC de 20% a 95%. Cada avanço de 10 min considera condições constantes.</p>
+        <ul class="source-list" id="references"></ul>
+      </details>
+      <details>
+        <summary>Fotografias e conectores</summary>
+        <div class="photo-credits">
+          <figure><img id="mc4-photo" width="96" height="146" alt="Fotografia de conectores MC4"><figcaption>Conectores FV</figcaption></figure>
+          <div><p>As fotografias foram recortadas e convertidas para WebP. Cada imagem mantém a licença indicada.</p><ul class="source-list" id="photo-credits"></ul></div>
+        </div>
+      </details>
+    </section>
+    <p id="storage-note" class="storage-note" role="status"></p>
+    <footer class="footer"><span>BioEnergia Academy · Protótipo para teste</span><span>Projeto inovador da turma do Curso Técnico em Sistemas de Energias Renováveis.</span></footer>
+  </main>
+  <script>/* APP_SCRIPT */</script>
+</body>
+</html>

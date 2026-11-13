@@ -16,8 +16,8 @@ async function worker(distribution=''){
  return{handlers,caches,cacheMap,records,messages,calls,lifecycle,setOffline:value=>offline=value};
 }
 test('PWA caches the complete static shell and serves navigation without a network',async()=>{
- const w=await worker();await w.lifecycle('install');assert.equal(w.calls.length,7);w.setOffline(true);let response;
- w.handlers.fetch({request:{url:'https://example.test/campus/index.html#amazon/biomass',mode:'navigate',method:'GET'},respondWith:p=>response=p});const html=await(await response).text();assert.match(html,/BioEnergia Academy/);assert.match(html,/amazon/);assert.equal(w.calls.length,7);
+ const w=await worker();await w.lifecycle('install');const requests=w.calls.length;w.setOffline(true);let response;
+ w.handlers.fetch({request:{url:'https://example.test/campus/index.html#amazon/biomass',mode:'navigate',method:'GET'},respondWith:p=>response=p});const html=await(await response).text();assert.match(html,/BioEnergia Academy/);assert.match(html,/amazon/);assert.equal(w.calls.length,requests);
  let intercepted=false;w.handlers.fetch({request:{url:'https://example.test/campus/api/learning/threads',mode:'cors',method:'GET'},respondWith:()=>intercepted=true});assert.equal(intercepted,false);
  w.handlers.fetch({request:{url:'https://other.test/reference',mode:'cors',method:'GET'},respondWith:()=>intercepted=true});assert.equal(intercepted,false);
 });
@@ -32,9 +32,24 @@ test('background sync retains work while offline, then sends one authenticated s
 });
 
 test('modular PWA caches scripts, CSS and all WebPs and preserves the study guide route offline',async()=>{
- const w=await worker('web/');await w.lifecycle('install');assert.equal(w.calls.length,19);w.setOffline(true);
+ const w=await worker('web/');await w.lifecycle('install');const requests=w.calls.length;w.setOffline(true);
  for(const path of ['index.html','app.js','styles.css','config.js','assets/biomass.webp','assets/tidal.webp','assets/carbon-cover.webp','assets/carbon-microgrid.webp','assets/carbon-industry.webp','apostila-amazonia.html','plataforma-portatil.html']){let response;w.handlers.fetch({request:{url:'https://example.test/campus/'+path+'?caderno=student-0123456789',mode:path.endsWith('.html')?'navigate':'cors',method:'GET'},respondWith:p=>response=p});assert.ok((await(await response).arrayBuffer()).byteLength>0);}
- let guide;w.handlers.fetch({request:{url:'https://example.test/campus/apostila-amazonia.html',mode:'navigate',method:'GET'},respondWith:p=>guide=p});assert.match(await(await guide).text(),/Apostila de estudos/);assert.equal(w.calls.length,19);
+ let guide;w.handlers.fetch({request:{url:'https://example.test/campus/apostila-amazonia.html',mode:'navigate',method:'GET'},respondWith:p=>guide=p});assert.match(await(await guide).text(),/Apostila de estudos/);assert.equal(w.calls.length,requests);
+});
+test('the PV wiring bench is cached with both distributions and serves the selected notebook offline',async()=>{
+ for(const distribution of ['', 'web/']){
+  const w=await worker(distribution);
+  await w.lifecycle('install');
+  assert.ok(w.calls.some(({url})=>url==='https://example.test/campus/bancada-fotovoltaica.html'));
+  w.setOffline(true);
+  let response;
+  w.handlers.fetch({request:{url:'https://example.test/campus/bancada-fotovoltaica.html?caderno=student-0123456789',
+   mode:'navigate',method:'GET'},respondWith:p=>response=p});
+  const html=await(await response).text();
+  assert.match(html,/data-mode="hybrid"/);
+  assert.match(html,/id="module-add"/);
+  assert.ok(!/<script[^>]+src=|<link[^>]+rel="stylesheet"/.test(html));
+ }
 });
 test('background queue uses a separate credential and acknowledgment for each notebook',async()=>{
  const w=await worker(),a=newLearningRecord(),b=newLearningRecord();a.sequence=3;b.sequence=8;w.records.set('profile-index',[{id:'principal'},{id:'student-0123456789'}]);

@@ -3,14 +3,14 @@ import {lessons,tr,ui} from './model';
 import {defaultsFor,sourceKeys,validValues} from './energy';
 import type {Language,SourceKey,Page,Parameters,Scenario,Localized,Lab3DView,PageView} from './types';
 import {scopedKey,PROFILE_ID,MAIN_PROFILE} from './profiles';
-const pages:Page[]=['home','plants','sim','pvcalc','pvreport','lab3d','amazon','generation','sin','carbon','activities','mentor','sources'];
+const pages:Page[]=['home','plants','sim','pvcalc','pvreport','pvbench','lab3d','amazon','generation','sin','carbon','activities','mentor','sources'];
 let persistence=true;
 function read<T>(key:string,fallback:T):T{try{const s=localStorage.getItem(scopedKey('bioenergia.pro.v2.'+key))??(PROFILE_ID===MAIN_PROFILE&&key!=='theme'?localStorage.getItem('bioenergy.v1.'+key):null);return s?JSON.parse(s):fallback;}catch{return fallback;}}
 function write(key:string,value:unknown){try{localStorage.setItem(scopedKey('bioenergia.pro.v2.'+key),JSON.stringify(value));}catch{persistence=false;}}
 function initialRoute(): {page: Page; source: SourceKey; labView: Lab3DView; pvReportView: boolean; projectView: boolean} {
  const [p,k,view]=location.hash.slice(1).split('/');
  const page=pages.includes(p as Page)?p as Page:'home';
- const source=sourceKeys.includes(k as SourceKey)?k as SourceKey:'biomass';
+ const source=page==='pvbench'?'solar':sourceKeys.includes(k as SourceKey)?k as SourceKey:'biomass';
  const labView=page==='lab3d' && source==='solar' && view==='sombreamento'?'shading':'bench';
  return {page,source,labView,pvReportView:page==='pvreport'&&view==='calculadora',projectView:page==='activities'&&view==='projeto-integrador'};
 }
@@ -39,7 +39,7 @@ export function AppProvider({children}:{children:ReactNode}){
  useEffect(()=>{write('visited',visited);},[visited]);useEffect(()=>{write('scenarios',scenarios);},[scenarios]);useEffect(()=>{write('correct',correct);},[correct]);useEffect(()=>{write('notes',notes);},[notes]);
  useEffect(()=>{if(!toast)return;const h=setTimeout(()=>notify(''),4200);return()=>clearTimeout(h);},[toast]);
  useEffect(()=>{const f=(e:KeyboardEvent)=>{if(e.key==='Escape')setMenu(false);};window.addEventListener('keydown',f);return()=>window.removeEventListener('keydown',f);},[]);
- const navigate=(p:Page,k?:SourceKey,view:PageView='bench')=>{setPage(p);if(k)setSource(k);setLabView(view==='shading'?'shading':'bench');setPVReportView(p==='pvreport'&&view==='calculator');setProjectView(false);setMenu(false);window.scrollTo({top:0,behavior:'instant'});};
+ const navigate=(p:Page,k?:SourceKey,view:PageView='bench')=>{setPage(p);if(p==='pvbench')setSource('solar');else if(k)setSource(k);setLabView(view==='shading'?'shading':'bench');setPVReportView(p==='pvreport'&&view==='calculator');setProjectView(false);setMenu(false);window.scrollTo({top:0,behavior:'instant'});};
  const chooseSource=(k:SourceKey)=>setSource(k);
  const updateValues=(k:SourceKey,v:Parameters)=>{setValues(p=>({...p,[k]:v}));write('values.'+k,v);};
  const saveScenario=()=>{setScenarios(p=>[...p,{id:Date.now().toString(36),module:source,values:{...values[source]},date:new Date().toISOString()}].slice(-20));notify(L(persistence?'saved':'memoryOnly'));};

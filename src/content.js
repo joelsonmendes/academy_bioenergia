@@ -3,6 +3,7 @@ const T = (pt,en,es)=>({pt,en,es});
 const UI={
  pvcalc:T('Calculadora FV','PV calculator','Calculadora FV'),
  pvreport:T('Relatório técnico','Technical report','Informe técnico'),
+ pvbench:T('Bancada fotovoltaica','PV wiring bench','Banco fotovoltaico'),
  lab3d:T('Laboratório 3D','3D Lab','Laboratorio 3D'),
  amazon:T('Campus Amazônia','Amazon Campus','Campus Amazonía'),
  generation:T('Geração de energia','Power generation','Generación eléctrica'),

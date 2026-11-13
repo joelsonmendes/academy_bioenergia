@@ -23,6 +23,7 @@ var T = (pt, en, es) => ({ pt, en, es });
 var UI = {
   pvcalc: T("Calculadora FV", "PV calculator", "Calculadora FV"),
   pvreport: T("Relat\xF3rio t\xE9cnico", "Technical report", "Informe t\xE9cnico"),
+  pvbench: T("Bancada fotovoltaica", "PV wiring bench", "Banco fotovoltaico"),
   lab3d: T("Laborat\xF3rio 3D", "3D Lab", "Laboratorio 3D"),
   amazon: T("Campus Amaz\xF4nia", "Amazon Campus", "Campus Amazon\xEDa"),
   generation: T("Gera\xE7\xE3o de energia", "Power generation", "Generaci\xF3n el\xE9ctrica"),

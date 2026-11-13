@@ -136,6 +136,8 @@ Use `npm run check:links` para repetir a conferência dos endereços. O relatór
 
 A extensão preserva a Pro 2.0 e inclui bancada solar/eólica com conexões interativas, instrumentos virtuais, três casos de microrrede solar–bateria–diesel, cinco módulos de estudo PT/EN/ES, caderno portátil e serviço opcional de turma e tutoria. A distribuição contém HTML autônomo e PWA. Consulte `docs/AMAZONIA_GUIA_TESTE.md` para uso, limites dos modelos, persistência, ativação do servidor de turma e validação. A identidade SENAI Hub original e a autoria da turma foram mantidas.
 
+A **Bancada fotovoltaica** abre pelo menu e pela área de conexões do Campus Amazônia. Ela inclui montagem com fotos, modos on-grid, off-grid e híbrido com saída EPS, e ajuste de 1 a 12 módulos em série. As ligações ficam no navegador, por caderno. O simulador está em português e funciona no PWA, no pacote comunitário e no HTML portátil. Os limites didáticos, referências e créditos das fotos ficam no próprio módulo.
+
 ## Computadores das comunidades
 
 Os pacotes comunitários incluem `COMECE_AQUI.html`, iniciador, instalador/atualizador, runtime oficial e a distribuição modular. Podem ser levados por pendrive e usados sem internet no primeiro acesso. Cadernos ficam fora das pastas de release; atualizações conservam os trabalhos e as versões anteriores. Para testar sem instalar, utilize o iniciador da pasta extraída. O diretório `cadernos` padrão continua sendo da conta local do sistema, inclusive no modo portátil.
