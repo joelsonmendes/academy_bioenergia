@@ -3,7 +3,7 @@ import {
   Color, DirectionalLight, GridHelper, HemisphereLight, Line, Mesh,
   OrthographicCamera, Raycaster, Scene, Vector2, Vector3, WebGLRenderer
 } from 'three';
-import type {Object3D} from 'three';
+import type {BufferGeometry, Material, Object3D} from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {SVGRenderer} from 'three/addons/renderers/SVGRenderer.js';
 
@@ -12,7 +12,7 @@ function createRenderer() {
   try {
     const context = canvas.getContext('webgl2', {antialias: true, powerPreference: 'low-power'});
     if (context) {
-      const renderer = new WebGLRenderer({canvas, context});
+      const renderer = new WebGLRenderer({canvas, context, antialias: true});
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
       return renderer;
     }
@@ -35,7 +35,8 @@ interface LabPose {
 
 export function createLabViewer<Part extends string, Model extends {pickable: Object3D[]}>(
   host: HTMLDivElement, buildModel: (scene: Scene, lightweight: boolean) => Model,
-  pose: () => LabPose, floor: number, onPart: (id: Part) => void, onLost: () => void
+  pose: () => LabPose, floor: number, onPart: (id: Part) => void, onLost: () => void,
+  options: {afterRender?: (camera: OrthographicCamera) => void; touchScroll?: boolean} = {}
 ) {
   const renderer = createRenderer();
   const lightweight = renderer instanceof SVGRenderer;
@@ -62,6 +63,7 @@ export function createLabViewer<Part extends string, Model extends {pickable: Ob
   const model = buildModel(scene, lightweight);
   const camera = new OrthographicCamera(-5, 5, 3, -3, .1, 80);
   const controls = new OrbitControls(camera, surface);
+  if (options.touchScroll) surface.style.touchAction = 'pan-y';
   controls.enablePan = false;
   controls.minZoom = .85;
   controls.maxZoom = 3;
@@ -82,6 +84,7 @@ export function createLabViewer<Part extends string, Model extends {pickable: Ob
       previousTime = time;
     }
     renderer.render(scene, camera);
+    options.afterRender?.(camera);
   }
 
   function requestDraw() {
@@ -186,12 +189,15 @@ export function createLabViewer<Part extends string, Model extends {pickable: Ob
       host.removeEventListener('pointerup', pointerUp);
       host.removeEventListener('pointercancel', pointerCancel);
       surface.removeEventListener('webglcontextlost', contextLost);
+      const geometries = new Set<BufferGeometry>();
+      const materials = new Set<Material>();
       scene.traverse(object => {
         if (!(object instanceof Mesh || object instanceof Line)) return;
-        object.geometry.dispose();
-        const materials = Array.isArray(object.material) ? object.material : [object.material];
-        for (const material of materials) material.dispose();
+        geometries.add(object.geometry);
+        for (const material of Array.isArray(object.material) ? object.material : [object.material]) materials.add(material);
       });
+      geometries.forEach(geometry => geometry.dispose());
+      materials.forEach(material => material.dispose());
       if (!lightweight) renderer.dispose();
       surface.remove();
     }
