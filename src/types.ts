@@ -1,6 +1,6 @@
 export type Language='pt'|'en'|'es';
 export type SourceKey='biomass'|'solar'|'wind'|'hydro'|'tidal';
-export type Page='home'|'plants'|'sim'|'pvreport'|'lab3d'|'amazon'|'carbon'|'activities'|'mentor'|'sources';
+export type Page='home'|'plants'|'sim'|'pvreport'|'lab3d'|'amazon'|'generation'|'carbon'|'activities'|'mentor'|'sources';
 export type Lab3DView='bench'|'shading';
 export type Localized=string|{pt:string;en:string;es:string};
 export type Parameters=Record<string,number>;
