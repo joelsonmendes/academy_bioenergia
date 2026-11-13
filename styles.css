@@ -93,6 +93,15 @@
     filter: drop-shadow(0 0 5px rgb(83 255 57 / .55));
   }
 
+  .brand-bio {
+    color: #fffafa;
+    text-shadow: 0 0 4px rgb(255 250 250 / .6), 0 0 10px rgb(212 238 255 / .38);
+  }
+
+  .brand-energy {
+    color: #ff962e;
+  }
+
   :is(.sidebar-nav, .am-tabs, .am-small-tabs, .generation-tabs) > button,
   .source-tab {
     border-color: var(--tab-neon-border);
