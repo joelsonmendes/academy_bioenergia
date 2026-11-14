@@ -12,7 +12,7 @@
   --sin-muted-flow: #567386;
   --sin-shadow: #061520c7;
   min-width: 0;
-  font-size: 14px;
+  font-size: var(--font-body);
 }
 
 :root[data-theme="light"] .sin {
@@ -69,7 +69,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 12px;
+  font-size: var(--font-body);
   font-weight: 580;
   color: var(--muted);
 }
@@ -109,7 +109,7 @@
   gap: 8px 13px;
   margin-bottom: 10px;
 }
-.sin-map-heading p { margin: 3px 0 0; font-size: 12px; }
+.sin-map-heading p { margin: 3px 0 0; font-size: var(--font-body); }
 .sin-map-heading .button { padding: 8px 10px; }
 .sin-map {
   position: relative;
@@ -201,15 +201,15 @@
   gap: 5px 14px;
   margin: 11px 0 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--font-label);
 }
 .sin-map-legend span { display: inline-flex; gap: 6px; align-items: center; }
 .sin-map-legend i { width: 13px; height: 3px; background: var(--sin-flow); border-radius: 2px; }
 .sin-map-legend .sin-legend-limit { background: var(--sin-limit); }
 .sin-map-legend .sin-legend-off { background: var(--sin-off); }
-.sin-panel .sin-map-caption { font-size: 12px; margin: 6px 0 0; }
+.sin-panel .sin-map-caption { font-size: var(--font-body); margin: 6px 0 0; }
 
-.sin-select { display: grid; gap: 5px; font-size: 13px; font-weight: 630; margin: 14px 0 6px; }
+.sin-select { display: grid; gap: 5px; font-size: var(--font-body); font-weight: 630; margin: 14px 0 6px; }
 .sin-select select {
   width: 100%;
   min-height: 44px;
@@ -220,7 +220,7 @@
   color: var(--ink);
   font-weight: 530;
 }
-.sin-controls p, .sin-slider, .sin-region-readings { font-size: 12px; }
+.sin-controls p, .sin-slider, .sin-region-readings { font-size: var(--font-body); }
 .sin-panel .sin-scenario-detail {
   background: var(--paper2);
   border-left: 2px solid var(--accent);
@@ -255,7 +255,7 @@
   font-variant-numeric: tabular-nums;
   font-weight: 670;
 }
-.sin-balance-eq small { display: block; color: var(--muted); font-weight: 500; font-size: 11px; }
+.sin-balance-eq small { display: block; color: var(--muted); font-weight: 500; font-size: var(--font-label); }
 
 .sin-corridors { margin-top: 14px; }
 .sin-corridor-grid {
@@ -274,20 +274,20 @@
 }
 .sin-corridor[data-state="limit"] { --corridor-color: var(--warning); }
 .sin-corridor[data-state="off"] { --corridor-color: var(--error); }
-.sin-corridor h3 { font-size: 13px; }
+.sin-corridor h3 { font-size: var(--font-body); }
 .sin-corridor-toggle {
   display: flex;
   width: fit-content;
   min-height: 33px;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: var(--font-body);
   color: var(--muted);
   cursor: pointer;
 }
 .sin-corridor-toggle input, .sin-quiz input { accent-color: var(--accent); }
-.sin-corridor p { display: grid; gap: 3px; margin: 1px 0 6px; font-size: 11px; }
-.sin-corridor p strong { color: var(--ink); font-size: 13px; font-variant-numeric: tabular-nums; }
+.sin-corridor p { display: grid; gap: 3px; margin: 1px 0 6px; font-size: var(--font-label); }
+.sin-corridor p strong { color: var(--ink); font-size: var(--font-body); font-variant-numeric: tabular-nums; }
 .sin-corridor p span { color: var(--corridor-color); font-weight: 570; }
 .sin-capacity { background: var(--line); height: 4px; border-radius: 4px; overflow: hidden; }
 .sin-capacity span { display: block; height: 100%; background: var(--corridor-color); }

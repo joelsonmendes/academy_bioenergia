@@ -2,7 +2,7 @@
   --generation-electric: #3cc8b4;
   --generation-heat: #e6a54c;
   --generation-muted: #7187a4;
-  font-size: 14px;
+  font-size: var(--font-body);
 }
 
 :root[data-theme=light] .generation {
@@ -59,7 +59,7 @@
   border-radius: 9px;
   background: var(--paper);
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-body);
   font-weight: 640;
   line-height: 1.35;
   text-align: left;
@@ -214,7 +214,7 @@
 
 .generation-concept > strong {
   color: var(--accent);
-  font-size: 13px;
+  font-size: var(--font-body);
 }
 
 .generation-concept .button {
@@ -266,7 +266,7 @@
   display: grid;
   align-content: start;
   gap: 5px;
-  font-size: 13px;
+  font-size: var(--font-body);
   font-weight: 640;
 }
 
@@ -276,7 +276,7 @@
   gap: 9px;
   min-height: 44px;
   margin: -4px 0 5px;
-  font-size: 13px;
+  font-size: var(--font-body);
   cursor: pointer;
 }
 
@@ -328,7 +328,7 @@
   flex: 0 0 auto;
   padding-right: 10px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 
 .generation-range {
@@ -343,7 +343,7 @@
   justify-content: space-between;
   gap: 8px;
   font-weight: 650;
-  font-size: 13px;
+  font-size: var(--font-body);
 }
 
 .generation-range output {
@@ -388,7 +388,7 @@
   margin-top: 6px;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
-  font-size: 13px;
+  font-size: var(--font-body);
 }
 
 .generation-thresholds,
@@ -410,7 +410,7 @@
 .generation-metrics dt,
 .generation-thresholds span {
   display: block;
-  font-size: 13px;
+  font-size: var(--font-body);
   color: var(--muted);
 }
 
@@ -479,7 +479,7 @@
 .generation-legend {
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 
 .generation-legend dt {
@@ -502,7 +502,7 @@
   background: var(--paper2);
   color: var(--ink);
   font-family: ui-monospace, monospace;
-  font-size: 12px;
+  font-size: var(--font-body);
   line-height: 1.7;
   overflow-wrap: anywhere;
 }
@@ -517,7 +517,7 @@
   min-height: 36px;
   cursor: pointer;
   color: var(--ink);
-  font-size: 13px;
+  font-size: var(--font-body);
   font-weight: 650;
 }
 
@@ -613,12 +613,12 @@
 }
 
 .generation-score {
-  font-size: 12px;
+  font-size: var(--font-body);
   color: var(--muted);
 }
 
 .generation-score strong {
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 .generation-quiz fieldset {
@@ -667,7 +667,7 @@
 
 .generation-date {
   margin: 16px 0 0;
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 
 @media (max-width: 730px) {

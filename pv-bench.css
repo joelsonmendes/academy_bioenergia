@@ -10,7 +10,7 @@
 .pv-bench-language {
   margin: 0 0 10px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 
 .pv-bench-page > .page-heading > a.button {

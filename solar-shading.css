@@ -32,7 +32,7 @@
 
 .shade-metrics dt, .shade-metric-note {
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--font-label);
   line-height: 1.55;
 }
 
@@ -70,7 +70,7 @@
   padding: 5px 9px;
   background: #0b1b2ce8;
   color: #e3eff8;
-  font-size: 11px;
+  font-size: var(--font-label);
   line-height: 1.5;
   pointer-events: none;
 }
@@ -86,13 +86,13 @@
   padding: 13px 14px 9px;
   border-bottom: 1px solid #29465e;
 }
-.shade-time > .button { justify-content: center; min-height: 43px; font-size: 12px; }
+.shade-time > .button { justify-content: center; min-height: 43px; font-size: var(--font-body); }
 .shade-viewer .lab3d-help { padding-top: 8px; }
 
 .shade-range > div { display: flex; align-items: baseline; justify-content: space-between; gap: 7px; }
-.shade-range label, .shade-field, .shade-checkbox { font-size: 12px; font-weight: 620; }
-.shade-range output { flex-shrink: 0; color: var(--accent); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.shade-time .shade-range output { color: #90edce; font-size: 13px; }
+.shade-range label, .shade-field, .shade-checkbox { font-size: var(--font-body); font-weight: 620; }
+.shade-range output { flex-shrink: 0; color: var(--accent); font-size: var(--font-label); font-weight: 700; font-variant-numeric: tabular-nums; }
+.shade-time .shade-range output { color: #90edce; font-size: var(--font-body); }
 .shade-range input[type="range"] { display: block; width: 100%; height: 26px; margin: 0; accent-color: var(--accent); }
 .shade-time input[type="range"] { accent-color: #77dfb3; }
 .shade-field { display: grid; gap: 5px; margin: 11px 0; }
@@ -106,24 +106,24 @@
   border-radius: 7px;
   background: var(--paper2);
   color: var(--ink);
-  font-size: 13px;
+  font-size: var(--font-body);
 }
 .shade-sliders { display: grid; gap: 5px; }
 .shade-sliders + .shade-sliders { border-top: 1px solid var(--line); padding-top: 9px; margin-top: 6px; }
-.shade-controls .shade-direction { margin: 3px 0 10px; font-size: 10px; }
+.shade-controls .shade-direction { margin: 3px 0 10px; font-size: var(--font-label); }
 .shade-checkbox { display: flex; align-items: center; gap: 7px; padding: 7px 0; }
 .shade-checkbox input { width: 16px; height: 16px; flex: none; accent-color: var(--accent); }
 .shade-advanced { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 9px; }
 .shade-advanced summary, .shade-method summary { color: var(--ink); font-weight: 700; cursor: pointer; }
-.shade-advanced summary { font-size: 12px; }
+.shade-advanced summary { font-size: var(--font-body); }
 .shade-advanced .shade-range { margin-top: 9px; }
 
 .shade-results { margin: 16px 0; }
 .shade-chart-head, .shade-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
 .shade-chart-head { justify-content: space-between; }
-.shade-chart-head .button { min-height: 36px; padding: 7px 10px; font-size: 11px; }
+.shade-chart-head .button { min-height: 36px; padding: 7px 10px; font-size: var(--font-label); }
 .shade-chart-head .icon { width: 14px; height: 14px; }
-.shade-legend { color: var(--muted); font-size: 11px; margin: 12px 0 4px; }
+.shade-legend { color: var(--muted); font-size: var(--font-label); margin: 12px 0 4px; }
 .shade-legend > span { display: inline-flex; align-items: center; gap: 6px; }
 .shade-legend i { display: inline-block; width: 18px; border-top: 2px solid var(--shade-trace); }
 .shade-legend .shade-clear-key { border-top: 2px dashed var(--shade-clear); }
@@ -145,7 +145,7 @@
   border: 1px solid var(--line);
   border-radius: 7px;
   background: var(--paper2);
-  font-size: 11px;
+  font-size: var(--font-label);
   font-weight: 700;
 }
 .shade-module-picker button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
@@ -153,18 +153,18 @@
 .shade-inspection svg { width: 100%; max-height: 184px; }
 .shade-inspection svg .shade-block-hit { fill: var(--shade-warning); font-weight: 700; }
 .shade-inspection dl { display: grid; gap: 9px; margin: 0; }
-.shade-inspection dt { color: var(--muted); font-size: 10px; line-height: 1.4; }
+.shade-inspection dt { color: var(--muted); font-size: var(--font-label); line-height: 1.4; }
 .shade-inspection dd { margin: 2px 0 0; color: var(--ink); font-size: 16px; font-weight: 720; }
 .shade-inspection > p { margin: 5px 0 0; }
 
-.shade-method summary { font-size: 14px; }
+.shade-method summary { font-size: var(--font-body); }
 .shade-method-body { border-top: 1px solid var(--line); margin-top: 11px; padding-top: 10px; }
-.shade-method-body h3 { font-size: 14px; margin: 9px 0 3px; }
+.shade-method-body h3 { font-size: var(--font-body); margin: 9px 0 3px; }
 .shade-method-body p { margin: 5px 0 12px; }
 .shade-equations { display: grid; gap: 1px; margin: 14px 0; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--line); }
 .shade-equations div { padding: 9px 12px; background: var(--paper2); }
-.shade-equations dt { font-size: 11px; color: var(--muted); }
-.shade-equations dd { margin: 0; font-size: 13px; color: var(--ink); }
+.shade-equations dt { font-size: var(--font-label); color: var(--muted); }
+.shade-equations dd { margin: 0; font-size: var(--font-body); color: var(--ink); }
 .shade-viewer:fullscreen .shade-stage { flex: 1 1 auto; }
 
 @media (max-width: 1150px) {
@@ -180,14 +180,14 @@
 @media (max-width: 600px) {
   .shade-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .shade-metrics > div { padding: 11px 10px; }
-  .shade-metrics dt, .shade-metric-note { font-size: 10px; }
+  .shade-metrics dt, .shade-metric-note { font-size: var(--font-label); }
   .shade-stage { height: 315px; }
   .shade-time { gap: 10px; padding: 10px 9px 6px; }
-  .shade-time > .button { padding: 6px 8px; font-size: 10px; gap: 4px; }
+  .shade-time > .button { padding: 6px 8px; font-size: var(--font-label); gap: 4px; }
   .shade-time > .button .icon { width: 15px; height: 15px; }
-  .shade-scene-status, .shade-scene-name { top: 8px; font-size: 9px; padding: 4px 6px; }
+  .shade-scene-status, .shade-scene-name { top: 8px; font-size: var(--font-caption); padding: 4px 6px; }
   .shade-scene-status { left: 8px; }
   .shade-scene-name { right: 8px; }
-  .shade-legend { font-size: 10px; }
+  .shade-legend { font-size: var(--font-label); }
   .shade-chart svg text { font-size: 17px; }
 }

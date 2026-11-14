@@ -46,7 +46,7 @@
   border: 1px solid #324c65;
   background: #122238;
   color: #d7e5f2;
-  font-size: 12px;
+  font-size: var(--font-body);
   font-weight: 650;
 }
 
@@ -150,7 +150,7 @@
   padding: 10px 13px;
   border-top: 1px solid #284058;
   color: #b7cbe0;
-  font-size: 11px;
+  font-size: var(--font-label);
   line-height: 1.5;
 }
 
@@ -185,7 +185,7 @@
 .lab3d-card p {
   margin: 8px 0 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-body);
   line-height: 1.55;
 }
 
@@ -206,7 +206,7 @@
   border: 1px solid var(--line);
   background: var(--paper2);
   color: var(--ink);
-  font-size: 11px;
+  font-size: var(--font-label);
   text-align: left;
   line-height: 1.35;
 }
@@ -216,7 +216,7 @@
   padding: 3px 5px;
   border-radius: 4px;
   background: #102238;
-  font-size: 10px;
+  font-size: var(--font-label);
   font-weight: 750;
 }
 
@@ -236,14 +236,14 @@
   background: var(--paper2);
 }
 
-.lab3d-part-detail strong { font-size: 12px; }
+.lab3d-part-detail strong { font-size: var(--font-body); }
 .lab3d-part-detail p { margin-top: 3px; }
 
 .lab3d-kicker {
   display: block;
   margin-bottom: 6px;
   color: var(--accent);
-  font-size: 9px;
+  font-size: var(--font-caption);
   font-weight: 750;
   letter-spacing: .12em;
 }
@@ -257,7 +257,7 @@
 .lab3d-inputs label {
   display: grid;
   gap: 5px;
-  font-size: 11px;
+  font-size: var(--font-label);
 }
 
 .lab3d-inputs label > span, .lab3d-card .lab3d-pci {
@@ -297,7 +297,7 @@
 
 .lab3d-metrics dt {
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--font-label);
 }
 
 .lab3d-metrics dd {
@@ -309,7 +309,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-.lab3d-metrics dd small { font-size: 10px; }
+.lab3d-metrics dd small { font-size: var(--font-label); }
 
 .lab3d-meter {
   grid-column: 1 / -1;
@@ -334,7 +334,7 @@
   gap: 5px;
   margin-top: 11px;
   color: var(--accent);
-  font-size: 11px;
+  font-size: var(--font-label);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -370,7 +370,7 @@
   border-radius: 8px;
   background: var(--paper);
   color: var(--ink);
-  font-size: 12px;
+  font-size: var(--font-body);
   font-weight: 650;
 }
 
@@ -423,7 +423,7 @@
   padding: 8px;
   background: #14283b;
   color: #c6d9ea;
-  font-size: 11px;
+  font-size: var(--font-label);
 }
 
 .exxer-schematic button[aria-pressed="true"] {
@@ -437,7 +437,7 @@
   display: grid;
   gap: 5px;
   margin-top: 10px;
-  font-size: 11px;
+  font-size: var(--font-label);
 }
 
 .exxer-select select {
@@ -458,7 +458,7 @@
   align-items: center;
   gap: 7px;
   margin: 8px 0;
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 
 .exxer-check input { accent-color: var(--accent); }
@@ -471,7 +471,7 @@
   gap: 5px;
   margin-top: 9px;
   color: var(--accent);
-  font-size: 11px;
+  font-size: var(--font-label);
   text-align: left;
 }
 
@@ -492,7 +492,7 @@
   background: var(--paper2);
 }
 
-.exxer-meters dt { color: var(--muted); font-size: 10px; line-height: 1.35; }
+.exxer-meters dt { color: var(--muted); font-size: var(--font-label); line-height: 1.35; }
 .exxer-meters dd {
   margin: 3px 0 0;
   color: var(--ink);
@@ -500,8 +500,8 @@
   font-weight: 750;
   font-variant-numeric: tabular-nums;
 }
-.exxer-meters dd small { font-size: 10px; white-space: nowrap; }
-.exxer-meters p { margin-top: 3px; font-size: 10px; }
+.exxer-meters dd small { font-size: var(--font-label); white-space: nowrap; }
+.exxer-meters p { margin-top: 3px; font-size: var(--font-label); }
 
 .exxer-lower {
   display: grid;
@@ -533,7 +533,7 @@
   flex-wrap: wrap;
   margin: 13px 0 5px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--font-label);
 }
 .exxer-chart-legend span { display: inline-flex; align-items: center; gap: 4px; }
 .exxer-chart-legend i { width: 9px; height: 9px; border-radius: 50%; }
@@ -544,7 +544,7 @@
 .exxer-table-scroll { overflow-x: auto; }
 .exxer-table-scroll table {
   width: 100%;
-  font-size: 11px;
+  font-size: var(--font-label);
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
@@ -556,7 +556,7 @@
   padding-left: 20px;
   list-style: decimal;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 .exxer-practice li + li { margin-top: 7px; }
 
@@ -565,7 +565,7 @@
   border: 1px solid var(--line);
   border-radius: 7px;
   background: var(--paper2);
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 .exxer-practice summary { cursor: pointer; }
 
@@ -621,7 +621,7 @@
   border-radius: 6px;
   background: #122238;
   color: #d6e7f5;
-  font-size: 11px;
+  font-size: var(--font-label);
   font-weight: 650;
 }
 
@@ -644,7 +644,7 @@
 .hydro3d-parts h3 {
   margin: 15px 0 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-body);
   font-weight: 650;
 }
 
@@ -665,7 +665,7 @@
   align-items: center;
   gap: 4px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--font-label);
   white-space: nowrap;
 }
 
@@ -677,7 +677,7 @@
   border-radius: 6px;
   background: var(--paper2);
   color: var(--ink);
-  font-size: 12px;
+  font-size: var(--font-body);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
@@ -694,7 +694,7 @@
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--paper2);
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 
 :is(.hydro3d-net, .wind3d-net) strong { color: var(--accent); font-variant-numeric: tabular-nums; }
@@ -706,7 +706,7 @@
   border-radius: 7px;
   padding: 7px 9px;
   background: var(--paper2);
-  font-size: 11px;
+  font-size: var(--font-label);
 }
 
 :is(.hydro3d-details, .wind3d-details) summary { cursor: pointer; }
@@ -717,7 +717,7 @@
   gap: 5px;
   margin-top: 9px;
   color: var(--accent);
-  font-size: 11px;
+  font-size: var(--font-label);
 }
 :is(.hydro3d-reset, .wind3d-reset):hover { text-decoration: underline; }
 
@@ -750,7 +750,7 @@
   gap: 5px 9px;
   padding: 7px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 
 .hydro3d-formulas dd {
@@ -764,7 +764,7 @@
   padding-left: 20px;
   list-style: decimal;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-body);
 }
 
 :is(.hydro3d-lesson, .wind3d-lesson) li + li { margin-top: 6px; }
@@ -797,7 +797,7 @@
   border-radius: 6px;
   background: var(--paper2);
   color: var(--ink);
-  font-size: 11px;
+  font-size: var(--font-label);
   font-weight: 650;
 }
 
@@ -859,7 +859,7 @@
   border-radius: 6px;
   background: #0b1929;
   color: #e4eff9;
-  font-size: 11px;
+  font-size: var(--font-label);
   pointer-events: none;
 }
 
@@ -892,7 +892,7 @@
   border-radius: 6px;
   background: #142438;
   color: #d6e4f3;
-  font-size: 11px;
+  font-size: var(--font-label);
   font-weight: 650;
 }
 
@@ -914,7 +914,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 10px;
+  font-size: var(--font-label);
   color: #c4d5e6;
 }
 
@@ -941,7 +941,7 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 11px;
+  font-size: var(--font-label);
   font-weight: 650;
 }
 
@@ -962,7 +962,7 @@
   border-radius: 7px;
   background: var(--paper2);
   color: var(--ink);
-  font-size: 11px;
+  font-size: var(--font-label);
 }
 
 .bioplant-details summary { cursor: pointer; }
@@ -971,7 +971,7 @@
 .bioplant-metrics > div:last-child { border-color: var(--accent); background: var(--accent-bg); }
 .bioplant-metrics > div:last-child dd { color: var(--accent); }
 
-.bioplant-totals { display: grid; gap: 4px; margin: 10px 0; font-size: 11px; }
+.bioplant-totals { display: grid; gap: 4px; margin: 10px 0; font-size: var(--font-label); }
 .bioplant-totals > div { display: flex; justify-content: space-between; gap: 8px; }
 .bioplant-totals dt { color: var(--muted); }
 .bioplant-totals dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -979,7 +979,7 @@
 .bioplant-formulas li + li { margin-top: 3px; }
 
 .bioplant-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 11px; }
-.bioplant-actions .button { min-height: 36px; padding: 6px 9px; font-size: 11px; }
+.bioplant-actions .button { min-height: 36px; padding: 6px 9px; font-size: var(--font-label); }
 .bioplant-actions .button .icon { width: 14px; height: 14px; }
 .bioplant-presets { margin: 0 0 10px; }
 .bioplant-references { display: grid; margin-top: 9px; }
