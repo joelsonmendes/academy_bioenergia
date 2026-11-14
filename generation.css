@@ -69,6 +69,7 @@
 .generation-pills button .icon {
   width: 17px;
   height: 17px;
+  flex: 0 0 auto;
 }
 
 .generation-tabs button:hover,
@@ -682,10 +683,11 @@
 @media (max-width: 520px) {
   .generation-tabs {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
   }
   .generation-tabs button {
     padding: 8px;
+    overflow-wrap: anywhere;
   }
   .generation-hero {
     align-items: end;
