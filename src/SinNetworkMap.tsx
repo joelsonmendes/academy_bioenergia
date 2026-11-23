@@ -1,4 +1,4 @@
-import {useId} from 'react';
+import {useId, type CSSProperties} from 'react';
 import {Icon} from './components';
 import {T} from './model';
 import {useApp} from './store';
@@ -16,7 +16,8 @@ export function SinNetworkMap({result, selected, onSelect, playing}: {
   onSelect: (region: SinMapSelection) => void;
   playing: boolean;
 }) {
-  const {t} = useApp();
+  const {t, lang} = useApp();
+  const power = new Intl.NumberFormat(lang === 'pt' ? 'pt-BR' : lang);
   const id = useId();
   const {width, height} = mapSize;
   const position = ({x, y}: {x: number; y: number}) => ({left: x / width * 100 + '%', top: y / height * 100 + '%'});
@@ -33,14 +34,21 @@ export function SinNetworkMap({result, selected, onSelect, playing}: {
         </pattern>
       </defs>
       <rect width={width} height={height} fill={`url(#${id}-grid)`}/>
+      <g className="sin-map-radar">
+        <circle cx="375" cy="275" r="104"/><circle cx="375" cy="275" r="172"/><circle cx="375" cy="275" r="237"/>
+        <path d="M375 27V532 M80 275H627"/>
+      </g>
       <path d={brazilOutline} className="sin-land" fill={`url(#${id}-land)`}/>
       {result.corridors.map(({id: corridorId, flow, limit, enabled}) => {
         const {path, arrow: [x, y, angle]} = mapCorridors[corridorId];
         const active = flow !== 0;
         const status = !enabled ? 'off' : Math.abs(flow) >= limit ? 'limit' : active ? 'active' : 'idle';
-        return <g key={corridorId} className={`sin-link sin-link-${status}`} data-direction={flow < 0 ? 'reverse' : 'forward'}>
+        const loading = Math.abs(flow) / limit;
+        return <g key={corridorId} style={{'--sin-flow-duration': `${2.2 - loading}s`} as CSSProperties} className={`sin-link sin-link-${status}`} data-direction={flow < 0 ? 'reverse' : 'forward'}>
+          {active && <path className="sin-link-halo" d={path}/>}
           <path className="sin-link-base" d={path} strokeWidth={active ? 2.5 + 3 * Math.abs(flow) / limit : 2.5}/>
           {active && <>
+            <path className="sin-link-trail" d={path} pathLength="100"/>
             <path className="sin-link-particles" d={path} pathLength="100"/>
             <path className="sin-link-arrow" d="M-7 -6 1 0-7 6 M1 -6 9 0 1 6"
               transform={`translate(${x} ${y}) rotate(${angle + (flow < 0 ? 180 : 0)})`}/>
@@ -57,9 +65,13 @@ export function SinNetworkMap({result, selected, onSelect, playing}: {
         <span className="sin-point-label">{t(sinRegionText[region].short)}</span>
       </button>)}
       <button type="button" className="sin-point sin-point-acre" style={position(acreNode)}
-        aria-pressed={selected === 'acre'} aria-label="Rio Branco, Acre" onClick={() => onSelect('acre')}>
-        <span className="sin-point-marker"><span/></span><span className="sin-point-label">Rio Branco</span>
+        aria-pressed={selected === 'acre'} aria-label={t(T('Acre · Rio Branco', 'Acre · Rio Branco', 'Acre · Rio Branco'))} onClick={() => onSelect('acre')}>
+        <span className="sin-point-marker"><span/></span><span className="sin-point-label">Acre</span>
       </button>
+    </div>
+    <div className="sin-map-hud">
+      <span>{t(T('Carga atendida', 'Load served', 'Carga atendida'))}</span>
+      <strong>{power.format(result.total.served)} <small>MW</small></strong>
     </div>
   </div>;
 }

@@ -135,14 +135,7 @@
 .sin-link-off .sin-link-base { opacity: .65; }
 .sin-link-active .sin-link-base, .sin-link-limit .sin-link-base { opacity: .44; }
 .sin-link .sin-link-arrow { stroke-width: 2.9px; }
-.sin-link .sin-link-particles {
-  stroke-width: 4.5px;
-  stroke-dasharray: 2 10.5;
-  animation: sin-flow-motion 1.55s linear infinite;
-  animation-play-state: paused;
-}
-.sin-map[data-playing="true"] .sin-link-particles { animation-play-state: running; }
-.sin-link[data-direction="reverse"] .sin-link-particles { animation-direction: reverse; }
+.sin-link .sin-link-particles { stroke-width: 4.5px; }
 @keyframes sin-flow-motion { to { stroke-dashoffset: -12.5; } }
 
 .sin-point {
@@ -314,4 +307,84 @@
   .sin-point { background: none; }
   .sin-slider input, .sin-corridor-toggle { min-height: 44px; }
   .sin-select select { font-size: 16px; }
+}
+
+.sin-map { isolation: isolate; }
+.sin-map-radar { fill: none; stroke: var(--sin-border); stroke-width: 1; stroke-dasharray: 2 6; opacity: .5; }
+.sin-land { fill-opacity: .86; }
+.sin-link .sin-link-halo { stroke-width: 13; opacity: .18; }
+.sin-link .sin-link-trail {
+  stroke-dasharray: 8 4.5;
+  stroke-width: 3;
+  opacity: .55;
+}
+.sin-link .sin-link-particles { stroke-dasharray: 1.5 11; }
+.sin-link .sin-link-trail, .sin-link .sin-link-particles {
+  animation: sin-flow-motion var(--sin-flow-duration, 1.55s) linear infinite paused;
+}
+.sin-map[data-playing="true"] :is(.sin-link-trail, .sin-link-particles) { animation-play-state: running; }
+.sin-link[data-direction="reverse"] :is(.sin-link-trail, .sin-link-particles) { animation-direction: reverse; }
+.sin-map-hud {
+  position: absolute;
+  inset: auto auto 4% 4%;
+  display: grid;
+  gap: 2px;
+  padding: 7px 11px;
+  border: 1px solid var(--sin-border);
+  border-radius: 8px;
+  background: var(--sin-point-bg);
+  color: var(--sin-point-fg);
+  font-size: .75rem;
+  line-height: 1.25;
+  pointer-events: none;
+}
+.sin-map-hud strong { font-size: 1rem; font-variant-numeric: tabular-nums; color: var(--sin-flow); }
+.sin-map-hud small { font-size: .75rem; }
+.sin-acre-panel { margin-top: 14px; scroll-margin-top: 90px; }
+.sin-acre-circuit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(22px, .45fr) minmax(0, 1fr) minmax(22px, .45fr) minmax(0, 1fr);
+  align-items: center;
+  padding: clamp(8px, 2vw, 22px);
+  background: radial-gradient(ellipse at top, var(--sin-land-top), var(--sin-map) 80%);
+  border: 1px solid var(--sin-border);
+  border-radius: 10px;
+}
+.sin-acre-station {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  padding: 10px 4px;
+  text-align: center;
+  color: var(--sin-point-fg);
+  background: var(--sin-point-bg);
+  border: 1px solid var(--card-neon-border);
+  border-radius: 8px;
+  line-height: 1.4;
+}
+.sin-acre-station .icon { color: var(--sin-flow); }
+.sin-acre-station small { font-size: var(--font-caption); }
+.sin-acre-line { position: relative; height: 4px; background: color-mix(in srgb, var(--sin-flow) 30%, var(--sin-map)); }
+.sin-acre-line::before {
+  display: block;
+  height: 100%;
+  content: '';
+  background: repeating-linear-gradient(90deg, transparent 0 11px, var(--sin-flow) 14px 22px, transparent 25px 32px);
+  animation: sin-acre-motion 1s linear infinite paused;
+}
+.sin-acre-circuit[data-playing="true"] .sin-acre-line::before { animation-play-state: running; }
+@keyframes sin-acre-motion { to { background-position: 32px 0; } }
+.sin-acre-line[data-interrupted="true"] { background: repeating-linear-gradient(90deg, var(--sin-off) 0 5px, transparent 5px 10px); }
+.sin-acre-line[data-interrupted="true"]::before { display: none; }
+.sin-acre-line > .icon { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); background: var(--sin-map); color: var(--sin-off); }
+.sin-acre-station[data-interrupted="true"] { border-style: dashed; border-color: var(--sin-off); }
+.sin-acre-station[data-interrupted="true"] .icon { color: var(--sin-off); }
+.sin-panel .sin-acre-signal { margin: 12px 0; }
+.sin-acre-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+.sin-acre-places { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.sin-acre-places li { padding: 3px 8px; background: var(--paper2); border: 1px solid var(--line); border-radius: 6px; font-size: var(--font-label); }
+@media (max-width: 620px) {
+  .sin-acre-facts { grid-template-columns: 1fr; }
+  .sin-acre-station strong { font-size: var(--font-label); }
+  .sin-map-hud { padding: 4px 7px; }
 }

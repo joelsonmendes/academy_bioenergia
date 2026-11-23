@@ -5,6 +5,7 @@ import {useApp} from './store';
 import {calculateSin, sinMaxPower, sinScenarios} from './sin-engine';
 import type {SinCorridor, SinInput, SinRegion, SinResult, SinScenario} from './sin-engine';
 import {sinReferences, sinRegionText, sinScenarioText} from './sin-content';
+import {SinAcre} from './SinAcre';
 import {SinNetworkMap} from './SinNetworkMap';
 import type {SinMapSelection} from './SinNetworkMap';
 
@@ -12,10 +13,10 @@ const scenarioKeys = Object.keys(sinScenarios) as SinScenario[];
 type ScenarioSelection = SinScenario | 'custom';
 
 function useSinText() {
-  const {lang, t, navigate} = useApp();
+  const {lang, t} = useApp();
   const locale = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es-ES' : 'en-US';
   const formatter = useMemo(() => new Intl.NumberFormat(locale, {maximumFractionDigits: 1}), [locale]);
-  return {t, navigate, q: (pt: string, en: string, es: string) => t(T(pt, en, es)), n: (value: number) => formatter.format(value)};
+  return {t, q: (pt: string, en: string, es: string) => t(T(pt, en, es)), n: (value: number) => formatter.format(value)};
 }
 
 function SinSources({ids}: {ids: (keyof typeof sinReferences)[]}) {
@@ -52,19 +53,17 @@ function OverviewMetrics({total}: {total: SinResult['total']}) {
 }
 
 function Acre() {
-  const {q, navigate} = useSinText();
+  const {q} = useSinText();
   return <>
-    <h3>Rio Branco, Acre</h3>
-    <p>{q('Rio Branco tem conexão com o SIN pela área Acre–Rondônia. No planejamento energético do ONS, as usinas dessa área são representadas no Sudeste/Centro-Oeste. Os subsistemas elétricos seguem a organização da rede.',
-      'Rio Branco connects to the SIN through the Acre–Rondônia area. In ONS energy planning, plants in this area are represented in the Southeast/Central-West. Power subsystems follow how the grid is organized.',
-      'Rio Branco está conectado al SIN por el área Acre–Rondônia. En la planificación energética del ONS, sus centrales se representan en el Sudeste/Centro-Oeste. Los subsistemas eléctricos siguen la organización de la red.')}</p>
-    <p>{q('Algumas localidades do Acre operam em sistemas isolados e dependem de geração local. Compare esses dois arranjos no Campus Amazônia.',
-      'Some localities in Acre operate as isolated systems and depend on local generation. Compare the two arrangements in Amazon Campus.',
-      'Algunas localidades de Acre funcionan en sistemas aislados y dependen de la generación local. Compara los dos esquemas en Campus Amazonía.')}</p>
-    <SinSources ids={['acre', 'isolated']}/>
-    <Button kind="quiet" icon="arrow" onClick={() => navigate('amazon')}>
-      {q('Abrir Campus Amazônia', 'Open Amazon Campus', 'Abrir Campus Amazonía')}
-    </Button>
+    <h3>{q('Área Acre–Rondônia', 'Acre–Rondônia area', 'Área Acre–Rondônia')}</h3>
+    <p>{q('Rio Branco integra o SIN desde 2009. No planejamento energético do ONS, a área Acre–Rondônia está associada ao Sudeste/Centro-Oeste.',
+      'Rio Branco joined the SIN in 2009. In ONS energy planning, the Acre–Rondônia area is linked to the Southeast/Central-West.',
+      'Rio Branco integra el SIN desde 2009. En la planificación del ONS, el área Acre–Rondônia está vinculada al Sudeste/Centro-Oeste.')}</p>
+    <button className="button secondary" type="button" onClick={() => {
+      const section = document.getElementById('sin-acre');
+      section?.focus({preventScroll: true});
+      section?.scrollIntoView({behavior: 'instant'});
+    }}><span>{q('Explorar o corredor do Acre', 'Explore the Acre corridor', 'Explorar el corredor de Acre')}</span></button>
   </>;
 }
 
@@ -226,9 +225,9 @@ export default function Sin() {
           <span><i className="sin-legend-limit"/>{q('Corredor no limite', 'Corridor at limit', 'Corredor al límite')}</span>
           <span><i className="sin-legend-off"/>{q('Corredor indisponível', 'Corridor unavailable', 'Corredor no disponible')}</span>
         </div>
-        <p className="sin-map-caption">{q('As setas mostram o sentido do intercâmbio. Selecione um subsistema ou Rio Branco para ver detalhes.',
-          'Arrows show exchange direction. Select a subsystem or Rio Branco for details.',
-          'Las flechas indican el sentido del intercambio. Selecciona un subsistema o Rio Branco para ver detalles.')}</p>
+        <p className="sin-map-caption">{q('As setas mostram o sentido do intercâmbio. Selecione um subsistema ou o Acre para ver detalhes.',
+          'Arrows show exchange direction. Select a subsystem or Acre for details.',
+          'Las flechas indican el sentido del intercambio. Selecciona un subsistema o Acre para ver detalles.')}</p>
       </section>
       <section className="sin-panel sin-controls">
         <h2>{q('Controle da simulação', 'Simulation controls', 'Control de la simulación')}</h2>
@@ -250,6 +249,7 @@ export default function Sin() {
         </Button>
       </section>
     </div>
+    <SinAcre playing={playing}/>
     <CorridorControls corridors={result.corridors} onToggle={toggle}/>
     <SinLesson onChallenge={() => {
       applyScenario('bottleneck');
