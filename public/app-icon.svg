@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="100" fill="#0a1220"/><circle cx="256" cy="256" r="158" fill="#13382f" stroke="#287f6a" stroke-width="5"/><path d="M282 110 160 272h88l-20 130 131-183h-92Z" fill="#41d6b3"/><path d="M324 333c40-18 68-49 77-86 4 57-28 105-76 120" fill="none" stroke="#49b5df" stroke-width="12" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="glass" x2="0.8" y2="1">
+      <stop stop-color="#caffc0" stop-opacity=".26"/>
+      <stop offset=".42" stop-color="#53ff39" stop-opacity=".07"/>
+      <stop offset="1" stop-color="#22db66" stop-opacity=".19"/>
+    </linearGradient>
+    <linearGradient id="rim" x2="1" y2="1">
+      <stop stop-color="#dbffd1"/>
+      <stop offset=".39" stop-color="#83ff54"/>
+      <stop offset="1" stop-color="#3bea36"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="201" fill="none" stroke="#53ff39" stroke-opacity=".16" stroke-width="32"/>
+  <circle cx="256" cy="256" r="195" fill="url(#glass)" stroke="url(#rim)" stroke-width="13"/>
+  <path d="M101 199a166 166 0 0 1 169-110" fill="none" stroke="#efffeb" stroke-opacity=".68" stroke-width="8" stroke-linecap="round"/>
+  <path d="M277 139 157 280h90l-23 93 131-149h-92Z" fill="#53ff39" fill-opacity=".19" stroke="#53ff39" stroke-opacity=".2" stroke-width="27" stroke-linejoin="round"/>
+  <path d="M277 139 157 280h90l-23 93 131-149h-92Z" fill="url(#glass)" stroke="url(#rim)" stroke-width="15" stroke-linejoin="round"/>
+</svg>
