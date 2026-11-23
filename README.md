@@ -140,6 +140,12 @@ A **Bancada fotovoltaica** abre pelo menu e pela área de conexões do Campus Am
 
 ## Computadores das comunidades
 
+A aba **Estudar offline**, disponível no menu e no botão do cabeçalho, prepara o dispositivo automaticamente na primeira visita. Aguarde **Pronto para estudar sem internet**. O indicador confirma tamanho e SHA-256 de cada recurso do build instalado, incluindo apostila, imagens e bancada fotovoltaica. A opção **Conferir acesso offline** verifica novamente e recupera arquivos ausentes ou corrompidos quando há conexão. Uma instalação incompleta conserva a versão anterior utilizável.
+
+Para testar, reabra o mesmo endereço no mesmo navegador com a rede desligada. O aluno também pode instalar o PWA quando o navegador oferecer essa opção. **Baixar plataforma completa** gera um HTML autônomo que pode ser copiado por pendrive e aberto sem uma primeira visita online no computador de destino. Use **Exportar caderno** e **Importar caderno** para transferir os registros de estudo. Os projetos fotovoltaicos e seus anexos usam também a exportação própria do relatório técnico.
+
+Os cálculos, conteúdos internos, laboratórios 3D, apostila e emissão local de PDF estão incluídos. Consultas automáticas de endereço e dados solares, publicações externas e serviços remotos de turma dependem da rede. Coordenadas e HSP podem ser informadas manualmente no relatório. A proteção persistente depende da concessão do navegador e não substitui o backup em arquivo.
+
 Os pacotes comunitários incluem `COMECE_AQUI.html`, iniciador, instalador/atualizador, runtime oficial e a distribuição modular. Podem ser levados por pendrive e usados sem internet no primeiro acesso. Cadernos ficam fora das pastas de release; atualizações conservam os trabalhos e as versões anteriores. Para testar sem instalar, utilize o iniciador da pasta extraída. O diretório `cadernos` padrão continua sendo da conta local do sistema, inclusive no modo portátil.
 
 Consulte `docs/COMUNIDADES_OFFLINE.md` para requisitos, backups, segurança local, geração dos pacotes e limites de verificação. O servidor comunitário atende somente este computador; não equivale a um servidor de turma na rede. No PWA para hospedagem, utilize o conteúdo de `dist/web/`; mantenha `dist/index.html` como opção autônoma para cópia direta.

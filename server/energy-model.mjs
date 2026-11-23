@@ -109,7 +109,7 @@ var UI = {
   accessed: T("Links revisados em 01/11/2026 \u2022 A abertura das refer\xEAncias precisa de internet. A disponibilidade pode mudar no site de origem.", "Links reviewed on 1 Nov 2026 \u2022 Opening references requires internet. Availability may change at the source.", "Enlaces revisados el 01/11/2026 \u2022 Abrir las referencias requiere internet. La disponibilidad puede cambiar en el sitio de origen."),
   noResults: T("Nenhuma fonte encontrada para esta busca.", "No sources found for this search.", "No se encontraron fuentes para esta b\xFAsqueda."),
   footer: T("Projeto inovador da turma do Curso T\xE9cnico em Sistemas de Energias Renov\xE1veis.", "An innovative project by the Renewable Energy Systems Technical Course class.", "Proyecto innovador del grupo del Curso T\xE9cnico en Sistemas de Energ\xEDas Renovables."),
-  offline: T("Pronto para explorar offline", "Ready to explore offline", "Listo para explorar sin conexi\xF3n"),
+  offline: T("Estudar offline", "Study offline", "Estudiar sin conexi\xF3n"),
   progress: T("Seu percurso", "Your journey", "Tu recorrido"),
   visited: T("usinas visitadas", "plants visited", "centrales visitadas"),
   begin: T("COME\xC7AR A EXPLORAR", "START EXPLORING", "EMPIEZA A EXPLORAR"),

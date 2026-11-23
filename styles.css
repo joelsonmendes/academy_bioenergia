@@ -10,6 +10,7 @@
 @import "./generation.css";
 @import "./sin.css";
 @import "./integrator.css";
+@import "./offline-study.css";
 @source "./src";
 
 :root {

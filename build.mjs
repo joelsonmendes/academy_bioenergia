@@ -9,6 +9,16 @@ import {photos as benchPhotos} from './src/pv-bench/credits.mjs';
 const root=dirname(fileURLToPath(import.meta.url));
 const benchFile='bancada-fotovoltaica.html';
 
+async function buildOfflineWorker(directory,files){
+ const assets=await Promise.all(files.map(async path=>{
+  const content=await readFile(join(directory,path));
+  return{path,bytes:content.length,sha256:createHash('sha256').update(content).digest('hex')};
+ }));
+ const template=await readFile(join(root,'public/sw.template.js'),'utf8');
+ const version=createHash('sha256').update(template).update(JSON.stringify(assets)).digest('hex').slice(0,16);
+ await writeFile(join(directory,'sw.js'),template.replace('__BUILD_HASH__',version).replace('__SHELL_ASSETS__',JSON.stringify(assets)));
+}
+
 async function buildPVBench(logo) {
  const source=join(root,'src/pv-bench');
  const images={logo};
@@ -50,8 +60,7 @@ await writeFile(join(root,'dist/index.html'),portable.replace('</head>',manifest
 await Promise.all(['manifest.webmanifest','app-icon.svg','app-icon-192.png','app-icon-512.png'].map(name=>copyFile(join(root,'public',name),join(root,'dist',name))));
 await copyFile(join(root,'assets/logo-senai-hub.webp'),join(root,'dist/logo-senai-hub.webp'));
 await writeFile(join(root,'dist/apostila-amazonia.html'),studyGuide(JSON.parse(await readFile(join(root,'src/amazon-lessons.json'),'utf8')),'pt',institutionalLogo));
-const sw=(await readFile(join(root,'public/sw.template.js'),'utf8')).replace('__BUILD_HASH__',createHash('sha256').update(html).update(benchHTML).digest('hex').slice(0,16)).replace('__SHELL_FILES__',JSON.stringify(['index.html','manifest.webmanifest','app-icon.svg','app-icon-192.png','app-icon-512.png','logo-senai-hub.webp','apostila-amazonia.html',benchFile]));
-await writeFile(join(root,'dist/sw.js'),sw);
+await buildOfflineWorker(join(root,'dist'),['index.html','manifest.webmanifest','app-icon.svg','app-icon-192.png','app-icon-512.png','logo-senai-hub.webp','apostila-amazonia.html',benchFile]);
 const dest=join(root,'dist/index.html');
 await writeFile(join(root,'dist/qa-mobile.html'),'<!doctype html><html><meta name="viewport" content="width=device-width"><title>Verificação móvel</title><style>body{margin:0;display:flex;justify-content:center;background:#273344}iframe{width:390px;height:844px;border:0}</style><iframe src="index.html" title="Plataforma no celular"></iframe></html>');
 console.log(JSON.stringify({html:dest,bytes:Buffer.byteLength(html),technology:'React + TypeScript + Tailwind CSS',images:imageKeys.length,offline:true}));
@@ -68,7 +77,5 @@ const shell=['index.html','app.js','styles.css','config.js','manifest.webmanifes
 for(const key of imageKeys)await copyFile(join(root,'assets',key+'.webp'),join(web,'assets',key+'.webp'));
 for(const name of ['manifest.webmanifest','app-icon.svg','app-icon-192.png','app-icon-512.png','logo-senai-hub.webp','apostila-amazonia.html',benchFile])await copyFile(join(root,'dist',name),join(web,name));
 await copyFile(join(root,'dist/index.html'),join(web,'plataforma-portatil.html'));
-const digest=createHash('sha256');for(const file of shell)digest.update(await readFile(join(web,file)));
-const modularWorker=(await readFile(join(root,'public/sw.template.js'),'utf8')).replace('__BUILD_HASH__',digest.digest('hex').slice(0,16)).replace('__SHELL_FILES__',JSON.stringify(shell));
-await writeFile(join(web,'sw.js'),modularWorker);
+await buildOfflineWorker(web,shell);
 console.log(JSON.stringify({modular:join(web,'index.html'),cachedFiles:shell.length}));

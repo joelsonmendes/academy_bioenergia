@@ -1,0 +1,37 @@
+.offline-study { min-width: 0; }
+.offline-study .panel { padding: 24px; margin-bottom: 20px; }
+.offline-study h2 { margin: 0 0 12px; font-size: 1.25rem; line-height: 1.4; }
+.offline-study p { color: var(--muted); font-size: var(--font-body); line-height: 1.8; margin: 0 0 14px; }
+.offline-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.offline-grid > .panel { display: flex; flex-direction: column; min-width: 0; }
+.offline-actions, .offline-sources { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.offline-actions { margin-top: auto; padding-top: 6px; }
+.offline-actions .button, .offline-sources .button { min-height: 44px; white-space: normal; text-align: left; }
+.offline-status-heading { display: flex; align-items: flex-start; gap: 16px; }
+.offline-symbol { display: grid; place-items: center; flex: 0 0 44px; height: 44px; color: var(--accent); background: var(--accent-bg); border-radius: 12px; }
+.offline-preparation .offline-status-heading p { margin-bottom: 8px; }
+.offline-preparation .offline-actions { margin-top: 12px; }
+.offline-progress { margin-block: 14px 18px; }
+.offline-progress progress { display: block; width: 100%; height: 8px; appearance: none; border: 0; border-radius: 999px; overflow: hidden; background: var(--paper3); accent-color: var(--card-neon-border); }
+.offline-progress progress::-webkit-progress-bar { background: var(--paper3); border-radius: 999px; }
+.offline-progress progress::-webkit-progress-value { background: var(--card-neon-border); border-radius: 999px; }
+.offline-progress progress::-moz-progress-bar { background: var(--card-neon-border); border-radius: 999px; }
+.offline-progress > span { display: block; margin-top: 5px; color: var(--muted); font-size: var(--font-label); }
+.offline-study .offline-error { color: var(--warning); }
+.offline-study .offline-feedback { padding: 14px 18px; background: var(--accent-bg); border-left: 3px solid var(--card-neon-border); color: var(--ink); border-radius: 7px; }
+.offline-save-state { display: block; color: var(--muted); font-size: var(--font-label); margin-top: 14px; }
+.offline-sources { margin: 18px 0; }
+.offline-study .offline-network-note { margin: 20px 0 0; padding-top: 18px; border-top: 1px solid var(--line); }
+.offline-instructions ol { padding-left: 22px; margin: 0; color: var(--muted); line-height: 1.8; }
+.offline-instructions li + li { margin-top: 10px; }
+.offline-access { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 8px 10px; min-height: 40px; color: var(--ink); border: 1px solid var(--card-neon-border); border-radius: 8px; background: var(--paper); font-size: var(--font-label); }
+.offline-access .icon { width: 18px; height: 18px; color: var(--accent); flex: 0 0 auto; }
+@media (max-width: 1100px) { .offline-access > span { display: none; } }
+@media (max-width: 760px) {
+  .offline-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .offline-study .panel { padding: 18px; }
+  .offline-status-heading { gap: 10px; }
+  .offline-symbol { flex-basis: 36px; height: 36px; border-radius: 9px; }
+  .offline-actions > .button { flex: 1 1 auto; }
+  .offline-access { min-height: 38px; padding: 7px; }
+}
