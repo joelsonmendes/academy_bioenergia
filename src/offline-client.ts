@@ -152,6 +152,6 @@ export async function portablePlatformHTML() {
   const clone = document.documentElement.cloneNode(true) as HTMLElement;
   clone.querySelector('#root')?.replaceChildren();
   clone.querySelector('base')?.remove();
-  clone.querySelector('link[rel=manifest]')?.remove();
+  clone.querySelectorAll('link[rel=manifest], link[rel=apple-touch-icon]').forEach(link => link.remove());
   return '<!doctype html>' + clone.outerHTML;
 }
